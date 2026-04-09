@@ -1,118 +1,38 @@
-/* PredictionResult.css - Scoped to Enterprise Theme */
-
-.ent-ensemble-banner {
+.result-wrapper {
+  min-height: calc(100vh - 80px); /* Account for header */
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 32px;
+  justify-content: center;
+}
+
+.result-card {
+  padding: 4rem 3rem;
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.ent-ensemble-banner.healthy {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.15);
-}
-
-.ent-ensemble-banner.healthy svg { color: #10b981; }
-.ent-ensemble-banner.healthy .pred-name { color: #10b981; }
-
-.ent-ensemble-banner.warning {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  box-shadow: 0 10px 40px rgba(239, 68, 68, 0.15);
-}
-
-.ent-ensemble-banner.warning svg { color: #ef4444; }
-.ent-ensemble-banner.warning .pred-name { color: #ef4444; }
-
-.ensemble-header {
+.result-icon-block {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(46, 204, 113, 0.1);
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
-.ensemble-header h2 {
-  font-size: 1.75rem;
-  margin: 0 0 4px 0;
-}
-
-.ensemble-header p {
-  margin: 0;
-  font-size: 0.95rem;
-  opacity: 0.8;
-}
-
-.ensemble-result {
-  text-align: right;
-}
-
-.pred-name {
-  font-size: 1.5rem;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.pred-conf {
+.result-message {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  line-height: 1.6;
+  color: #a0a0a0;
+  max-width: 500px;
+  margin: 1.5rem auto 3rem;
 }
 
-.model-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.model-card-header h4 {
-  font-family: 'DM Sans', sans-serif;
+.btn-result {
+  padding: 0.8rem 2.5rem;
   font-size: 1.1rem;
-  margin: 0;
-  color: var(--text-primary);
-}
-
-.ent-badge.safe {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.model-conf-bar-bg {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.model-conf-bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1s ease-out;
-}
-
-.bg-green { background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-.bg-warn { background: #eab308; box-shadow: 0 0 10px rgba(234, 179, 8, 0.5); }
-
-.model-conf-text {
-  text-align: right;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .ent-ensemble-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-  }
-  .ensemble-result { text-align: left; }
 }

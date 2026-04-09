@@ -3,13 +3,11 @@
  * Centralized service for user authentication, registration, session tracking,
  * and data management (interactions, storage, etc.)
  */
+
 import { userStorage } from '../data/userStorage';
 import { loginHistoryStorage } from '../data/loginHistory';
 import { projectDataStorage } from '../data/projectDataStorage';
 import { commentsStorage } from '../data/commentsStorage';
-
-const MAX_LOGIN_ATTEMPTS = 5;
-const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 // Initialize default admin if not exists
 const initializeDB = () => {
@@ -36,88 +34,25 @@ initializeDB();
 export const authService = {
   // Login user
   login: (email, password) => {
-    // 1. Rate Limiting Check
-    const attemptKey = `login_attempts_${email}`;
-    const attempts = JSON.parse(localStorage.getItem(attemptKey) || '{"count": 0, "lockedUntil": null}');
-    
-    if (attempts.lockedUntil && new Date().getTime() < new Date(attempts.lockedUntil).getTime()) {
-      return { success: false, error: 'Account temporarily locked due to multiple failed attempts. Please try again later.' };
-    }
-
     const users = userStorage.getUsers();
     const user = users.find(u => u.email === email && u.password === password);
 
     if (user) {
-      // Success - reset attempts
-      localStorage.removeItem(attemptKey);
-
-      // Create session token and update last login
+      // Update last login
       user.lastLogin = new Date().toISOString();
       userStorage.saveUsers(users);
 
-      const sessionToken = `ent_tk_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-
+      // Don't store password in "session"
       const { password: _, ...userInfo } = user;
-      const sessionUser = { ...userInfo, token: sessionToken, sessionStart: new Date().toISOString() };
-      
-      userStorage.setCurrentUser(sessionUser);
+      userStorage.setCurrentUser(userInfo);
 
       if (user.role !== 'admin') {
-        const historyEntry = { ...sessionUser, action: 'LOGIN_BASIC' };
-        loginHistoryStorage.recordLogin(historyEntry);
+        loginHistoryStorage.recordLogin(userInfo);
       }
 
-      return { success: true, user: sessionUser };
+      return { success: true, user: userInfo };
     }
-
-    // Failure - increment attempts
-    attempts.count += 1;
-    if (attempts.count >= MAX_LOGIN_ATTEMPTS) {
-      attempts.lockedUntil = new Date(new Date().getTime() + LOCKOUT_DURATION_MS).toISOString();
-      localStorage.setItem(attemptKey, JSON.stringify(attempts));
-      return { success: false, error: 'Maximum login attempts reached. Account locked for 15 minutes.' };
-    }
-    
-    localStorage.setItem(attemptKey, JSON.stringify(attempts));
-    return { success: false, error: `Invalid credentials. ${MAX_LOGIN_ATTEMPTS - attempts.count} attempts left.` };
-  },
-
-  // Google OAuth Simulation
-  googleSignIn: (email, name) => {
-    const users = userStorage.getUsers();
-    let user = users.find(u => u.email === email);
-
-    if (!user) {
-      // Auto-register via Google OAuth
-      user = {
-        id: `user-g-${Date.now()}`,
-        name: name,
-        email: email,
-        phone: 'Google Auth',
-        password: 'OAUTH_MANAGED',
-        role: 'user',
-        lastLogin: new Date().toISOString(),
-        createdAt: new Date().toISOString()
-      };
-      users.push(user);
-    } else {
-      user.lastLogin = new Date().toISOString();
-    }
-    
-    userStorage.saveUsers(users);
-    
-    const sessionToken = `oauth_tk_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-    const { password: _, ...userInfo } = user;
-    const sessionUser = { ...userInfo, token: sessionToken, sessionStart: new Date().toISOString() };
-    
-    userStorage.setCurrentUser(sessionUser);
-
-    if (user.role !== 'admin') {
-      const historyEntry = { ...sessionUser, action: 'LOGIN_OAUTH' };
-      loginHistoryStorage.recordLogin(historyEntry);
-    }
-
-    return { success: true, user: sessionUser };
+    return { success: false, error: 'Invalid email or password' };
   },
 
   // Register new user
@@ -148,29 +83,14 @@ export const authService = {
     return { success: true, user: userInfo };
   },
 
-  // Get currently logged in user & validate session
+  // Get currently logged in user
   getCurrentUser: () => {
-    const user = userStorage.getCurrentUser();
-    
-    // Enterprise Security: Check session max age (e.g. 24 hours)
-    if (user && user.sessionStart) {
-      const sessionAgeMs = new Date().getTime() - new Date(user.sessionStart).getTime();
-      const MAX_SESSION_MS = 24 * 60 * 60 * 1000;
-      if (sessionAgeMs > MAX_SESSION_MS) {
-        authService.logout();
-        return null; // Force re-authentication
-      }
-    }
-    return user;
+    return userStorage.getCurrentUser();
   },
 
   // Logout
   logout: () => {
-    const user = userStorage.getCurrentUser();
-    if (user) {
-      // Record exactly what user logged out
-      loginHistoryStorage.recordLogout();
-    }
+    loginHistoryStorage.recordLogout();
     userStorage.removeCurrentUser();
   },
 

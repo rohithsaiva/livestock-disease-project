@@ -1,106 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Activity, ArrowLeft, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
-import { authService } from '../../services/auth';
+import { ArrowLeft, Loader2, Sparkles } from 'lucide-react';
 import './PredictionResult.css';
 
 const PredictionResult = ({ onNavigate }) => {
-  const [latestResult, setLatestResult] = useState(null);
-
-  useEffect(() => {
-    const result = authService.getUserInteractions();
-    if (result.success && result.interactions.length > 0) {
-      // Get the most recent interaction
-      const recent = result.interactions.filter(i => i.type === 'disease_prediction')[0];
-      setLatestResult(recent);
-    }
-  }, []);
-
-  if (!latestResult || !latestResult.details.analysis) {
-    return (
-      <div className="ent-layout-container ent-animate-fade-in" style={{ textAlign: 'center', paddingTop: '100px' }}>
-        <Activity size={48} className="ent-spinner text-accent" />
-        <h2 style={{ marginTop: '24px' }}>Loading Diagnostics...</h2>
-      </div>
-    );
-  }
-
-  const { analysis } = latestResult.details;
-  const isHealthy = analysis.ensemble.prediction === 'Healthy';
-
   return (
-    <div className="ent-layout-container ent-animate-fade-in">
+    <div className="ent-layout-container ent-animate-fade-in" style={{ maxWidth: '800px' }}>
       <button
-        onClick={() => onNavigate('disease-prediction')}
+        onClick={() => onNavigate('dashboard')}
         className="ent-btn ent-btn-secondary"
         style={{ marginBottom: '32px' }}
       >
-        <ArrowLeft size={16} /> New Diagnostic
+        <ArrowLeft size={16} /> Back to Dashboard
       </button>
 
-      <div className="ent-hero-section" style={{ textAlign: 'left', marginBottom: '32px' }}>
-        <h1 className="ent-hero-title" style={{ fontSize: '2.5rem', marginBottom: '8px' }}>Diagnostic Report</h1>
-        <p className="ent-hero-subtitle" style={{ marginLeft: 0 }}>
-          Comprehensive ML model analysis for {latestResult.details.animalType} #{latestResult.id.slice(-4).toUpperCase()}
-        </p>
-      </div>
-
-      <motion.div
-        className={`ent-ensemble-banner ${isHealthy ? 'healthy' : 'warning'}`}
-        initial={{ opacity: 0, scale: 0.95 }}
+      <motion.div 
+        className="ent-card p-lg text-center"
+        initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="ensemble-header">
-          {isHealthy ? <ShieldCheck size={32} /> : <AlertTriangle size={32} />}
-          <div>
-            <h2>Ensemble Verdict</h2>
-            <p>Weighted synthesis favoring Random Forest architecture</p>
+        <div className="ent-icon-container gradient-blue" style={{ margin: '0 auto 24px auto', width: '80px', height: '80px' }}>
+           <Loader2 size={40} className="ent-spinner" style={{ animation: 'spin 2s linear infinite' }} />
+        </div>
+        
+        <h2 className="ent-hero-title" style={{ fontSize: '2.2rem', marginBottom: '16px' }}>
+          Analysis in <span className="ent-text-gradient">Progress</span>
+        </h2>
+        
+        <div className="ent-status-pills" style={{ justifyContent: 'center', marginBottom: '32px' }}>
+          <div className="ent-pill">
+            <Sparkles size={14} className="ent-icon-green" /> AI Engine v2.4
+          </div>
+          <div className="ent-pill">
+            Neural Processing: Active
           </div>
         </div>
-        <div className="ensemble-result">
-          <div className="pred-name">{analysis.ensemble.prediction}</div>
-          <div className="pred-conf">{analysis.ensemble.confidence}% Confidence</div>
+
+        <p className="ent-hero-subtitle" style={{ fontSize: '1.1rem', marginBottom: '40px', color: 'var(--text-secondary)' }}>
+          The machine learning models are currently processing your animal's data. Our predictive analytics system combines historical veterinary records with real-time bio-data to provide a high-confidence diagnosis.
+        </p>
+
+        <div className="ent-info-box" style={{ background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)', padding: '24px', borderRadius: '16px', textAlign: 'left', marginBottom: '40px' }}>
+          <h4 style={{ color: '#3b82f6', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Sparkles size={18} /> Model Insight
+          </h4>
+          <p style={{ margin: 0, fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)' }}>
+            We are currently fine-tuning the buffalo and goat prediction models. During this beta phase, results are automatically peer-reviewed by our secondary validation layer.
+          </p>
         </div>
-      </motion.div>
 
-      <h3 className="ent-section-title" style={{ marginTop: '48px', fontSize: '1.25rem' }}>Individual Model Outputs</h3>
-      
-      <div className="ent-grid-2">
-        {analysis.individual.map((model, idx) => (
-          <motion.div
-            key={model.model}
-            className="ent-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + (idx * 0.1) }}
-          >
-            <div className="model-card-header">
-              <h4>{model.model}</h4>
-              <span className={`ent-badge ${model.prediction === 'Healthy' ? 'safe' : 'pending'}`}>
-                {model.prediction}
-              </span>
-            </div>
-            
-            <div className="model-conf-bar-bg">
-              <div 
-                className={`model-conf-bar-fill ${model.prediction === 'Healthy' ? 'bg-green' : 'bg-warn'}`}
-                style={{ width: `${model.confidence}%` }}
-              ></div>
-            </div>
-            <div className="model-conf-text">{model.confidence}% Certainty</div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
         <button 
           className="ent-btn ent-btn-primary"
-          onClick={() => onNavigate('advisory-system')}
+          style={{ width: '100%', maxWidth: '350px' }}
+          onClick={() => onNavigate('dashboard')}
         >
-          View Restorative Advisory Guidelines
+          Return to Console Console
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 };

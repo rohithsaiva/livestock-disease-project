@@ -1,34 +1,72 @@
-/* UserAbout.css */
-.about-info-card {
+/* UserAbout.css - Scoped to Enterprise Theme */
+
+.ent-about-content {
   display: flex;
   flex-direction: column;
+  gap: 32px;
 }
 
-.about-info-card p {
-  font-size: 0.9rem;
-}
-
-.algo-card {
+.about-ent-card {
   position: relative;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  padding-left: 40px !important;
 }
 
-.algo-card.champion {
-  border-color: rgba(78, 200, 80, 0.4) !important;
-  box-shadow: 0 0 30px rgba(78, 200, 80, 0.15) !important;
+.accent-border-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-green);
+  box-shadow: 2px 0 15px rgba(78, 200, 80, 0.4);
 }
 
-.champion-badge {
-  display: inline-flex;
+.accent-border-glow.purple {
+  background: #a855f7;
+  box-shadow: 2px 0 15px rgba(168, 85, 247, 0.4);
+}
+
+.accent-border-glow.blue {
+  background: #3b82f6;
+  box-shadow: 2px 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.section-title-wrap {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(78, 200, 80, 0.1);
-  border: 1px solid rgba(78, 200, 80, 0.3);
-  color: var(--accent-green);
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  width: fit-content;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-title-wrap h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+}
+
+.ent-about-list {
+  margin: 16px 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ent-about-list li {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ent-about-list li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  opacity: 0.6;
 }

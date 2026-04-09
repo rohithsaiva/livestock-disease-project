@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, ArrowLeft, BrainCircuit } from 'lucide-react';
 import { authService } from '../../services/auth';
-import { runAllModels } from '../../models/model_evaluator';
 import './DiseasePrediction.css';
 
 const DiseasePrediction = ({ onNavigate }) => {
@@ -27,16 +26,8 @@ const DiseasePrediction = ({ onNavigate }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Run ML predictions
-    const predictionResults = runAllModels(formData);
-
-    // Save interaction with full model details
-    const finalData = {
-      ...formData,
-      analysis: predictionResults
-    };
-    
-    authService.saveInteraction('disease_prediction', finalData);
+    // Save interaction
+    authService.saveInteraction('disease_prediction', formData);
 
     setTimeout(() => {
       setIsSubmitting(false);
