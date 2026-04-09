@@ -1,0 +1,50 @@
+.future-section {
+  padding: 6rem 0;
+}
+
+.future-card {
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: var(--transition);
+}
+
+.future-card:hover {
+  background-color: var(--color-white);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+}
+
+.future-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-deep-green);
+  color: var(--color-white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(31, 122, 99, 0.3);
+}
+
+.future-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-gray-dark);
+}
+
+.future-card p {
+  font-size: 0.9rem;
+  color: var(--color-gray);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .future-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .future-grid { grid-template-columns: 1fr; }
+}

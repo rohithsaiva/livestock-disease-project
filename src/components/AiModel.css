@@ -1,0 +1,125 @@
+.ai-model-section {
+  background-color: var(--color-bg);
+  position: relative;
+}
+
+.ai-model-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(123, 211, 137, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.model-grid {
+  position: relative;
+  z-index: 2;
+  gap: 2rem;
+}
+
+.model-info, .model-metrics {
+  padding: 2.5rem;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-header h3 {
+  margin-bottom: 0;
+  color: var(--color-deep-green);
+  font-size: 1.35rem;
+}
+
+.info-icon {
+  color: var(--color-soft-green);
+}
+
+.mt-4 {
+  margin-top: 2rem;
+}
+
+.info-list {
+  padding-left: 0;
+}
+
+.info-list li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--color-gray);
+}
+
+.info-list li::before {
+  content: '•';
+  color: var(--color-soft-green);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.25rem;
+  top: -4px;
+}
+
+.algo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-gray-light);
+  color: var(--color-gray-dark);
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.primary-badge {
+  background-color: rgba(31, 122, 99, 0.1);
+  color: var(--color-deep-green);
+  border: 1px solid rgba(31, 122, 99, 0.3);
+}
+
+.metric-bar-group {
+  margin-bottom: 1.5rem;
+}
+
+.metric-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-gray-dark);
+}
+
+.metric-track {
+  width: 100%;
+  height: 12px;
+  background-color: var(--color-gray-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.metric-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-soft-green), var(--color-deep-green));
+  border-radius: 6px;
+}
+
+.metrics-desc {
+  color: var(--color-gray);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .model-grid { grid-template-columns: 1fr; }
+}

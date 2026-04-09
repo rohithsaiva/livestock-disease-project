@@ -1,0 +1,135 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 0;
+  transition: var(--transition);
+  z-index: 1000;
+  background: var(--color-white); /* Solid background for slides */
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar.scrolled {
+  padding: 1rem 0;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-deep-green);
+}
+
+.logo-icon {
+  color: var(--color-soft-green);
+}
+
+.logo-accent {
+  color: var(--color-soft-green);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--color-gray-dark);
+  transition: var(--transition);
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-soft-green);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover, .active-tab {
+  color: var(--color-deep-green);
+}
+
+.nav-link:hover::after, .active-tab::after {
+  width: 100%;
+}
+
+.nav-btn {
+  padding: 0.5rem 1.25rem;
+}
+
+.mobile-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-deep-green);
+}
+
+.mobile-only {
+  display: none;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: var(--transition);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  opacity: 0;
+  background: var(--color-white);
+}
+
+.mobile-menu.open {
+  padding: 1.5rem;
+  max-height: 500px;
+  opacity: 1;
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-link {
+  display: block;
+  padding: 1rem 0;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+  border-bottom: 1px solid var(--color-gray-light);
+}
+
+.active-mobile-tab {
+  color: var(--color-deep-green);
+  border-left: 3px solid var(--color-deep-green);
+  padding-left: 0.5rem;
+}
+
+.mobile-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}

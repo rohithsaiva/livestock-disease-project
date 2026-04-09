@@ -1,0 +1,109 @@
+.results-section {
+  background-color: var(--color-white);
+}
+
+.result-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 4px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.high-risk { border-top-color: #ef4444; }
+.medium-risk { border-top-color: #f59e0b; }
+.low-risk { border-top-color: var(--color-soft-green); }
+
+.gauge-container {
+  position: relative;
+  width: 160px;
+  margin-bottom: 1.5rem;
+}
+
+.gauge {
+  width: 100%;
+  overflow: visible;
+}
+
+.gauge-bg {
+  fill: none;
+  stroke: var(--color-gray-light);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.gauge-fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease;
+}
+
+.color-red { stroke: #ef4444; }
+.color-yellow { stroke: #f59e0b; }
+.color-green { stroke: var(--color-soft-green); }
+
+.color-text-red { color: #ef4444; }
+.color-text-yellow { color: #f59e0b; }
+.color-text-green { color: var(--color-deep-green); }
+
+.gauge-value {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.result-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-gray-dark);
+}
+
+.disease-name {
+  color: var(--color-gray);
+  font-weight: 500;
+  margin-bottom: 2rem;
+  min-height: 48px;
+}
+
+.result-action {
+  margin-top: auto;
+  width: 100%;
+}
+
+.btn-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  gap: 0.5rem;
+}
+
+.btn-small:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
+
+.bg-red { background-color: #ef4444; }
+.bg-yellow { background-color: #f59e0b; }
+.bg-green { background-color: var(--color-deep-green); }
+
+@media (max-width: 768px) {
+  .results-grid { grid-template-columns: 1fr; }
+}
