@@ -1,0 +1,253 @@
+/* Enterprise SaaS Dashboard Theme Variables & Styles */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap');
+
+.enterprise-dashboard {
+  --base-bg-color: #0a0f0a;
+  --card-bg-color: rgba(17, 26, 17, 0.75);
+  --card-border-color: rgba(78, 200, 80, 0.15);
+  --card-hover-border-color: rgba(78, 200, 80, 0.35);
+  --text-primary: #e8f5e8;
+  --text-secondary: #6a8a6a;
+  --accent-green: #4ec850;
+  --accent-green-dark: #2a7a2a;
+  --danger-red: #ef4444;
+
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--base-bg-color);
+  color: var(--text-primary);
+  /* Layered radial glow */
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(78, 200, 80, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(168, 224, 80, 0.06), transparent 40%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.enterprise-dashboard h1,
+.enterprise-dashboard h2,
+.enterprise-dashboard h3,
+.enterprise-dashboard h4,
+.enterprise-dashboard h5,
+.enterprise-dashboard h6 {
+  font-family: 'Syne', sans-serif;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+/* Base Spacing & Layout */
+.enterprise-dashboard .section-padding { padding: 48px; }
+
+/* Dashboard Cards (Glassmorphism) */
+.enterprise-dashboard .ent-card {
+  background: var(--card-bg-color);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border-color);
+  border-radius: 20px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.enterprise-dashboard .ent-card.p-lg { padding: 32px; }
+
+.enterprise-dashboard .ent-card:hover,
+.enterprise-dashboard .ent-card-clickable:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: var(--card-hover-border-color);
+  box-shadow: 0 25px 100px rgba(78, 200, 80, 0.25);
+  z-index: 10;
+}
+
+/* Button System */
+.enterprise-dashboard .ent-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.enterprise-dashboard .ent-btn-primary {
+  background: linear-gradient(135deg, var(--accent-green-dark), var(--accent-green));
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.enterprise-dashboard .ent-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(78, 200, 80, 0.4);
+}
+
+.enterprise-dashboard .ent-btn-secondary {
+  background: transparent;
+  color: var(--accent-green);
+  border: 1.5px solid rgba(78, 200, 80, 0.3);
+}
+
+.enterprise-dashboard .ent-btn-secondary:hover {
+  border-color: var(--accent-green);
+  background: rgba(78, 200, 80, 0.05);
+  box-shadow: 0 0 20px rgba(78, 200, 80, 0.2);
+  transform: translateY(-2px);
+}
+
+.enterprise-dashboard .ent-btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-red);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.enterprise-dashboard .ent-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Input System */
+.enterprise-dashboard .ent-input {
+  background: #0f1f0f;
+  border: 1.5px solid rgba(78, 200, 80, 0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.enterprise-dashboard .ent-input:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 4px rgba(78, 200, 80, 0.12);
+}
+
+.enterprise-dashboard .ent-input::placeholder {
+  color: rgba(106, 138, 106, 0.7);
+}
+
+.enterprise-dashboard select.ent-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ec850' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+/* User Navbar */
+.enterprise-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(10, 15, 10, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ent-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ent-brand-icon {
+  color: var(--accent-green);
+}
+
+.ent-brand-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.ent-brand-accent {
+  color: var(--accent-green);
+}
+
+.ent-nav-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Common Layout */
+.ent-layout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* Table overrides for enterprise theme */
+.enterprise-dashboard .ent-table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(78, 200, 80, 0.15);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.enterprise-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.enterprise-dashboard th {
+  background: rgba(78, 200, 80, 0.05);
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(78, 200, 80, 0.15);
+}
+
+.enterprise-dashboard td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+}
+
+.enterprise-dashboard tr:hover td {
+  background: rgba(78, 200, 80, 0.04);
+}
+
+.enterprise-dashboard tr:last-child td {
+  border-bottom: none;
+}
+
+/* Animations */
+@keyframes entFadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ent-animate-fade-in {
+  animation: entFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ent-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.ent-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+@media (max-width: 768px) {
+  .ent-grid-2, .ent-grid-3 { grid-template-columns: 1fr; }
+  .ent-layout-container { padding: 32px 16px; }
+}

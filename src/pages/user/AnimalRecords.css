@@ -1,0 +1,96 @@
+/* AnimalRecords.css - Scoped to Enterprise Theme */
+
+.ent-record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.ent-record-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+}
+
+.tag-animal {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.ent-record-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ent-record-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+.ent-record-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ent-record-meta span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ent-record-meta strong {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ent-record-symptoms h4 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.symptom-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.symptom-tag {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  color: var(--text-secondary);
+}
+
+.symptom-tag.active {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.ent-record-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}

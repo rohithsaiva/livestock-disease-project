@@ -1,0 +1,129 @@
+.reports-wrapper {
+  min-height: calc(100vh - 80px); /* Account for header */
+}
+
+.reports-header {
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reports-icon-block {
+  width: 80px;
+  height: 80px;
+  background: rgba(231, 76, 60, 0.15);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.reports-header h2 {
+  font-size: 2.2rem;
+  color: var(--color-light);
+  margin-bottom: 0.5rem;
+}
+
+.reports-list {
+  padding: 2.5rem;
+  border-radius: 20px;
+}
+
+.empty-reports {
+  padding: 4rem 2rem;
+  color: #a0a0a0;
+}
+
+.empty-reports h3 {
+  font-size: 1.5rem;
+  color: var(--color-light);
+  margin-bottom: 0.5rem;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.reports-table th {
+  padding: 1.2rem;
+  color: #a0a0a0;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.reports-table td {
+  padding: 1.5rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--color-light);
+  font-size: 1rem;
+}
+
+.symptoms-cell {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.model-badge {
+  background: rgba(155, 89, 182, 0.15);
+  color: #9b59b6;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.date-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: #a0a0a0;
+}
+
+.date-icon {
+  margin-right: 0.3rem;
+  vertical-align: text-bottom;
+}
+
+.time-sub {
+  font-size: 0.8rem;
+  color: #666;
+  margin-left: 1.2rem;
+}
+
+.status-badge {
+  background: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+.spinner {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .reports-list {
+    padding: 1.5rem;
+  }
+}

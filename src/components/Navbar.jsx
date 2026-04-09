@@ -3,7 +3,7 @@ import { Menu, X, Activity } from 'lucide-react';
 import { authService } from '../services/auth';
 import './Navbar.css';
 
-const Navbar = ({ activeTab, setActiveTab }) => {
+const Navbar = ({ activeTab, setActiveTab, onLogout }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = authService.getCurrentUser();
@@ -16,16 +16,30 @@ const Navbar = ({ activeTab, setActiveTab }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', id: 'home' },
-    { name: 'Features', id: 'features' },
-    { name: 'Solution', id: 'solution' },
-    { name: 'AI Model', id: 'model' },
-    user 
-      ? (user.role === 'admin' ? { name: 'Admin', id: 'admin' } : { name: 'Dashboard', id: 'dashboard' })
-      : { name: 'Login', id: 'login' },
-    { name: 'About', id: 'about' },
-  ];
+  const getNavLinks = () => {
+    if (!user) {
+      return [
+        { name: 'Home', id: 'home' },
+        { name: 'Features', id: 'features' },
+        { name: 'Solution', id: 'solution' },
+        { name: 'AI Model', id: 'model' },
+        { name: 'About', id: 'about' },
+        { name: 'Login', id: 'login' }
+      ];
+    }
+    
+    // For logged-in normal user
+    // (Admin has their own dashboard layout and Navbar is hidden via App.jsx, but safety check here)
+    if (user.role === 'admin') {
+       return [{ name: 'Admin Dashboard', id: 'admin' }];
+    }
+
+    return [
+      { name: 'Dashboard', id: 'dashboard' }
+    ];
+  };
+
+  const navLinks = getNavLinks();
 
   const handleNavClick = (e, id) => {
     e.preventDefault();
@@ -58,12 +72,22 @@ const Navbar = ({ activeTab, setActiveTab }) => {
               {link.name}
             </a>
           ))}
-          <button 
-            onClick={(e) => handleNavClick(e, 'contact')} 
-            className="btn btn-primary nav-btn"
-          >
-            Get in Touch
-          </button>
+          {!user ? (
+            <button 
+              onClick={(e) => handleNavClick(e, 'contact')} 
+              className="btn btn-primary nav-btn"
+            >
+              Get in Touch
+            </button>
+          ) : (
+            <button 
+              onClick={onLogout} 
+              className="btn btn-secondary nav-btn"
+              style={{ padding: '0.6rem 1.2rem'}}
+            >
+              Logout
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -87,12 +111,21 @@ const Navbar = ({ activeTab, setActiveTab }) => {
             {link.name}
           </a>
         ))}
-        <button 
-          onClick={(e) => handleNavClick(e, 'contact')} 
-          className="btn btn-primary mobile-btn"
-        >
-          Get in Touch
-        </button>
+        {!user ? (
+          <button 
+            onClick={(e) => handleNavClick(e, 'contact')} 
+            className="btn btn-primary mobile-btn"
+          >
+            Get in Touch
+          </button>
+        ) : (
+          <button 
+            onClick={onLogout} 
+            className="btn btn-secondary mobile-btn"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

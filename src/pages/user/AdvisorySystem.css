@@ -1,0 +1,64 @@
+/* AdvisorySystem.css */
+
+.advisory-page-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.advisory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.advisory-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.advisory-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  flex-shrink: 0;
+  margin-top: 7px;
+  box-shadow: 0 0 6px rgba(78, 200, 80, 0.5);
+}
+
+.vet-contact-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.vet-panel-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .vet-contact-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vet-contact-panel .ent-btn {
+    width: 100%;
+  }
+
+  .advisory-page-header {
+    flex-direction: column;
+  }
+}

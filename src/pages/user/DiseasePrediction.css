@@ -1,0 +1,33 @@
+/* DiseasePrediction.css - Scoped to Enterprise Theme */
+
+.ent-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ent-form-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+select.ent-input {
+  cursor: pointer;
+}
+
+select.ent-input option {
+  background: var(--base-bg-color);
+  color: var(--text-primary);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

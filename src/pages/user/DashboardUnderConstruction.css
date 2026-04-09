@@ -1,0 +1,86 @@
+.user-dashboard-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-navbar {
+  /* Using glassmorphism but no fixed positioning to keep it clean */
+  background: rgba(10, 15, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+  width: 100%;
+}
+
+.construction-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 4rem 1rem;
+}
+
+.construction-container {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.construction-card {
+  padding: 4rem 3rem;
+  text-align: center;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+}
+
+.icon-wrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  background: rgba(46, 204, 113, 0.1);
+}
+
+.construction-card h2 {
+  font-size: 2.2rem;
+  color: var(--color-light);
+  margin-bottom: 0.5rem;
+}
+
+.construction-card .subtitle {
+  color: var(--color-soft-green);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.construction-content {
+  color: #a0a0a0;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+  .construction-card {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .construction-card h2 {
+    font-size: 1.8rem;
+  }
+}
