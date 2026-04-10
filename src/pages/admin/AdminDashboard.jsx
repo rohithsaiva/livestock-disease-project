@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogIn, Users, MessageSquare, Database, LogOut, Trash2 } from 'lucide-react';
+import { LogIn, Users, MessageSquare, Database, LogOut, Trash2, Shield } from 'lucide-react';
 import { authService } from '../../services/auth';
 import { loginHistoryStorage } from '../../data/loginHistory';
 import './AdminDashboard.css';
@@ -10,6 +10,8 @@ import LoginHistory from './LoginHistory';
 import SignedUsers from './SignedUsers';
 import Comments from './Comments';
 import ProjectData from './ProjectData';
+import SecurityLogs from './SecurityLogs';
+import { loggingService } from '../../services/loggingService';
 
 const AdminDashboard = ({ user, onLogout }) => {
   const [activeTab, setActiveTab] = useState('login_users');
@@ -17,17 +19,20 @@ const AdminDashboard = ({ user, onLogout }) => {
   const [messages, setMessages] = useState([]);
   const [interactions, setInteractions] = useState([]);
   const [loginHistory, setLoginHistory] = useState([]);
+  const [securityLogs, setSecurityLogs] = useState([]);
 
   const loadData = () => {
     const usersResult = authService.getAllUsers();
     const messagesResult = authService.getAllMessages();
     const interactionsResult = authService.getAllInteractions();
     const historyData = loginHistoryStorage.getHistory();
+    const secLogs = loggingService.getLogs();
 
     if (usersResult.success) setUsers(usersResult.users.filter(u => u.role !== 'admin'));
     if (messagesResult.success) setMessages(messagesResult.messages);
     if (interactionsResult.success) setInteractions(interactionsResult.interactions);
     setLoginHistory(historyData.sort((a, b) => b.timestamp - a.timestamp));
+    setSecurityLogs(secLogs);
   };
 
   useEffect(() => {
@@ -52,6 +57,8 @@ const AdminDashboard = ({ user, onLogout }) => {
         return <Comments messages={messages} />;
       case 'project_data':
         return <ProjectData projectData={projectData} />;
+      case 'security_logs':
+        return <SecurityLogs logs={securityLogs} />;
       default:
         return null;
     }
@@ -94,6 +101,13 @@ const AdminDashboard = ({ user, onLogout }) => {
               onClick={() => setActiveTab('project_data')}
             >
               <Database size={20} /> Project Data
+            </button>
+            <button
+              className={`admin-nav-item ${activeTab === 'security_logs' ? 'active' : ''}`}
+              onClick={() => setActiveTab('security_logs')}
+              style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '0.5rem', paddingTop: '1rem' }}
+            >
+              <Shield size={20} color="var(--color-primary)" /> Security Logs
             </button>
           </nav>
 

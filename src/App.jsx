@@ -25,6 +25,7 @@ import GetInTouch from './pages/public/GetInTouch';
 import Footer from './components/Footer';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import { authService } from './services/auth';
+import { securityService } from './services/securityService';
 
 import './App.css';
 import './pages/user/EnterpriseDashboard.css';
@@ -70,6 +71,22 @@ const SplashScreen = () => (
     </div>
   </motion.div>
 );
+
+// Phase 5: RBAC Middleware / Protected Route Pattern
+// Strictly fail closed if roles misalign preventing direct renders
+const ProtectedRoute = ({ user, requiredRole, children, fallbackAction }) => {
+  if (!user) {
+    fallbackAction('login');
+    return null;
+  }
+  
+  if (requiredRole && !securityService.hasRole(user, requiredRole)) {
+    fallbackAction(user.role === 'admin' ? 'admin' : 'dashboard');
+    return null;
+  }
+  
+  return children;
+};
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
@@ -127,6 +144,21 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  // Phase 3: Auto Logout Interval (Session Expiry checks)
+  React.useEffect(() => {
+    if (!user) return;
+    
+    const interval = setInterval(() => {
+      const currentUser = authService.getCurrentUser();
+      if (!currentUser) {
+        // Session mechanically expired, force visual logout globally
+        handleLogout();
+      }
+    }, 60000); // Check every minute
+    
+    return () => clearInterval(interval);
+  }, [user, activeTab]);
+
   // Simulate loading delay for the splash screen
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -157,42 +189,53 @@ function App() {
           />
         );
       case 'dashboard':
-        return <UserDashboard onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <UserDashboard onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'disease-prediction':
-        return <DiseasePrediction onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <DiseasePrediction onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'prediction-result':
-        return <PredictionResult onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <PredictionResult onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'advisory-system':
-        return <AdvisorySystem onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <AdvisorySystem onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'animal-records':
-        return <AnimalRecords onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <AnimalRecords onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'ai-reports':
-        return <Alerts onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <Alerts onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'user-about':
-        return <UserAbout onNavigate={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo(0, 0);
-        }} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <UserAbout onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        );
       case 'admin':
-        return <AdminDashboard user={user} onLogout={handleLogout} />;
+        return (
+          <ProtectedRoute user={user} requiredRole="admin" fallbackAction={setActiveTab}>
+            <AdminDashboard user={user} onLogout={handleLogout} />
+          </ProtectedRoute>
+        );
       case 'about':
         return <About />;
       case 'contact':
