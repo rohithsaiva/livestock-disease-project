@@ -15,6 +15,11 @@ const Login = ({ onAuthSuccess }) => {
   const [phone, setPhone] = useState('');
   const [resetToken, setResetToken] = useState('');
 
+  // OTP States
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [isSendingOTP, setIsSendingOTP] = useState(false);
+
   // Security Simulation States (Phase 1)
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -34,7 +39,93 @@ const Login = ({ onAuthSuccess }) => {
     setEmail('');
     setPassword('');
     setError('');
+    setOtpSent(false);
+    setOtp('');
+    setIsSendingOTP(false);
   }, [view]);
+
+  const handleSendOTP = async (e) => {
+    if (e) e.preventDefault();
+    if (!email) {
+      setError('Please enter your email address.');
+      return;
+    }
+    
+    const API_URL = import.meta.env.VITE_API_URL;
+    if (!API_URL) {
+      console.error("Missing VITE_API_URL in environment");
+      setError('Server configuration missing.');
+      return;
+    }
+    
+    setIsSendingOTP(true);
+    setError('');
+    
+    try {
+      const response = await fetch(`${API_URL}/api/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setOtpSent(true);
+        setError('OTP sent successfully. Please check your email.');
+      } else {
+        setError(data.message || 'Failed to send OTP. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please try again later.');
+    } finally {
+      setIsSendingOTP(false);
+    }
+  };
+
+  const handleVerifyOTP = async (e) => {
+    if (e) e.preventDefault();
+    if (!otp) {
+      setError('Please enter the OTP.');
+      return;
+    }
+    
+    const API_URL = import.meta.env.VITE_API_URL;
+    if (!API_URL) {
+      console.error("Missing VITE_API_URL in environment");
+      setError('Server configuration missing.');
+      return;
+    }
+    
+    setError('');
+    
+    try {
+      const response = await fetch(`${API_URL}/api/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // create session
+        const sessionData = {
+          email,
+          loginTime: new Date().toISOString()
+        };
+        sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+        
+        if (onAuthSuccess) {
+          onAuthSuccess('user');
+        }
+      } else {
+        setError(data.message || 'Invalid OTP or verification failed.');
+      }
+    } catch (err) {
+      setError('Network error during verification. Please try again.');
+    }
+  };
 
   const validateSignup = () => {
     // Phase 2: Validate email format robustly
@@ -269,13 +360,13 @@ const Login = ({ onAuthSuccess }) => {
                 <div className="login-icon-wrapper">
                   <LogIn size={32} className="login-icon" />
                 </div>
-                <h2>Welcome Back</h2>
-                <p>Access your LivestockAI dashboard</p>
+                <h2>Dashboard Login</h2>
+                <p>Verify your identity via OTP</p>
               </div>
 
               {error && <div className="error-message">{error}</div>}
 
-              <form onSubmit={handleLoginSubmit} className="auth-form" autoComplete="off">
+              <form onSubmit={otpSent ? handleVerifyOTP : handleSendOTP} className="auth-form" autoComplete="off">
                 <div className="input-group">
                   <label htmlFor="login-email">Email Address</label>
                   <div className="input-wrapper">
@@ -286,23 +377,107 @@ const Login = ({ onAuthSuccess }) => {
                       placeholder="farmer@gmail.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="new-password"
+                      autoComplete="username"
+                      required
+                      disabled={otpSent || isSendingOTP}
+                    />
+                  </div>
+                </div>
+
+                {otpSent && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }} 
+                    animate={{ opacity: 1, height: 'auto' }} 
+                    className="input-group"
+                  >
+                    <label htmlFor="login-otp">One-Time Password (OTP)</label>
+                    <div className="input-wrapper">
+                      <KeyRound size={18} className="input-icon" />
+                      <input
+                        type="text"
+                        id="login-otp"
+                        placeholder="Enter 6-digit OTP"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        autoComplete="one-time-code"
+                        required
+                      />
+                    </div>
+                  </motion.div>
+                )}
+
+                <div className="form-options">
+                  <label className="remember-me">
+                    <input type="checkbox" />
+                    <span>Remember me</span>
+                  </label>
+                  <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); setView('admin-login'); }}>Admin Access</a>
+                </div>
+
+                <button type="submit" className="btn btn-primary auth-btn" disabled={isSendingOTP}>
+                  {isSendingOTP ? "Sending..." : (otpSent ? "Verify & Login" : "Send OTP")} <ArrowRight size={18} />
+                </button>
+              </form>
+
+              <div className="login-divider">
+                <span>OR</span>
+              </div>
+
+              <div id="google-btn-container" className="google-btn-wrapper"></div>
+
+              <div className="auth-footer">
+                <p>Don't have an account? <button className="text-btn" onClick={() => { setView('signup'); setError(''); }}>Sign Up</button></p>
+              </div>
+            </motion.div>
+          )}
+
+          {view === 'admin-login' && (
+            <motion.div
+              key="admin-login"
+              className="login-card glass-card"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="login-header">
+                <div className="login-icon-wrapper">
+                  <Lock size={32} className="login-icon" style={{ color: 'var(--color-accent)' }} />
+                </div>
+                <h2>Admin Portal</h2>
+                <p>Authorized access only</p>
+              </div>
+
+              {error && <div className="error-message">{error}</div>}
+
+              <form onSubmit={handleLoginSubmit} className="auth-form" autoComplete="off">
+                <div className="input-group">
+                  <label htmlFor="admin-email">Admin Email</label>
+                  <div className="input-wrapper">
+                    <Mail size={18} className="input-icon" />
+                    <input
+                      type="email"
+                      id="admin-email"
+                      placeholder="admin@livestock.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="username"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="input-group">
-                  <label htmlFor="login-password">Password</label>
+                  <label htmlFor="admin-password">Password</label>
                   <div className="input-wrapper">
                     <Lock size={18} className="input-icon" />
                     <input
                       type="password"
-                      id="login-password"
+                      id="admin-password"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      autoComplete="new-password"
+                      autoComplete="current-password"
                       required
                     />
                   </div>
@@ -313,10 +488,9 @@ const Login = ({ onAuthSuccess }) => {
                     <input type="checkbox" />
                     <span>Remember me</span>
                   </label>
-                  <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); setView('forgot-request'); }}>Forgot Password?</a>
+                  <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); setView('login'); }}>User Login</a>
                 </div>
 
-                {/* Phase 1 Security: CAPTCHA */}
                 {showCaptcha && (
                   <motion.div 
                     className="captcha-container input-group"
@@ -339,19 +513,9 @@ const Login = ({ onAuthSuccess }) => {
                 )}
 
                 <button type="submit" className="btn btn-primary auth-btn">
-                  Login to Dashboard <ArrowRight size={18} />
+                  Login to Admin <ArrowRight size={18} />
                 </button>
               </form>
-
-              <div className="login-divider">
-                <span>OR</span>
-              </div>
-
-              <div id="google-btn-container" className="google-btn-wrapper"></div>
-
-              <div className="auth-footer">
-                <p>Don't have an account? <button className="text-btn" onClick={() => { setView('signup'); setError(''); }}>Sign Up</button></p>
-              </div>
             </motion.div>
           )}
 

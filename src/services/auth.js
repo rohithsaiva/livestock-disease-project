@@ -186,7 +186,25 @@ export const authService = {
     if (sessionStr) {
       try {
         const sessionData = JSON.parse(sessionStr);
-        if (new Date() > new Date(sessionData.expiry)) {
+
+        // Check for new OTP backend session format
+        if (sessionData.loginTime) {
+          const loginTime = new Date(sessionData.loginTime);
+          if (new Date() > new Date(loginTime.getTime() + 24 * 60 * 60 * 1000)) { // 24hr expiry
+            authService.logout();
+            return null;
+          }
+          // Construct mock user object for standard dashboards
+          return {
+            id: `otp-${sessionData.email}`,
+            name: sessionData.email.split('@')[0],
+            email: sessionData.email,
+            role: 'user', // OTP users are strictly 'user' role
+            lastLogin: sessionData.loginTime
+          };
+        }
+
+        if (sessionData.expiry && new Date() > new Date(sessionData.expiry)) {
           // Expired session auto-logout
           authService.logout();
           return null;
@@ -195,7 +213,7 @@ export const authService = {
         // Session is valid, but we need the fully typed user object
         // Return full user from local storage (if missing, returns null)
         const user = userStorage.getCurrentUser();
-        if (!user) {
+        if (!user && sessionData.expiry) { // Only force logout if it was a mock-auth session
            authService.logout();
            return null;
         }

@@ -1,26 +1,26 @@
 :root {
-  --color-deep-green: #1f7a63;
-  --color-deep-green-dark: #165c4a;
-  --color-soft-green: #7bd389;
-  --color-soft-green-light: #9ee0a8;
+  --color-deep-green: #27ae60;
+  --color-deep-green-dark: #219653;
+  --color-soft-green: #2ecc71;
+  --color-soft-green-light: #f6fff7;
   --color-white: #ffffff;
-  --color-light-brown: #d6b48a;
-  --color-dark: #121212;
-  --color-gray-dark: #2d3748;
-  --color-gray: #4a5568;
-  --color-gray-light: #e2e8f0;
-  --color-bg: #f8fafc;
+  --color-light-brown: #e2e8f0;
+  --color-dark: #1a1a1a;
+  --color-gray-dark: #374151;
+  --color-gray: #6b7280;
+  --color-gray-light: #f3f4f6;
+  --color-bg: #ffffff;
   
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-card: 0 10px 30px -5px rgba(31, 122, 99, 0.15);
-  --shadow-hover: 0 20px 40px -5px rgba(31, 122, 99, 0.25);
+  --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   
-  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition: all 0.2s ease-in-out;
 }
 
 * {
@@ -54,17 +54,15 @@ img {
 
 /* Glassmorphism utility */
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #ffffff;
+  border: 1px solid var(--color-gray-light);
   box-shadow: var(--shadow-card);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   transition: var(--transition);
 }
 
 .glass-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -168,7 +166,7 @@ p {
 
 /* Gradients and shapes */
 .bg-gradient {
-  background: linear-gradient(135deg, var(--color-bg) 0%, #eaf4f0 100%);
+  background: var(--color-bg);
 }
 
 .bg-pattern {
@@ -179,9 +177,9 @@ p {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(var(--color-soft-green-light) 1px, transparent 1px);
+  background-image: radial-gradient(var(--color-gray-light) 1px, transparent 1px);
   background-size: 40px 40px;
-  opacity: 0.15;
+  opacity: 0.5;
   z-index: -1;
 }
 
