@@ -9,13 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.100.0",
-    "@react-three/fiber": "^8.15.19",
+    "firebase": "^12.12.0",
     "framer-motion": "^12.35.1",
     "lucide-react": "^0.577.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "three": "^0.160.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.3",

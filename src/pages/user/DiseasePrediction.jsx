@@ -17,22 +17,93 @@ const DiseasePrediction = ({ onNavigate }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [predictionMode, setPredictionMode] = useState('form');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [predictionResult, setPredictionResult] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+      setPredictionResult(null);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setPredictionResult(null);
 
     // Save interaction
     authService.saveInteraction('disease_prediction', formData);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch('http://localhost:5000/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          Animal: formData.animalType,
+          Age: formData.age,
+          Fever: formData.fever,
+          AppetiteLoss: formData.appetiteLoss,
+          Weakness: formData.weakness,
+          Vaccination: formData.vaccination,
+          Temp: formData.temperature,
+          Humidity: formData.humidity
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setPredictionResult(data.disease);
+      } else {
+        setPredictionResult('Error: ' + (data.error || 'Server error'));
+      }
+    } catch (err) {
+      console.error(err);
+      setPredictionResult('Error: Failed to connect to prediction server.');
+    } finally {
       setIsSubmitting(false);
-      onNavigate('prediction-result');
-    }, 1500);
+    }
+  };
+
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedImage) return;
+
+    setIsSubmitting(true);
+    setPredictionResult(null);
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append('image', selectedImage);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/predict-image', {
+        method: 'POST',
+        body: formDataToSubmit,
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setPredictionResult(data.disease);
+        authService.saveInteraction('disease_prediction_image', { predictedDisease: data.disease });
+      } else {
+        setPredictionResult('Error: ' + (data.error || 'Server error'));
+      }
+    } catch (err) {
+      console.error(err);
+      setPredictionResult('Error: Failed to connect to prediction server.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,7 +131,25 @@ const DiseasePrediction = ({ onNavigate }) => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="ent-form">
+        <div style={{ display: 'flex', gap: '16px', marginBottom: '32px', justifyContent: 'center' }}>
+          <button 
+            type="button" 
+            className={`ent-btn ${predictionMode === 'form' ? 'ent-btn-primary' : 'ent-btn-secondary'}`}
+            onClick={() => setPredictionMode('form')}
+          >
+            Predict using Form
+          </button>
+          <button 
+            type="button" 
+            className={`ent-btn ${predictionMode === 'image' ? 'ent-btn-primary' : 'ent-btn-secondary'}`}
+            onClick={() => setPredictionMode('image')}
+          >
+            Predict using Image
+          </button>
+        </div>
+
+        {predictionMode === 'form' ? (
+          <form onSubmit={handleSubmit} className="ent-form">
           <div className="ent-grid-2">
             <div className="ent-form-group">
               <label className="ent-form-label">Animal Type</label>
@@ -120,18 +209,59 @@ const DiseasePrediction = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'flex-end' }}>
-            <button type="submit" className="ent-btn ent-btn-primary" style={{ width: '100%', maxWidth: '300px' }} disabled={isSubmitting}>
+            {predictionResult && (
+              <div style={{ padding: '16px 24px', backgroundColor: predictionResult.startsWith('Error') ? '#fee2e2' : 'rgba(16, 185, 129, 0.1)', color: predictionResult.startsWith('Error') ? '#ef4444' : '#10b981', borderRadius: '8px', fontWeight: 'bold', marginBottom: '24px' }}>
+                {predictionResult.startsWith('Error') ? predictionResult : `Prediction: ${predictionResult}`}
+              </div>
+            )}
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button type="submit" className="ent-btn ent-btn-primary" style={{ width: '100%', maxWidth: '300px' }} disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Activity className="ent-spinner" size={18} style={{ animation: 'spin 1s linear infinite' }} /> Processing Neural Net...
+                  </>
+                ) : (
+                  'Execute Prediction'
+                )}
+              </button>
+            </div>
+        </form>
+        ) : (
+          <form onSubmit={handleImageSubmit} className="ent-form" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+            <div style={{ width: '100%', maxWidth: '500px', padding: '24px', border: '2px dashed #e2e8f0', borderRadius: '12px', textAlign: 'center' }}>
+              {imagePreview ? (
+                <div style={{ marginBottom: '16px' }}>
+                  <img src={imagePreview} alt="Preview" style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px' }} />
+                </div>
+              ) : (
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>No image selected</p>
+              )}
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageChange} 
+                style={{ display: 'block', margin: '0 auto' }} 
+              />
+            </div>
+            
+            {predictionResult && (
+              <div style={{ padding: '16px 24px', backgroundColor: predictionResult.startsWith('Error') ? '#fee2e2' : 'rgba(16, 185, 129, 0.1)', color: predictionResult.startsWith('Error') ? '#ef4444' : '#10b981', borderRadius: '8px', fontWeight: 'bold' }}>
+                {predictionResult.startsWith('Error') ? predictionResult : `Prediction: ${predictionResult}`}
+              </div>
+            )}
+
+            <button type="submit" className="ent-btn ent-btn-primary" style={{ width: '100%', maxWidth: '300px' }} disabled={isSubmitting || !selectedImage}>
               {isSubmitting ? (
                 <>
-                  <Activity className="ent-spinner" size={18} style={{ animation: 'spin 1s linear infinite' }} /> Processing Neural Net...
+                  <Activity className="ent-spinner" size={18} style={{ animation: 'spin 1s linear infinite' }} /> Analyzing Image...
                 </>
               ) : (
-                'Execute Prediction'
+                'Predict from Image'
               )}
             </button>
-          </div>
-        </form>
+          </form>
+        )}
       </motion.div>
     </div>
   );

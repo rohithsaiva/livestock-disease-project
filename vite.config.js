@@ -5,8 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0', // Bind to all interfaces instead of just true
-    port: 5173,      // Explicitly define the port
-    cors: true       // Enable CORS for external devices
+    host: false, 
+    open: true,
+    port: 5173,      
+    cors: true       
   }
 })

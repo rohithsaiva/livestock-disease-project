@@ -1,0 +1,1001 @@
+Animal_Type,Age_years,Fever_Detected,Appetite_Loss,Physical_Weakness,Vaccination_Status,Core_Temperature_C,Surrounding_Humidity_%,Disease
+Goat,2.5,No,Yes,Yes,Up to date,38.2,65,Infection
+Buffalo,7.1,Yes,No,Yes,Not up to date,37.9,68,Minor Illness
+Cow,2.9,No,Yes,No,Not up to date,39.6,84,Minor Illness
+Sheep,9.3,Yes,No,No,Up to date,39.8,74,Minor Illness
+Goat,4.2,No,Yes,No,Up to date,38.7,58,Minor Illness
+Buffalo,6.0,Yes,Yes,Yes,Not up to date,40.7,48,FMD
+Goat,4.5,No,Yes,No,Not up to date,39.1,69,Minor Illness
+Sheep,9.3,Yes,No,No,Up to date,40.8,54,FMD
+Sheep,3.1,Yes,Yes,No,Up to date,38.9,63,Minor Illness
+Buffalo,2.7,No,Yes,Yes,Up to date,40.6,85,Infection
+Sheep,9.4,Yes,No,Yes,Up to date,40.0,42,Minor Illness
+Cow,2.9,Yes,No,Yes,Not up to date,40.5,77,Lumpy Skin Disease
+Cow,5.5,No,No,No,Up to date,39.7,68,Healthy
+Cow,9.2,Yes,No,Yes,Up to date,40.7,45,FMD
+Sheep,1.3,Yes,No,Yes,Not up to date,41.4,78,FMD
+Buffalo,0.6,No,Yes,No,Not up to date,38.3,63,Minor Illness
+Goat,7.4,No,Yes,Yes,Not up to date,39.6,79,Infection
+Buffalo,6.0,No,Yes,Yes,Up to date,41.4,67,Infection
+Cow,3.9,Yes,Yes,Yes,Not up to date,38.3,82,Infection
+Cow,4.6,Yes,No,Yes,Up to date,38.8,47,Minor Illness
+Cow,1.5,No,No,Yes,Not up to date,41.3,80,Minor Illness
+Goat,10.1,No,No,Yes,Up to date,39.2,76,Minor Illness
+Buffalo,3.7,Yes,No,Yes,Up to date,41.3,68,FMD
+Goat,3.0,Yes,No,Yes,Not up to date,38.4,68,Minor Illness
+Goat,10.0,Yes,Yes,No,Not up to date,39.7,83,Minor Illness
+Cow,6.4,No,No,No,Up to date,38.7,73,Healthy
+Buffalo,5.3,No,No,Yes,Up to date,40.4,58,Minor Illness
+Goat,11.6,No,No,Yes,Not up to date,39.4,69,Minor Illness
+Buffalo,8.8,Yes,No,Yes,Not up to date,41.0,55,FMD
+Goat,10.6,No,Yes,No,Up to date,37.9,89,Minor Illness
+Sheep,5.4,No,No,No,Up to date,37.8,84,Healthy
+Buffalo,5.3,Yes,No,No,Not up to date,39.6,52,Minor Illness
+Cow,10.4,Yes,Yes,Yes,Up to date,39.9,49,Infection
+Cow,2.6,Yes,Yes,No,Not up to date,41.2,80,FMD
+Buffalo,3.5,Yes,No,No,Not up to date,38.1,41,Minor Illness
+Cow,2.4,Yes,No,No,Up to date,38.6,62,Minor Illness
+Goat,11.7,No,Yes,No,Not up to date,38.7,56,Minor Illness
+Goat,11.9,No,No,Yes,Not up to date,40.9,58,Minor Illness
+Buffalo,11.9,No,Yes,Yes,Not up to date,40.3,54,Infection
+Cow,5.5,Yes,No,Yes,Not up to date,41.1,87,Lumpy Skin Disease
+Goat,2.3,No,No,Yes,Up to date,37.9,84,Minor Illness
+Cow,9.3,Yes,No,Yes,Up to date,38.1,43,Minor Illness
+Cow,1.4,Yes,No,No,Not up to date,38.9,89,Minor Illness
+Sheep,8.8,Yes,No,No,Not up to date,38.3,56,Minor Illness
+Cow,11.2,Yes,No,No,Up to date,38.3,64,Minor Illness
+Goat,2.3,Yes,No,Yes,Not up to date,39.8,63,Minor Illness
+Goat,3.4,No,No,Yes,Up to date,38.5,57,Minor Illness
+Goat,9.9,No,No,No,Up to date,40.7,60,Healthy
+Cow,3.6,Yes,No,No,Not up to date,38.9,49,Minor Illness
+Goat,8.8,Yes,Yes,Yes,Up to date,40.5,88,FMD
+Goat,4.6,Yes,No,Yes,Up to date,39.5,67,Minor Illness
+Buffalo,11.9,No,No,Yes,Not up to date,40.3,52,Minor Illness
+Sheep,7.0,Yes,Yes,Yes,Up to date,38.8,61,Infection
+Buffalo,7.1,Yes,No,Yes,Not up to date,39.3,69,Minor Illness
+Goat,3.9,No,No,Yes,Up to date,41.0,67,Minor Illness
+Cow,4.6,No,No,Yes,Not up to date,40.2,59,Minor Illness
+Sheep,10.8,No,No,No,Up to date,38.5,82,Healthy
+Sheep,3.3,No,No,Yes,Not up to date,38.4,57,Minor Illness
+Cow,5.1,No,Yes,No,Not up to date,38.9,48,Minor Illness
+Goat,2.6,No,Yes,Yes,Not up to date,39.5,79,Infection
+Buffalo,6.0,Yes,Yes,No,Up to date,38.0,48,Minor Illness
+Cow,7.6,No,Yes,No,Up to date,37.7,66,Minor Illness
+Sheep,1.9,Yes,Yes,Yes,Up to date,40.3,67,FMD
+Cow,1.8,Yes,Yes,No,Not up to date,40.3,44,Lumpy Skin Disease
+Cow,6.3,No,No,Yes,Not up to date,38.4,43,Minor Illness
+Cow,2.6,Yes,No,Yes,Not up to date,40.6,48,FMD
+Cow,3.5,Yes,No,No,Not up to date,38.8,88,Minor Illness
+Goat,8.2,No,Yes,Yes,Up to date,38.8,61,Infection
+Goat,2.7,No,No,Yes,Not up to date,39.5,85,Minor Illness
+Goat,3.4,Yes,Yes,No,Not up to date,39.3,81,Minor Illness
+Goat,6.3,Yes,No,No,Not up to date,38.6,88,Minor Illness
+Sheep,9.1,Yes,Yes,No,Up to date,39.1,90,Minor Illness
+Cow,7.5,Yes,Yes,Yes,Up to date,37.6,65,Infection
+Buffalo,1.3,Yes,Yes,No,Not up to date,39.6,62,Minor Illness
+Goat,2.8,Yes,Yes,No,Up to date,39.6,84,Minor Illness
+Sheep,4.7,Yes,No,Yes,Up to date,41.1,55,FMD
+Cow,7.2,No,No,No,Up to date,39.0,76,Healthy
+Goat,8.7,No,Yes,Yes,Not up to date,40.4,68,Infection
+Buffalo,7.5,No,Yes,No,Up to date,39.3,87,Minor Illness
+Sheep,11.6,Yes,No,No,Up to date,41.2,47,Lumpy Skin Disease
+Buffalo,5.5,No,Yes,Yes,Up to date,39.6,83,Infection
+Sheep,5.4,No,No,Yes,Not up to date,37.6,78,Minor Illness
+Sheep,10.4,Yes,No,Yes,Up to date,38.5,74,Minor Illness
+Sheep,7.0,No,Yes,Yes,Up to date,41.3,49,Infection
+Goat,4.8,Yes,Yes,No,Up to date,41.1,57,FMD
+Cow,2.9,No,Yes,Yes,Up to date,39.0,54,Infection
+Buffalo,11.2,No,Yes,Yes,Up to date,38.1,84,Infection
+Sheep,9.8,Yes,Yes,No,Not up to date,37.8,74,Minor Illness
+Cow,10.1,No,No,Yes,Up to date,41.3,42,Minor Illness
+Buffalo,10.7,No,Yes,Yes,Up to date,39.4,44,Infection
+Goat,5.3,Yes,No,No,Up to date,38.7,44,Minor Illness
+Sheep,0.6,Yes,Yes,No,Not up to date,41.2,61,FMD
+Sheep,9.7,Yes,No,Yes,Not up to date,41.3,44,FMD
+Buffalo,8.9,Yes,Yes,No,Not up to date,41.4,48,Lumpy Skin Disease
+Cow,5.0,Yes,No,Yes,Up to date,38.2,40,Minor Illness
+Cow,11.3,No,Yes,No,Up to date,39.9,65,Minor Illness
+Goat,1.0,No,No,No,Not up to date,38.3,53,Healthy
+Goat,11.9,No,Yes,No,Up to date,37.8,76,Minor Illness
+Cow,2.1,Yes,Yes,No,Up to date,41.2,51,Lumpy Skin Disease
+Sheep,6.7,No,Yes,No,Up to date,40.3,82,Minor Illness
+Sheep,5.4,Yes,No,Yes,Up to date,40.8,75,FMD
+Sheep,1.4,Yes,Yes,No,Not up to date,37.8,86,Minor Illness
+Cow,4.4,Yes,No,No,Not up to date,39.1,67,Minor Illness
+Goat,7.8,No,No,Yes,Up to date,38.6,89,Minor Illness
+Sheep,4.3,No,Yes,No,Not up to date,40.7,86,Minor Illness
+Cow,11.3,No,No,Yes,Not up to date,38.7,79,Minor Illness
+Sheep,5.8,No,No,Yes,Not up to date,41.0,70,Minor Illness
+Cow,9.8,No,Yes,Yes,Up to date,41.5,42,Infection
+Goat,6.6,No,Yes,No,Up to date,38.3,76,Minor Illness
+Cow,8.1,Yes,Yes,Yes,Up to date,37.9,60,Infection
+Sheep,8.0,Yes,Yes,No,Up to date,39.1,52,Minor Illness
+Buffalo,11.0,No,Yes,No,Not up to date,38.9,53,Minor Illness
+Cow,8.0,Yes,No,Yes,Not up to date,40.6,66,Lumpy Skin Disease
+Goat,11.2,Yes,Yes,Yes,Up to date,40.0,40,Infection
+Cow,9.5,No,No,No,Up to date,37.8,89,Healthy
+Cow,6.1,No,No,Yes,Up to date,37.9,64,Minor Illness
+Cow,6.7,Yes,Yes,Yes,Up to date,41.4,44,Lumpy Skin Disease
+Cow,8.9,No,No,No,Up to date,39.1,78,Healthy
+Buffalo,11.1,No,No,Yes,Up to date,38.3,87,Minor Illness
+Buffalo,2.3,No,Yes,No,Not up to date,40.0,43,Minor Illness
+Cow,3.0,Yes,No,No,Not up to date,40.3,86,FMD
+Sheep,1.8,Yes,Yes,Yes,Not up to date,41.2,56,Lumpy Skin Disease
+Goat,1.4,Yes,Yes,No,Not up to date,40.1,84,FMD
+Buffalo,6.1,No,Yes,Yes,Not up to date,40.7,75,Infection
+Buffalo,1.2,Yes,No,No,Up to date,38.2,73,Minor Illness
+Cow,1.4,Yes,No,Yes,Up to date,39.4,71,Minor Illness
+Sheep,10.5,No,Yes,No,Not up to date,40.8,56,Minor Illness
+Cow,1.0,Yes,Yes,Yes,Up to date,40.0,73,Infection
+Goat,9.5,No,Yes,No,Up to date,37.6,68,Minor Illness
+Buffalo,6.7,No,No,No,Up to date,41.2,80,Healthy
+Cow,3.1,No,No,Yes,Up to date,37.6,45,Minor Illness
+Sheep,6.8,No,Yes,No,Not up to date,39.4,71,Minor Illness
+Goat,5.6,Yes,No,Yes,Up to date,37.8,64,Minor Illness
+Goat,7.1,Yes,Yes,Yes,Up to date,37.7,70,Infection
+Cow,5.9,No,Yes,Yes,Not up to date,41.5,42,Infection
+Goat,9.6,No,No,No,Up to date,40.5,60,Healthy
+Sheep,10.3,No,Yes,No,Up to date,39.5,90,Minor Illness
+Goat,8.2,No,Yes,No,Up to date,40.1,59,Minor Illness
+Cow,5.0,Yes,No,Yes,Not up to date,38.5,69,Minor Illness
+Goat,1.6,No,Yes,No,Up to date,38.7,59,Minor Illness
+Sheep,11.0,No,No,No,Up to date,37.7,71,Healthy
+Sheep,5.5,No,No,Yes,Up to date,38.8,82,Minor Illness
+Goat,4.4,Yes,Yes,Yes,Not up to date,40.7,43,FMD
+Goat,11.2,No,Yes,No,Not up to date,38.2,40,Minor Illness
+Buffalo,5.8,Yes,No,No,Up to date,39.1,81,Minor Illness
+Sheep,7.1,Yes,No,Yes,Up to date,40.1,52,FMD
+Goat,10.8,No,No,No,Not up to date,41.1,89,Healthy
+Buffalo,2.7,No,No,No,Not up to date,38.1,74,Healthy
+Goat,4.2,No,No,Yes,Up to date,40.2,80,Minor Illness
+Buffalo,5.8,No,Yes,No,Not up to date,39.0,70,Minor Illness
+Sheep,9.2,Yes,Yes,Yes,Up to date,37.7,79,Infection
+Buffalo,1.0,Yes,Yes,No,Up to date,39.2,68,Minor Illness
+Sheep,3.7,Yes,No,No,Up to date,40.1,87,FMD
+Goat,11.7,Yes,Yes,Yes,Up to date,39.8,41,Infection
+Cow,4.3,Yes,No,No,Not up to date,41.4,76,FMD
+Sheep,8.1,No,No,Yes,Not up to date,37.8,80,Minor Illness
+Buffalo,11.0,Yes,No,Yes,Up to date,39.2,82,Minor Illness
+Cow,8.7,No,Yes,Yes,Not up to date,39.6,57,Infection
+Cow,10.5,No,No,No,Up to date,38.4,40,Healthy
+Cow,7.3,Yes,No,Yes,Up to date,39.7,90,Minor Illness
+Sheep,7.1,Yes,Yes,No,Up to date,40.9,83,FMD
+Buffalo,0.6,No,No,No,Up to date,38.7,72,Healthy
+Cow,11.7,No,Yes,No,Up to date,40.8,80,Minor Illness
+Goat,5.7,Yes,Yes,No,Not up to date,39.0,61,Minor Illness
+Goat,1.2,Yes,No,Yes,Not up to date,39.3,49,Minor Illness
+Sheep,9.7,Yes,No,No,Not up to date,40.9,54,Lumpy Skin Disease
+Sheep,6.9,No,Yes,No,Up to date,40.7,63,Minor Illness
+Cow,3.1,Yes,Yes,Yes,Not up to date,37.5,80,Infection
+Cow,3.1,No,Yes,Yes,Not up to date,38.7,89,Infection
+Cow,10.5,Yes,No,Yes,Up to date,39.1,77,Minor Illness
+Buffalo,8.3,No,No,No,Up to date,40.6,43,Healthy
+Buffalo,9.5,No,Yes,Yes,Up to date,37.7,40,Infection
+Cow,6.8,No,Yes,Yes,Up to date,39.4,75,Infection
+Sheep,2.6,Yes,No,No,Up to date,39.6,56,Minor Illness
+Buffalo,8.0,No,Yes,Yes,Up to date,40.7,42,Infection
+Goat,10.4,Yes,No,Yes,Not up to date,40.2,71,FMD
+Sheep,3.7,No,Yes,Yes,Up to date,40.9,78,Infection
+Buffalo,4.4,No,Yes,Yes,Not up to date,39.4,42,Infection
+Sheep,7.8,No,No,No,Up to date,39.1,82,Healthy
+Sheep,7.1,No,Yes,Yes,Not up to date,37.9,90,Infection
+Goat,3.0,No,Yes,Yes,Not up to date,38.1,60,Infection
+Sheep,1.6,Yes,No,Yes,Up to date,40.1,68,FMD
+Buffalo,3.9,Yes,Yes,Yes,Not up to date,39.1,80,Infection
+Cow,8.8,No,Yes,No,Up to date,41.0,75,Minor Illness
+Sheep,1.5,Yes,Yes,No,Up to date,40.5,86,FMD
+Cow,6.9,No,No,No,Up to date,37.6,55,Healthy
+Goat,1.9,No,Yes,Yes,Not up to date,41.0,46,Infection
+Sheep,7.5,Yes,No,Yes,Not up to date,40.1,89,FMD
+Buffalo,9.9,Yes,No,Yes,Not up to date,39.3,54,Minor Illness
+Buffalo,1.2,No,Yes,Yes,Up to date,40.6,82,Infection
+Sheep,7.3,Yes,No,Yes,Up to date,39.8,90,Minor Illness
+Goat,11.0,No,No,Yes,Up to date,38.3,56,Minor Illness
+Cow,9.0,No,No,Yes,Up to date,40.5,51,Minor Illness
+Goat,1.7,Yes,Yes,No,Not up to date,40.6,54,Lumpy Skin Disease
+Buffalo,1.9,Yes,No,Yes,Up to date,37.8,62,Minor Illness
+Buffalo,7.4,Yes,Yes,Yes,Up to date,41.1,45,FMD
+Sheep,8.3,Yes,No,No,Up to date,40.8,89,Lumpy Skin Disease
+Cow,2.7,Yes,No,Yes,Not up to date,39.0,89,Minor Illness
+Goat,10.6,No,No,Yes,Not up to date,39.5,61,Minor Illness
+Sheep,10.9,No,Yes,No,Up to date,38.8,60,Minor Illness
+Cow,0.6,No,Yes,No,Up to date,38.6,90,Minor Illness
+Buffalo,9.5,Yes,No,Yes,Not up to date,41.5,79,Lumpy Skin Disease
+Sheep,3.5,No,No,Yes,Up to date,39.4,58,Minor Illness
+Buffalo,7.9,No,Yes,No,Not up to date,39.1,61,Minor Illness
+Buffalo,3.0,No,Yes,Yes,Up to date,38.1,77,Infection
+Buffalo,7.2,No,Yes,No,Up to date,38.3,79,Minor Illness
+Goat,7.2,No,No,Yes,Not up to date,41.5,70,Minor Illness
+Goat,2.2,Yes,Yes,Yes,Not up to date,38.5,70,Infection
+Cow,6.5,No,No,No,Not up to date,39.2,82,Healthy
+Goat,2.7,Yes,Yes,Yes,Not up to date,40.0,65,Infection
+Cow,9.1,No,Yes,Yes,Not up to date,38.7,57,Infection
+Buffalo,6.4,No,Yes,Yes,Up to date,38.3,57,Infection
+Buffalo,3.2,Yes,Yes,No,Not up to date,38.8,47,Minor Illness
+Buffalo,4.0,Yes,No,No,Not up to date,39.1,60,Minor Illness
+Sheep,8.0,Yes,Yes,Yes,Up to date,38.5,70,Infection
+Goat,7.2,Yes,No,Yes,Up to date,39.1,45,Minor Illness
+Buffalo,4.1,No,No,No,Up to date,39.4,46,Healthy
+Buffalo,11.7,Yes,Yes,No,Up to date,38.2,88,Minor Illness
+Goat,6.8,No,No,No,Up to date,39.2,58,Healthy
+Cow,4.6,No,No,No,Up to date,39.8,66,Healthy
+Buffalo,1.7,No,No,Yes,Not up to date,38.3,76,Minor Illness
+Cow,10.1,Yes,Yes,Yes,Not up to date,40.5,46,FMD
+Sheep,3.4,No,Yes,Yes,Not up to date,37.8,50,Infection
+Goat,9.0,No,No,Yes,Not up to date,38.0,84,Minor Illness
+Goat,10.4,No,Yes,Yes,Not up to date,39.7,63,Infection
+Sheep,8.3,Yes,Yes,Yes,Up to date,39.5,88,Infection
+Goat,7.2,Yes,No,Yes,Up to date,38.0,59,Minor Illness
+Cow,1.5,No,No,Yes,Up to date,39.4,76,Minor Illness
+Goat,2.7,No,Yes,Yes,Not up to date,40.5,70,Infection
+Buffalo,9.9,No,No,No,Up to date,38.7,77,Healthy
+Buffalo,4.3,No,No,No,Not up to date,39.0,59,Healthy
+Goat,11.6,No,No,No,Not up to date,41.1,68,Healthy
+Goat,5.1,Yes,Yes,No,Not up to date,39.5,85,Minor Illness
+Cow,4.4,No,No,No,Up to date,38.5,42,Healthy
+Goat,0.9,Yes,Yes,No,Up to date,37.9,84,Minor Illness
+Sheep,4.4,No,No,No,Not up to date,40.2,80,Healthy
+Cow,10.2,Yes,No,Yes,Up to date,39.9,59,Minor Illness
+Sheep,2.8,Yes,Yes,Yes,Up to date,40.4,85,FMD
+Sheep,7.2,No,No,Yes,Not up to date,38.7,41,Minor Illness
+Sheep,11.9,No,No,Yes,Not up to date,39.4,66,Minor Illness
+Buffalo,10.5,Yes,No,Yes,Not up to date,38.2,55,Minor Illness
+Buffalo,6.7,No,No,No,Not up to date,39.2,63,Healthy
+Cow,11.7,Yes,Yes,Yes,Not up to date,40.4,74,Lumpy Skin Disease
+Cow,4.9,Yes,No,Yes,Not up to date,39.3,68,Minor Illness
+Sheep,5.4,Yes,No,No,Not up to date,40.7,43,Lumpy Skin Disease
+Sheep,6.4,Yes,No,No,Not up to date,38.6,59,Minor Illness
+Goat,5.8,Yes,Yes,Yes,Not up to date,40.6,40,Lumpy Skin Disease
+Sheep,6.0,Yes,No,Yes,Up to date,38.8,40,Minor Illness
+Buffalo,6.8,Yes,Yes,No,Not up to date,41.0,56,FMD
+Sheep,6.3,Yes,Yes,Yes,Up to date,40.8,50,FMD
+Buffalo,4.1,No,Yes,No,Up to date,37.9,74,Minor Illness
+Cow,7.3,No,Yes,No,Up to date,39.8,61,Minor Illness
+Goat,1.0,Yes,No,Yes,Up to date,39.2,67,Minor Illness
+Sheep,10.1,No,No,No,Not up to date,41.1,71,Healthy
+Cow,1.3,Yes,Yes,No,Up to date,41.2,50,FMD
+Cow,10.7,Yes,Yes,No,Not up to date,39.8,88,Minor Illness
+Goat,5.1,Yes,Yes,No,Not up to date,41.0,77,FMD
+Buffalo,5.4,Yes,No,Yes,Up to date,41.3,74,Lumpy Skin Disease
+Sheep,6.6,No,No,Yes,Not up to date,38.7,56,Minor Illness
+Sheep,11.3,Yes,Yes,No,Not up to date,39.6,41,Minor Illness
+Cow,6.5,No,No,Yes,Up to date,38.4,53,Minor Illness
+Buffalo,0.6,No,No,Yes,Not up to date,39.5,88,Minor Illness
+Buffalo,2.5,No,Yes,No,Not up to date,37.6,65,Minor Illness
+Cow,4.3,Yes,No,No,Not up to date,40.0,70,Minor Illness
+Sheep,9.8,Yes,No,Yes,Up to date,40.1,55,Lumpy Skin Disease
+Sheep,1.4,No,No,Yes,Not up to date,37.5,84,Minor Illness
+Cow,6.9,Yes,Yes,Yes,Up to date,38.3,62,Infection
+Goat,10.6,Yes,No,No,Up to date,40.4,89,Lumpy Skin Disease
+Sheep,9.3,Yes,No,Yes,Up to date,37.8,90,Minor Illness
+Buffalo,6.7,Yes,Yes,Yes,Up to date,37.7,77,Infection
+Goat,2.4,No,No,No,Not up to date,40.2,70,Healthy
+Goat,10.3,Yes,Yes,Yes,Not up to date,40.1,40,Lumpy Skin Disease
+Goat,9.9,No,No,Yes,Up to date,39.4,63,Minor Illness
+Sheep,5.4,Yes,No,Yes,Up to date,40.6,74,Lumpy Skin Disease
+Goat,7.5,Yes,No,Yes,Up to date,38.1,43,Minor Illness
+Cow,11.7,Yes,No,No,Not up to date,41.1,48,FMD
+Cow,3.5,No,Yes,No,Not up to date,38.6,76,Minor Illness
+Sheep,10.2,No,Yes,Yes,Not up to date,41.4,68,Infection
+Cow,2.1,Yes,Yes,Yes,Not up to date,38.2,49,Infection
+Goat,3.7,No,No,No,Up to date,41.3,83,Healthy
+Goat,6.3,No,Yes,No,Not up to date,40.1,77,Minor Illness
+Goat,8.2,Yes,No,No,Up to date,39.5,74,Minor Illness
+Buffalo,9.9,No,Yes,Yes,Up to date,39.5,59,Infection
+Sheep,2.3,Yes,Yes,No,Not up to date,38.6,71,Minor Illness
+Goat,6.3,No,Yes,Yes,Up to date,39.8,82,Infection
+Sheep,8.5,Yes,Yes,No,Up to date,39.9,41,Minor Illness
+Buffalo,10.7,No,Yes,Yes,Not up to date,40.3,55,Infection
+Buffalo,11.4,No,Yes,No,Up to date,39.6,43,Minor Illness
+Buffalo,2.3,No,Yes,No,Up to date,40.2,46,Minor Illness
+Buffalo,3.7,No,No,Yes,Up to date,39.9,58,Minor Illness
+Buffalo,4.6,No,No,No,Up to date,40.0,88,Healthy
+Goat,6.6,No,No,No,Up to date,40.9,70,Healthy
+Buffalo,9.9,Yes,Yes,No,Not up to date,38.8,45,Minor Illness
+Buffalo,5.4,Yes,Yes,Yes,Up to date,38.9,67,Infection
+Buffalo,3.9,No,No,Yes,Not up to date,41.3,42,Minor Illness
+Cow,1.2,Yes,No,Yes,Up to date,39.7,80,Minor Illness
+Goat,11.4,No,No,No,Not up to date,37.7,57,Healthy
+Buffalo,5.0,No,No,No,Not up to date,39.7,59,Healthy
+Buffalo,9.4,No,Yes,Yes,Not up to date,40.5,82,Infection
+Sheep,2.5,No,No,No,Up to date,39.9,49,Healthy
+Sheep,6.3,No,Yes,Yes,Not up to date,41.4,72,Infection
+Buffalo,1.6,Yes,No,No,Up to date,38.5,41,Minor Illness
+Buffalo,9.7,No,No,No,Not up to date,39.4,64,Healthy
+Cow,4.9,No,No,No,Up to date,39.0,50,Healthy
+Sheep,3.1,Yes,No,Yes,Not up to date,38.4,70,Minor Illness
+Buffalo,7.3,Yes,Yes,No,Up to date,40.0,78,Minor Illness
+Goat,2.3,Yes,No,No,Not up to date,38.3,85,Minor Illness
+Sheep,4.2,No,No,Yes,Not up to date,40.4,54,Minor Illness
+Cow,7.9,Yes,No,No,Not up to date,38.1,82,Minor Illness
+Cow,2.8,Yes,Yes,Yes,Not up to date,38.6,46,Infection
+Cow,9.5,Yes,No,Yes,Up to date,38.3,88,Minor Illness
+Buffalo,11.6,Yes,No,No,Up to date,40.0,62,Minor Illness
+Goat,7.5,No,Yes,Yes,Not up to date,38.1,66,Infection
+Sheep,8.3,No,Yes,No,Not up to date,40.6,71,Minor Illness
+Sheep,2.6,No,No,Yes,Not up to date,39.9,63,Minor Illness
+Buffalo,0.5,Yes,No,Yes,Up to date,41.1,56,FMD
+Sheep,10.0,No,Yes,Yes,Up to date,40.0,45,Infection
+Goat,2.1,No,Yes,Yes,Not up to date,38.4,89,Infection
+Sheep,6.8,Yes,Yes,Yes,Not up to date,39.7,87,Infection
+Goat,11.9,No,No,Yes,Not up to date,37.8,51,Minor Illness
+Buffalo,11.8,Yes,No,No,Not up to date,38.2,78,Minor Illness
+Cow,0.6,No,No,Yes,Up to date,41.3,79,Minor Illness
+Cow,4.9,No,No,No,Up to date,41.1,69,Healthy
+Buffalo,11.4,No,Yes,Yes,Not up to date,40.9,73,Infection
+Sheep,5.0,Yes,No,No,Up to date,40.8,46,Lumpy Skin Disease
+Goat,9.7,Yes,Yes,Yes,Up to date,40.7,69,FMD
+Goat,1.1,No,No,Yes,Not up to date,39.2,60,Minor Illness
+Sheep,5.5,No,Yes,No,Not up to date,37.9,55,Minor Illness
+Sheep,5.4,No,No,Yes,Not up to date,40.9,81,Minor Illness
+Buffalo,9.7,Yes,Yes,No,Up to date,40.8,71,Lumpy Skin Disease
+Cow,7.0,Yes,Yes,Yes,Up to date,39.7,76,Infection
+Sheep,6.6,Yes,No,No,Not up to date,40.6,83,FMD
+Goat,10.1,No,Yes,Yes,Up to date,41.2,52,Infection
+Goat,9.8,Yes,No,Yes,Not up to date,38.2,78,Minor Illness
+Goat,1.2,Yes,Yes,No,Not up to date,38.9,58,Minor Illness
+Cow,7.2,No,No,No,Not up to date,41.1,80,Healthy
+Cow,11.8,No,No,No,Up to date,40.7,58,Healthy
+Sheep,8.8,Yes,No,No,Not up to date,39.8,44,Minor Illness
+Cow,2.9,No,Yes,No,Not up to date,39.7,51,Minor Illness
+Goat,8.8,No,Yes,No,Up to date,38.2,75,Minor Illness
+Cow,5.7,No,Yes,Yes,Not up to date,40.0,86,Infection
+Sheep,9.8,No,No,No,Not up to date,39.3,61,Healthy
+Sheep,1.0,Yes,Yes,No,Up to date,38.7,79,Minor Illness
+Sheep,1.6,No,No,Yes,Up to date,38.8,45,Minor Illness
+Buffalo,9.4,Yes,No,Yes,Up to date,38.1,72,Minor Illness
+Goat,3.2,Yes,Yes,No,Not up to date,38.0,88,Minor Illness
+Sheep,4.7,Yes,Yes,Yes,Up to date,40.6,62,Lumpy Skin Disease
+Cow,0.8,No,No,No,Not up to date,39.2,62,Healthy
+Sheep,6.0,No,No,No,Up to date,39.2,86,Healthy
+Buffalo,8.4,Yes,Yes,Yes,Not up to date,41.1,58,FMD
+Cow,3.2,Yes,No,Yes,Up to date,38.6,50,Minor Illness
+Sheep,10.6,No,No,Yes,Up to date,40.5,79,Minor Illness
+Buffalo,9.4,Yes,Yes,Yes,Not up to date,39.6,84,Infection
+Cow,6.9,Yes,Yes,No,Not up to date,37.5,84,Minor Illness
+Goat,3.0,Yes,No,No,Up to date,39.3,82,Minor Illness
+Buffalo,10.8,No,No,Yes,Up to date,39.8,89,Minor Illness
+Sheep,11.8,Yes,No,Yes,Not up to date,40.0,47,Minor Illness
+Sheep,4.1,Yes,No,Yes,Up to date,40.3,56,Lumpy Skin Disease
+Buffalo,11.4,Yes,Yes,Yes,Not up to date,40.3,61,Lumpy Skin Disease
+Sheep,8.5,Yes,Yes,Yes,Not up to date,38.3,81,Infection
+Sheep,11.1,No,No,No,Not up to date,39.4,41,Healthy
+Buffalo,5.3,Yes,Yes,No,Not up to date,37.5,62,Minor Illness
+Goat,3.7,No,Yes,No,Not up to date,41.3,88,Minor Illness
+Cow,1.3,No,Yes,No,Up to date,38.7,53,Minor Illness
+Buffalo,8.4,No,Yes,No,Up to date,40.6,43,Minor Illness
+Sheep,8.8,No,No,Yes,Not up to date,40.2,78,Minor Illness
+Sheep,9.7,No,Yes,Yes,Not up to date,38.5,61,Infection
+Cow,3.2,No,No,No,Up to date,38.5,83,Healthy
+Buffalo,11.8,Yes,Yes,No,Up to date,40.3,84,Lumpy Skin Disease
+Sheep,3.5,No,No,Yes,Up to date,40.5,70,Minor Illness
+Cow,9.2,No,No,Yes,Up to date,38.5,73,Minor Illness
+Buffalo,7.9,No,Yes,No,Not up to date,39.5,85,Minor Illness
+Goat,4.4,No,No,No,Not up to date,39.0,51,Healthy
+Sheep,3.8,No,No,No,Not up to date,37.7,45,Healthy
+Sheep,11.9,Yes,No,No,Up to date,40.6,44,Lumpy Skin Disease
+Buffalo,5.3,Yes,Yes,No,Not up to date,37.9,71,Minor Illness
+Cow,11.0,No,Yes,No,Up to date,37.9,71,Minor Illness
+Buffalo,9.1,Yes,Yes,No,Not up to date,41.2,87,Lumpy Skin Disease
+Cow,11.4,Yes,Yes,No,Not up to date,37.7,72,Minor Illness
+Goat,4.1,Yes,Yes,Yes,Up to date,39.1,52,Infection
+Sheep,7.4,No,No,Yes,Up to date,38.2,43,Minor Illness
+Cow,11.2,Yes,No,No,Not up to date,37.9,65,Minor Illness
+Goat,7.5,Yes,Yes,No,Not up to date,37.8,61,Minor Illness
+Goat,7.7,Yes,Yes,No,Up to date,38.5,87,Minor Illness
+Buffalo,2.6,Yes,No,No,Not up to date,39.7,89,Minor Illness
+Cow,8.6,No,Yes,No,Up to date,39.9,42,Minor Illness
+Cow,7.4,Yes,Yes,No,Not up to date,40.5,68,Lumpy Skin Disease
+Goat,3.3,No,Yes,Yes,Not up to date,41.2,57,Infection
+Goat,3.8,No,No,Yes,Not up to date,37.8,60,Minor Illness
+Goat,8.8,No,Yes,Yes,Not up to date,41.1,52,Infection
+Cow,10.4,No,Yes,No,Up to date,40.0,51,Minor Illness
+Cow,6.9,Yes,No,No,Up to date,40.5,70,Lumpy Skin Disease
+Buffalo,2.9,Yes,No,No,Up to date,40.4,89,Lumpy Skin Disease
+Sheep,1.4,No,Yes,No,Not up to date,38.3,46,Minor Illness
+Goat,10.4,Yes,No,Yes,Up to date,38.3,42,Minor Illness
+Buffalo,7.4,No,No,Yes,Not up to date,40.0,61,Minor Illness
+Buffalo,2.5,No,No,Yes,Not up to date,40.6,53,Minor Illness
+Sheep,4.8,No,No,Yes,Not up to date,41.4,86,Minor Illness
+Goat,3.3,Yes,No,No,Not up to date,37.6,84,Minor Illness
+Sheep,5.2,Yes,No,No,Up to date,39.8,70,Minor Illness
+Buffalo,11.0,No,No,Yes,Not up to date,39.8,64,Minor Illness
+Buffalo,7.0,No,Yes,No,Up to date,38.3,42,Minor Illness
+Goat,2.6,No,No,Yes,Up to date,37.9,43,Minor Illness
+Buffalo,1.4,No,Yes,Yes,Up to date,37.9,66,Infection
+Buffalo,7.9,Yes,Yes,Yes,Up to date,40.5,51,FMD
+Cow,0.8,Yes,No,Yes,Not up to date,39.8,46,Minor Illness
+Cow,3.0,No,No,No,Not up to date,39.3,79,Healthy
+Sheep,10.9,Yes,No,No,Not up to date,39.7,40,Minor Illness
+Sheep,1.8,Yes,Yes,No,Up to date,37.6,48,Minor Illness
+Sheep,0.7,Yes,Yes,No,Not up to date,38.8,49,Minor Illness
+Cow,10.7,Yes,Yes,No,Not up to date,37.8,81,Minor Illness
+Cow,6.3,No,Yes,Yes,Up to date,38.6,66,Infection
+Cow,8.9,No,Yes,Yes,Up to date,40.9,62,Infection
+Goat,2.7,Yes,No,Yes,Up to date,37.6,44,Minor Illness
+Cow,11.5,Yes,Yes,No,Not up to date,39.0,82,Minor Illness
+Goat,2.4,No,No,Yes,Up to date,39.7,66,Minor Illness
+Goat,7.4,No,Yes,No,Not up to date,41.3,61,Minor Illness
+Goat,6.1,Yes,Yes,No,Not up to date,41.2,48,FMD
+Buffalo,9.8,Yes,Yes,Yes,Not up to date,41.4,65,FMD
+Goat,10.4,No,Yes,No,Not up to date,40.5,44,Minor Illness
+Buffalo,11.4,Yes,No,Yes,Not up to date,41.1,89,Lumpy Skin Disease
+Sheep,8.3,No,No,No,Not up to date,40.4,46,Healthy
+Goat,2.9,No,No,Yes,Up to date,37.7,47,Minor Illness
+Goat,4.4,No,No,No,Not up to date,38.5,75,Healthy
+Sheep,2.1,No,Yes,Yes,Up to date,41.2,51,Infection
+Buffalo,10.3,No,Yes,No,Not up to date,40.9,58,Minor Illness
+Sheep,1.1,No,Yes,No,Not up to date,40.9,64,Minor Illness
+Goat,8.4,No,No,Yes,Up to date,40.9,56,Minor Illness
+Sheep,1.5,No,No,No,Not up to date,40.6,55,Healthy
+Cow,4.7,No,No,Yes,Up to date,40.2,53,Minor Illness
+Sheep,10.0,Yes,Yes,No,Up to date,37.9,46,Minor Illness
+Cow,7.8,Yes,Yes,Yes,Up to date,40.3,84,FMD
+Cow,10.1,No,Yes,Yes,Not up to date,40.7,76,Infection
+Goat,7.4,Yes,No,No,Not up to date,40.0,66,Minor Illness
+Buffalo,0.6,Yes,No,No,Up to date,38.1,42,Minor Illness
+Buffalo,11.7,No,Yes,Yes,Not up to date,38.9,44,Infection
+Cow,7.1,Yes,Yes,No,Not up to date,40.7,56,Lumpy Skin Disease
+Buffalo,3.9,No,Yes,No,Up to date,38.3,50,Minor Illness
+Cow,2.6,Yes,Yes,Yes,Up to date,41.2,54,FMD
+Sheep,9.6,No,No,Yes,Not up to date,40.5,73,Minor Illness
+Buffalo,7.9,Yes,No,Yes,Not up to date,37.6,72,Minor Illness
+Goat,4.8,No,No,Yes,Up to date,37.9,82,Minor Illness
+Sheep,2.0,No,Yes,No,Not up to date,41.2,51,Minor Illness
+Buffalo,6.5,No,No,Yes,Not up to date,37.7,90,Minor Illness
+Buffalo,7.1,No,Yes,No,Not up to date,38.7,70,Minor Illness
+Buffalo,9.0,Yes,Yes,Yes,Not up to date,40.3,81,Lumpy Skin Disease
+Goat,9.7,No,Yes,Yes,Not up to date,38.0,74,Infection
+Cow,3.5,Yes,Yes,Yes,Up to date,41.4,71,FMD
+Buffalo,7.2,Yes,No,Yes,Not up to date,37.6,77,Minor Illness
+Sheep,10.9,No,No,Yes,Up to date,37.7,55,Minor Illness
+Buffalo,8.6,Yes,No,No,Not up to date,38.7,44,Minor Illness
+Goat,11.2,Yes,Yes,Yes,Up to date,38.5,54,Infection
+Goat,5.6,No,No,Yes,Not up to date,41.0,45,Minor Illness
+Buffalo,11.9,No,No,No,Up to date,37.6,56,Healthy
+Goat,3.4,No,No,No,Not up to date,38.1,53,Healthy
+Cow,2.5,No,No,No,Not up to date,38.7,89,Healthy
+Goat,1.6,No,No,Yes,Up to date,38.7,65,Minor Illness
+Goat,11.3,Yes,No,Yes,Up to date,39.5,61,Minor Illness
+Goat,0.6,Yes,Yes,No,Not up to date,40.2,49,FMD
+Sheep,3.2,No,No,No,Up to date,38.3,49,Healthy
+Cow,1.7,No,No,No,Up to date,39.3,65,Healthy
+Buffalo,8.2,Yes,Yes,Yes,Up to date,37.6,85,Infection
+Cow,11.8,Yes,No,No,Not up to date,40.5,59,FMD
+Cow,2.8,No,Yes,Yes,Not up to date,38.5,83,Infection
+Sheep,3.9,Yes,No,No,Up to date,38.5,54,Minor Illness
+Goat,1.4,Yes,Yes,No,Up to date,41.4,83,Lumpy Skin Disease
+Buffalo,9.7,No,Yes,No,Up to date,40.3,47,Minor Illness
+Buffalo,10.5,Yes,Yes,Yes,Not up to date,41.1,89,FMD
+Sheep,10.5,No,Yes,Yes,Not up to date,40.8,83,Infection
+Buffalo,6.5,Yes,No,Yes,Not up to date,39.2,67,Minor Illness
+Sheep,9.9,Yes,No,Yes,Not up to date,40.2,80,Lumpy Skin Disease
+Goat,10.2,No,Yes,No,Not up to date,41.5,60,Minor Illness
+Cow,10.7,No,No,Yes,Not up to date,40.4,52,Minor Illness
+Buffalo,0.8,No,No,Yes,Not up to date,37.6,48,Minor Illness
+Buffalo,2.4,Yes,Yes,No,Not up to date,39.7,66,Minor Illness
+Buffalo,8.7,No,No,No,Not up to date,37.8,69,Healthy
+Buffalo,9.9,No,No,No,Not up to date,38.4,62,Healthy
+Cow,3.5,Yes,No,Yes,Up to date,40.7,81,Lumpy Skin Disease
+Cow,6.0,Yes,Yes,No,Not up to date,39.5,56,Minor Illness
+Cow,3.5,No,No,No,Not up to date,40.8,75,Healthy
+Cow,8.6,No,Yes,No,Up to date,39.4,83,Minor Illness
+Goat,7.8,No,No,Yes,Up to date,41.2,59,Minor Illness
+Buffalo,3.3,No,Yes,No,Not up to date,41.4,80,Minor Illness
+Goat,1.2,No,No,Yes,Up to date,38.6,52,Minor Illness
+Sheep,10.7,Yes,No,No,Not up to date,40.3,50,Lumpy Skin Disease
+Buffalo,2.0,Yes,Yes,No,Up to date,38.6,64,Minor Illness
+Goat,11.6,Yes,No,No,Up to date,39.9,57,Minor Illness
+Cow,2.4,Yes,No,Yes,Up to date,38.4,81,Minor Illness
+Cow,1.2,Yes,Yes,Yes,Up to date,40.7,65,Lumpy Skin Disease
+Buffalo,9.2,No,Yes,No,Not up to date,40.1,76,Minor Illness
+Cow,8.4,No,No,Yes,Up to date,38.4,68,Minor Illness
+Goat,8.5,Yes,No,No,Not up to date,39.2,82,Minor Illness
+Buffalo,3.6,No,No,No,Up to date,39.1,42,Healthy
+Cow,1.9,Yes,Yes,No,Not up to date,40.2,85,Lumpy Skin Disease
+Goat,11.9,No,Yes,Yes,Up to date,40.8,52,Infection
+Sheep,10.2,No,Yes,No,Not up to date,38.4,84,Minor Illness
+Goat,8.1,Yes,No,No,Not up to date,41.0,79,Lumpy Skin Disease
+Goat,1.6,Yes,Yes,Yes,Not up to date,37.8,47,Infection
+Cow,1.1,No,No,Yes,Not up to date,41.2,77,Minor Illness
+Buffalo,1.8,Yes,Yes,No,Not up to date,40.4,51,FMD
+Buffalo,9.9,Yes,No,No,Up to date,39.9,50,Minor Illness
+Goat,4.1,No,No,No,Not up to date,38.1,59,Healthy
+Cow,2.5,No,No,No,Up to date,38.7,90,Healthy
+Goat,8.7,No,No,Yes,Not up to date,40.8,76,Minor Illness
+Sheep,3.3,Yes,No,Yes,Not up to date,38.1,78,Minor Illness
+Cow,6.9,No,Yes,No,Up to date,41.0,65,Minor Illness
+Sheep,9.4,No,Yes,Yes,Not up to date,40.8,85,Infection
+Cow,7.8,Yes,Yes,No,Up to date,40.1,90,FMD
+Cow,9.9,No,Yes,No,Up to date,41.3,44,Minor Illness
+Cow,7.8,Yes,Yes,Yes,Up to date,40.3,57,FMD
+Goat,10.3,Yes,Yes,Yes,Up to date,40.8,63,FMD
+Goat,7.7,No,No,No,Up to date,37.6,48,Healthy
+Sheep,4.9,Yes,No,Yes,Not up to date,39.9,72,Minor Illness
+Sheep,1.5,Yes,No,Yes,Not up to date,37.5,86,Minor Illness
+Goat,1.2,No,Yes,No,Up to date,37.6,43,Minor Illness
+Cow,5.0,No,No,Yes,Not up to date,39.4,88,Minor Illness
+Goat,11.3,No,No,Yes,Not up to date,37.9,50,Minor Illness
+Buffalo,8.7,No,Yes,Yes,Not up to date,40.5,40,Infection
+Cow,5.0,No,No,Yes,Not up to date,41.0,43,Minor Illness
+Goat,8.0,No,Yes,No,Not up to date,40.0,60,Minor Illness
+Sheep,3.9,No,No,Yes,Not up to date,41.4,59,Minor Illness
+Sheep,2.1,Yes,No,No,Not up to date,38.5,70,Minor Illness
+Buffalo,6.4,Yes,No,Yes,Not up to date,38.0,71,Minor Illness
+Sheep,5.4,Yes,No,Yes,Not up to date,38.3,45,Minor Illness
+Cow,8.7,Yes,No,Yes,Not up to date,39.0,58,Minor Illness
+Cow,5.3,Yes,Yes,No,Up to date,38.7,48,Minor Illness
+Buffalo,5.4,Yes,Yes,No,Not up to date,37.5,50,Minor Illness
+Goat,10.5,No,Yes,Yes,Up to date,38.4,64,Infection
+Cow,3.6,No,No,Yes,Up to date,40.7,64,Minor Illness
+Buffalo,7.7,No,Yes,Yes,Up to date,40.2,58,Infection
+Buffalo,5.9,Yes,No,Yes,Up to date,41.1,69,FMD
+Buffalo,6.0,No,No,No,Not up to date,40.1,87,Healthy
+Buffalo,10.8,Yes,No,Yes,Up to date,40.9,85,Lumpy Skin Disease
+Buffalo,4.2,Yes,No,Yes,Not up to date,40.2,90,FMD
+Sheep,2.2,No,No,No,Up to date,41.4,40,Healthy
+Sheep,11.5,No,Yes,No,Up to date,38.5,41,Minor Illness
+Goat,10.8,No,Yes,Yes,Not up to date,41.0,57,Infection
+Buffalo,6.2,No,No,Yes,Not up to date,38.7,76,Minor Illness
+Buffalo,6.4,No,No,No,Up to date,41.1,64,Healthy
+Sheep,11.4,Yes,Yes,Yes,Up to date,41.1,75,FMD
+Goat,8.9,Yes,Yes,Yes,Not up to date,41.5,70,Lumpy Skin Disease
+Sheep,10.5,Yes,Yes,Yes,Not up to date,40.9,53,Lumpy Skin Disease
+Buffalo,8.6,Yes,Yes,Yes,Up to date,40.4,46,Lumpy Skin Disease
+Sheep,1.8,No,Yes,No,Up to date,40.3,85,Minor Illness
+Goat,3.5,Yes,Yes,Yes,Not up to date,37.9,89,Infection
+Buffalo,9.0,No,No,No,Up to date,39.0,73,Healthy
+Cow,1.4,No,No,Yes,Not up to date,38.4,67,Minor Illness
+Cow,10.7,Yes,Yes,No,Up to date,40.8,59,FMD
+Cow,1.5,No,No,Yes,Up to date,39.5,46,Minor Illness
+Cow,1.7,Yes,Yes,No,Up to date,37.8,82,Minor Illness
+Sheep,4.8,Yes,No,No,Up to date,40.7,51,FMD
+Cow,11.8,Yes,Yes,No,Not up to date,37.9,49,Minor Illness
+Cow,4.2,Yes,No,No,Not up to date,41.4,47,Lumpy Skin Disease
+Goat,9.4,Yes,No,No,Not up to date,37.6,71,Minor Illness
+Sheep,8.8,Yes,No,Yes,Up to date,37.8,60,Minor Illness
+Goat,2.5,No,Yes,Yes,Up to date,39.4,52,Infection
+Sheep,7.3,No,No,No,Up to date,38.5,68,Healthy
+Cow,0.7,Yes,No,No,Not up to date,39.3,87,Minor Illness
+Goat,8.2,Yes,Yes,Yes,Not up to date,41.4,70,Lumpy Skin Disease
+Buffalo,5.0,Yes,Yes,Yes,Up to date,38.3,52,Infection
+Buffalo,3.2,No,No,No,Up to date,37.8,87,Healthy
+Goat,8.5,No,No,Yes,Up to date,38.5,72,Minor Illness
+Buffalo,7.0,No,No,Yes,Not up to date,39.1,66,Minor Illness
+Sheep,10.3,No,No,Yes,Not up to date,41.1,90,Minor Illness
+Goat,2.2,No,No,No,Up to date,37.8,85,Healthy
+Buffalo,7.2,No,Yes,Yes,Up to date,39.4,48,Infection
+Sheep,4.0,No,No,No,Up to date,40.4,82,Healthy
+Cow,4.4,Yes,Yes,Yes,Not up to date,39.9,84,Infection
+Buffalo,8.0,No,No,No,Up to date,39.3,87,Healthy
+Buffalo,7.4,No,No,No,Not up to date,37.7,69,Healthy
+Goat,6.6,No,Yes,No,Up to date,40.8,60,Minor Illness
+Cow,1.5,Yes,Yes,Yes,Up to date,39.0,75,Infection
+Sheep,0.9,No,No,Yes,Not up to date,37.8,64,Minor Illness
+Cow,1.3,Yes,No,No,Not up to date,38.1,68,Minor Illness
+Goat,3.8,No,No,Yes,Not up to date,40.4,68,Minor Illness
+Buffalo,0.9,Yes,No,Yes,Not up to date,39.3,49,Minor Illness
+Sheep,1.1,No,No,No,Up to date,40.8,88,Healthy
+Goat,3.4,Yes,No,Yes,Up to date,41.4,42,Lumpy Skin Disease
+Buffalo,3.0,Yes,Yes,Yes,Not up to date,38.0,41,Infection
+Cow,4.5,Yes,No,No,Not up to date,41.5,50,Lumpy Skin Disease
+Cow,9.2,Yes,Yes,Yes,Up to date,39.8,70,Infection
+Cow,2.5,Yes,No,No,Not up to date,41.2,62,Lumpy Skin Disease
+Goat,6.8,No,No,Yes,Not up to date,40.6,72,Minor Illness
+Goat,9.7,Yes,Yes,Yes,Not up to date,37.8,82,Infection
+Cow,0.8,Yes,Yes,No,Not up to date,39.0,90,Minor Illness
+Sheep,3.6,No,Yes,No,Up to date,41.4,68,Minor Illness
+Goat,9.5,Yes,No,No,Not up to date,38.0,78,Minor Illness
+Sheep,1.2,No,Yes,No,Up to date,39.7,48,Minor Illness
+Sheep,3.4,Yes,Yes,Yes,Not up to date,37.9,85,Infection
+Goat,2.7,No,Yes,Yes,Up to date,38.1,86,Infection
+Sheep,10.7,Yes,No,Yes,Not up to date,38.5,47,Minor Illness
+Sheep,4.0,Yes,No,No,Up to date,38.8,52,Minor Illness
+Buffalo,2.7,No,Yes,Yes,Not up to date,41.2,51,Infection
+Goat,11.0,No,Yes,No,Up to date,40.4,57,Minor Illness
+Cow,9.8,No,Yes,No,Not up to date,39.5,77,Minor Illness
+Goat,2.2,No,Yes,No,Up to date,41.3,72,Minor Illness
+Buffalo,4.2,No,Yes,No,Not up to date,38.2,82,Minor Illness
+Cow,4.4,Yes,Yes,Yes,Not up to date,39.4,88,Infection
+Cow,4.0,No,No,Yes,Up to date,40.4,52,Minor Illness
+Buffalo,2.5,No,No,Yes,Not up to date,39.4,41,Minor Illness
+Goat,2.8,Yes,Yes,Yes,Not up to date,38.9,72,Infection
+Cow,1.5,No,Yes,Yes,Not up to date,38.7,50,Infection
+Cow,9.9,Yes,No,Yes,Up to date,40.7,89,FMD
+Buffalo,5.6,Yes,No,Yes,Not up to date,37.6,72,Minor Illness
+Sheep,11.4,No,Yes,No,Up to date,38.4,80,Minor Illness
+Cow,9.3,Yes,Yes,Yes,Not up to date,37.9,45,Infection
+Goat,0.8,No,Yes,No,Not up to date,38.7,69,Minor Illness
+Sheep,7.6,No,Yes,No,Not up to date,39.9,78,Minor Illness
+Sheep,10.0,No,No,No,Up to date,39.5,40,Healthy
+Cow,2.5,No,No,No,Not up to date,37.6,40,Healthy
+Buffalo,6.4,Yes,No,No,Up to date,40.2,46,FMD
+Goat,7.5,No,No,Yes,Up to date,37.7,45,Minor Illness
+Sheep,7.9,Yes,No,No,Up to date,38.6,81,Minor Illness
+Buffalo,4.5,Yes,No,No,Not up to date,39.5,62,Minor Illness
+Goat,3.5,No,Yes,No,Not up to date,37.8,89,Minor Illness
+Cow,4.2,Yes,No,No,Not up to date,38.6,44,Minor Illness
+Buffalo,3.7,No,No,No,Up to date,39.0,64,Healthy
+Buffalo,3.7,Yes,Yes,No,Up to date,40.0,68,Minor Illness
+Sheep,3.2,No,No,No,Up to date,41.2,51,Healthy
+Sheep,3.3,No,Yes,Yes,Not up to date,38.1,54,Infection
+Sheep,10.6,Yes,No,Yes,Up to date,39.3,54,Minor Illness
+Goat,9.6,Yes,No,No,Not up to date,40.3,89,FMD
+Sheep,6.9,No,Yes,Yes,Not up to date,39.7,62,Infection
+Goat,5.9,Yes,No,No,Not up to date,39.6,44,Minor Illness
+Buffalo,0.7,Yes,Yes,Yes,Not up to date,41.0,51,Lumpy Skin Disease
+Goat,10.0,Yes,No,Yes,Not up to date,37.9,82,Minor Illness
+Cow,7.1,No,Yes,No,Up to date,38.1,71,Minor Illness
+Sheep,7.5,Yes,Yes,No,Not up to date,37.6,51,Minor Illness
+Buffalo,2.4,Yes,No,No,Up to date,39.4,90,Minor Illness
+Cow,6.0,Yes,No,No,Not up to date,38.1,40,Minor Illness
+Buffalo,8.1,Yes,Yes,Yes,Up to date,40.5,90,Lumpy Skin Disease
+Cow,2.8,Yes,No,No,Not up to date,40.9,76,Lumpy Skin Disease
+Goat,11.3,No,No,Yes,Not up to date,37.7,46,Minor Illness
+Goat,1.5,No,No,Yes,Not up to date,37.9,60,Minor Illness
+Buffalo,1.5,Yes,Yes,No,Up to date,38.0,56,Minor Illness
+Buffalo,5.5,Yes,Yes,Yes,Not up to date,40.6,90,FMD
+Sheep,10.1,No,No,No,Up to date,40.4,84,Healthy
+Goat,9.8,Yes,No,Yes,Up to date,39.8,40,Minor Illness
+Sheep,1.5,No,Yes,Yes,Up to date,38.7,43,Infection
+Goat,8.7,Yes,Yes,Yes,Up to date,39.0,57,Infection
+Goat,3.4,Yes,Yes,No,Not up to date,37.8,50,Minor Illness
+Buffalo,2.5,Yes,Yes,Yes,Not up to date,37.8,61,Infection
+Buffalo,1.6,Yes,No,No,Up to date,39.6,75,Minor Illness
+Buffalo,8.4,Yes,No,No,Up to date,39.7,68,Minor Illness
+Sheep,10.7,No,Yes,Yes,Up to date,38.9,71,Infection
+Goat,9.4,No,Yes,Yes,Not up to date,38.4,56,Infection
+Cow,2.7,Yes,Yes,Yes,Not up to date,40.5,60,FMD
+Cow,9.6,No,Yes,No,Not up to date,39.4,86,Minor Illness
+Sheep,11.1,No,Yes,Yes,Up to date,40.4,63,Infection
+Cow,3.7,No,Yes,Yes,Not up to date,39.5,52,Infection
+Sheep,3.1,No,No,Yes,Up to date,39.8,76,Minor Illness
+Goat,3.9,No,No,Yes,Up to date,40.3,53,Minor Illness
+Sheep,6.3,No,No,No,Not up to date,37.9,81,Healthy
+Sheep,3.4,Yes,No,Yes,Not up to date,40.7,85,FMD
+Cow,11.7,Yes,Yes,No,Not up to date,37.8,90,Minor Illness
+Sheep,11.1,No,No,Yes,Not up to date,40.7,50,Minor Illness
+Sheep,1.1,Yes,Yes,No,Up to date,40.2,49,FMD
+Sheep,11.4,No,Yes,Yes,Up to date,37.7,64,Infection
+Sheep,11.1,Yes,Yes,No,Not up to date,41.0,45,Lumpy Skin Disease
+Goat,8.0,No,Yes,Yes,Not up to date,38.5,65,Infection
+Goat,3.5,Yes,Yes,Yes,Not up to date,39.5,60,Infection
+Cow,8.2,Yes,Yes,No,Up to date,40.8,72,FMD
+Goat,8.4,No,No,No,Up to date,39.9,52,Healthy
+Goat,7.8,Yes,Yes,Yes,Not up to date,38.6,71,Infection
+Buffalo,7.8,Yes,No,No,Not up to date,38.9,68,Minor Illness
+Cow,5.0,No,No,Yes,Up to date,41.4,70,Minor Illness
+Cow,3.2,No,Yes,Yes,Not up to date,40.5,40,Infection
+Goat,5.2,Yes,Yes,No,Up to date,38.2,86,Minor Illness
+Cow,1.9,No,Yes,No,Not up to date,39.8,42,Minor Illness
+Goat,9.3,Yes,No,Yes,Up to date,39.5,78,Minor Illness
+Buffalo,0.5,Yes,Yes,Yes,Not up to date,39.9,76,Infection
+Goat,4.1,Yes,No,Yes,Up to date,41.4,50,Lumpy Skin Disease
+Goat,5.9,No,No,Yes,Not up to date,39.5,45,Minor Illness
+Sheep,10.0,No,Yes,No,Not up to date,39.2,83,Minor Illness
+Goat,9.7,Yes,Yes,No,Not up to date,39.8,58,Minor Illness
+Sheep,7.6,No,Yes,No,Not up to date,38.5,45,Minor Illness
+Sheep,7.7,Yes,No,Yes,Up to date,40.4,59,Lumpy Skin Disease
+Buffalo,3.7,Yes,No,Yes,Up to date,38.6,72,Minor Illness
+Goat,10.4,No,No,Yes,Not up to date,40.5,88,Minor Illness
+Sheep,3.9,Yes,No,No,Up to date,41.1,67,FMD
+Buffalo,11.0,No,Yes,Yes,Not up to date,39.3,48,Infection
+Cow,9.0,No,Yes,Yes,Up to date,39.3,58,Infection
+Goat,1.4,No,No,No,Up to date,39.3,85,Healthy
+Cow,7.3,No,Yes,No,Not up to date,37.7,90,Minor Illness
+Sheep,11.3,No,Yes,Yes,Not up to date,38.9,54,Infection
+Sheep,1.0,Yes,Yes,Yes,Up to date,39.9,48,Infection
+Cow,7.5,Yes,Yes,No,Not up to date,38.7,69,Minor Illness
+Sheep,1.3,Yes,No,Yes,Not up to date,38.0,70,Minor Illness
+Goat,6.6,Yes,Yes,No,Up to date,40.2,53,FMD
+Cow,0.7,Yes,Yes,Yes,Not up to date,40.7,86,Lumpy Skin Disease
+Cow,0.6,Yes,Yes,Yes,Up to date,37.5,70,Infection
+Buffalo,7.2,Yes,No,Yes,Up to date,38.5,60,Minor Illness
+Cow,1.6,No,Yes,Yes,Up to date,40.0,56,Infection
+Goat,5.7,No,No,No,Up to date,38.0,70,Healthy
+Buffalo,5.4,No,No,Yes,Up to date,37.9,53,Minor Illness
+Sheep,8.7,No,Yes,Yes,Not up to date,39.5,64,Infection
+Buffalo,4.7,Yes,No,No,Not up to date,38.9,44,Minor Illness
+Buffalo,3.1,Yes,Yes,No,Not up to date,38.8,88,Minor Illness
+Buffalo,4.7,Yes,No,No,Not up to date,39.0,82,Minor Illness
+Cow,10.9,Yes,No,No,Not up to date,38.3,53,Minor Illness
+Cow,3.6,No,No,Yes,Up to date,37.6,45,Minor Illness
+Buffalo,5.0,No,No,Yes,Up to date,41.3,82,Minor Illness
+Goat,3.5,No,Yes,Yes,Not up to date,37.8,70,Infection
+Cow,7.1,Yes,Yes,Yes,Not up to date,38.2,60,Infection
+Cow,8.1,Yes,Yes,Yes,Up to date,41.4,75,Lumpy Skin Disease
+Cow,11.6,No,Yes,No,Not up to date,41.4,75,Minor Illness
+Buffalo,1.9,No,Yes,Yes,Up to date,37.6,41,Infection
+Buffalo,11.9,Yes,No,Yes,Not up to date,39.1,90,Minor Illness
+Goat,6.0,Yes,Yes,Yes,Up to date,40.4,86,FMD
+Goat,8.1,No,Yes,No,Up to date,38.5,51,Minor Illness
+Cow,9.3,No,Yes,Yes,Not up to date,39.9,68,Infection
+Sheep,1.5,No,Yes,No,Up to date,40.9,90,Minor Illness
+Goat,7.5,Yes,No,Yes,Not up to date,39.5,68,Minor Illness
+Sheep,4.3,No,No,Yes,Not up to date,41.2,63,Minor Illness
+Sheep,7.8,Yes,No,No,Up to date,39.0,58,Minor Illness
+Cow,10.7,No,Yes,Yes,Not up to date,39.4,88,Infection
+Cow,9.5,Yes,No,Yes,Not up to date,41.3,42,Lumpy Skin Disease
+Cow,7.3,Yes,No,No,Not up to date,39.3,50,Minor Illness
+Buffalo,2.7,Yes,No,No,Not up to date,38.9,59,Minor Illness
+Cow,7.4,No,No,No,Up to date,39.8,56,Healthy
+Buffalo,7.5,No,Yes,No,Up to date,38.2,59,Minor Illness
+Goat,3.9,No,No,Yes,Not up to date,38.3,76,Minor Illness
+Goat,3.4,No,Yes,Yes,Not up to date,38.2,45,Infection
+Goat,6.1,No,Yes,No,Not up to date,40.7,45,Minor Illness
+Cow,2.7,Yes,Yes,Yes,Up to date,40.8,60,Lumpy Skin Disease
+Buffalo,7.6,Yes,Yes,Yes,Not up to date,40.4,53,Lumpy Skin Disease
+Sheep,1.9,Yes,No,Yes,Not up to date,40.4,90,Lumpy Skin Disease
+Buffalo,6.8,No,No,Yes,Up to date,39.5,56,Minor Illness
+Cow,1.1,Yes,No,No,Up to date,39.8,85,Minor Illness
+Goat,4.1,Yes,Yes,Yes,Not up to date,40.2,87,Lumpy Skin Disease
+Cow,10.9,No,No,Yes,Up to date,40.5,53,Minor Illness
+Cow,6.2,Yes,No,Yes,Not up to date,40.2,45,Lumpy Skin Disease
+Buffalo,5.2,No,No,No,Up to date,41.4,70,Healthy
+Sheep,10.4,No,Yes,Yes,Up to date,40.9,76,Infection
+Cow,7.3,No,No,Yes,Not up to date,37.8,70,Minor Illness
+Sheep,6.0,Yes,No,No,Not up to date,37.6,83,Minor Illness
+Sheep,9.5,Yes,No,Yes,Not up to date,40.8,46,Lumpy Skin Disease
+Sheep,9.6,No,Yes,No,Not up to date,41.3,72,Minor Illness
+Cow,2.7,Yes,No,No,Up to date,38.6,55,Minor Illness
+Sheep,2.7,Yes,Yes,Yes,Up to date,40.4,79,FMD
+Buffalo,10.8,Yes,No,Yes,Up to date,40.4,72,FMD
+Goat,7.7,No,Yes,Yes,Up to date,38.8,54,Infection
+Goat,9.2,Yes,No,Yes,Up to date,41.0,60,Lumpy Skin Disease
+Buffalo,5.5,Yes,Yes,Yes,Up to date,39.6,80,Infection
+Goat,8.6,No,Yes,Yes,Not up to date,39.5,75,Infection
+Sheep,2.4,Yes,No,Yes,Up to date,41.2,78,FMD
+Cow,3.3,No,No,Yes,Not up to date,41.3,75,Minor Illness
+Goat,4.9,No,Yes,Yes,Up to date,37.5,76,Infection
+Cow,5.2,No,No,No,Up to date,39.9,62,Healthy
+Goat,4.0,No,No,Yes,Up to date,39.9,63,Minor Illness
+Cow,2.4,Yes,No,Yes,Up to date,40.4,59,Lumpy Skin Disease
+Goat,6.6,No,Yes,Yes,Not up to date,38.7,55,Infection
+Sheep,11.4,No,No,Yes,Not up to date,40.9,67,Minor Illness
+Buffalo,4.2,No,Yes,No,Not up to date,41.1,55,Minor Illness
+Goat,0.9,No,No,Yes,Not up to date,38.1,74,Minor Illness
+Goat,3.4,Yes,No,No,Up to date,39.2,79,Minor Illness
+Sheep,9.5,Yes,No,Yes,Up to date,39.3,40,Minor Illness
+Buffalo,0.7,Yes,No,No,Up to date,38.8,67,Minor Illness
+Goat,6.1,No,Yes,Yes,Up to date,38.1,72,Infection
+Buffalo,6.1,Yes,Yes,Yes,Up to date,40.6,89,FMD
+Cow,11.5,Yes,Yes,Yes,Not up to date,37.5,48,Infection
+Goat,6.4,No,No,No,Up to date,39.5,61,Healthy
+Cow,10.7,No,No,Yes,Not up to date,39.3,66,Minor Illness
+Sheep,6.9,No,Yes,Yes,Up to date,38.3,83,Infection
+Buffalo,8.5,Yes,No,No,Not up to date,37.6,56,Minor Illness
+Sheep,1.6,Yes,Yes,Yes,Not up to date,38.4,41,Infection
+Sheep,5.0,No,No,Yes,Not up to date,39.4,78,Minor Illness
+Sheep,11.5,Yes,Yes,No,Not up to date,41.4,84,FMD
+Buffalo,7.0,Yes,No,Yes,Not up to date,39.2,78,Minor Illness
+Sheep,7.4,Yes,No,No,Not up to date,37.6,89,Minor Illness
+Sheep,2.1,Yes,No,Yes,Up to date,38.0,47,Minor Illness
+Buffalo,11.1,No,No,Yes,Not up to date,41.3,81,Minor Illness
+Cow,11.8,Yes,No,No,Up to date,38.8,46,Minor Illness
+Cow,11.3,Yes,Yes,No,Up to date,40.4,55,FMD
+Sheep,3.1,No,No,Yes,Up to date,38.2,47,Minor Illness
+Goat,6.3,Yes,No,Yes,Not up to date,40.0,63,Minor Illness
+Goat,10.2,No,Yes,No,Up to date,41.3,90,Minor Illness
+Buffalo,11.0,No,No,Yes,Up to date,40.8,44,Minor Illness
+Goat,11.6,Yes,Yes,Yes,Up to date,39.2,78,Infection
+Cow,11.2,Yes,Yes,Yes,Not up to date,40.6,75,FMD
+Buffalo,8.6,Yes,Yes,No,Up to date,39.8,65,Minor Illness
+Sheep,9.8,No,No,Yes,Not up to date,39.4,42,Minor Illness
+Goat,9.9,No,Yes,Yes,Not up to date,37.8,69,Infection
+Buffalo,5.8,Yes,No,Yes,Not up to date,37.8,52,Minor Illness
+Buffalo,4.6,No,No,Yes,Up to date,39.2,58,Minor Illness
+Cow,10.6,No,No,No,Up to date,41.3,87,Healthy
+Cow,6.3,Yes,No,No,Not up to date,38.4,65,Minor Illness
+Cow,6.3,No,No,Yes,Not up to date,39.8,42,Minor Illness
+Sheep,9.6,No,Yes,No,Not up to date,38.4,90,Minor Illness
+Buffalo,0.6,No,Yes,Yes,Up to date,39.3,70,Infection
+Cow,9.1,No,Yes,Yes,Up to date,40.1,47,Infection
+Sheep,6.0,Yes,No,Yes,Up to date,38.9,42,Minor Illness
+Buffalo,2.3,No,Yes,No,Not up to date,39.6,43,Minor Illness
+Cow,10.5,No,No,Yes,Up to date,41.2,77,Minor Illness
+Sheep,9.9,Yes,No,Yes,Not up to date,41.3,61,FMD
+Goat,10.1,No,No,No,Not up to date,39.9,60,Healthy
+Cow,1.5,Yes,Yes,Yes,Up to date,41.3,64,FMD
+Sheep,11.2,Yes,Yes,Yes,Up to date,38.9,88,Infection
+Sheep,11.8,No,No,No,Not up to date,39.1,87,Healthy
+Goat,3.3,No,No,No,Not up to date,40.1,66,Healthy
+Sheep,6.4,No,No,No,Not up to date,40.7,57,Healthy
+Sheep,6.9,No,Yes,Yes,Not up to date,39.1,79,Infection
+Cow,3.4,Yes,No,Yes,Not up to date,40.5,84,FMD
+Buffalo,6.9,No,No,No,Not up to date,41.5,83,Healthy
+Sheep,10.0,No,Yes,Yes,Not up to date,38.3,77,Infection
+Cow,7.8,Yes,Yes,No,Up to date,37.8,52,Minor Illness
+Goat,9.4,No,No,No,Not up to date,41.5,82,Healthy
+Goat,10.4,Yes,Yes,No,Not up to date,41.4,88,FMD
+Buffalo,3.2,Yes,Yes,No,Not up to date,38.1,48,Minor Illness
+Cow,5.2,No,Yes,Yes,Not up to date,40.6,90,Infection
+Cow,5.2,No,Yes,Yes,Up to date,39.6,43,Infection
+Buffalo,8.4,Yes,No,Yes,Not up to date,40.6,70,Lumpy Skin Disease
+Cow,1.0,No,No,Yes,Not up to date,38.4,88,Minor Illness
+Goat,2.5,No,Yes,No,Up to date,38.0,83,Minor Illness
+Cow,9.2,No,No,No,Not up to date,39.1,46,Healthy
+Goat,2.0,No,No,No,Up to date,40.8,66,Healthy
+Buffalo,10.5,No,Yes,No,Not up to date,37.8,50,Minor Illness
+Cow,10.1,Yes,No,Yes,Up to date,40.2,44,Lumpy Skin Disease
+Cow,1.2,No,Yes,No,Not up to date,41.0,75,Minor Illness
+Buffalo,5.9,Yes,Yes,Yes,Not up to date,37.7,72,Infection
+Sheep,7.6,Yes,Yes,Yes,Not up to date,41.1,40,Lumpy Skin Disease
+Buffalo,11.1,Yes,Yes,No,Up to date,40.3,87,FMD
+Sheep,2.2,Yes,No,No,Not up to date,40.5,59,Lumpy Skin Disease
+Buffalo,11.0,No,Yes,Yes,Up to date,37.8,78,Infection
+Goat,3.2,No,Yes,Yes,Up to date,39.9,45,Infection
+Cow,7.4,No,No,Yes,Up to date,38.5,78,Minor Illness
+Sheep,9.8,No,Yes,Yes,Not up to date,38.0,78,Infection
+Cow,3.0,No,Yes,Yes,Up to date,40.0,79,Infection
+Sheep,2.8,No,Yes,No,Up to date,39.8,41,Minor Illness
+Goat,10.4,Yes,No,Yes,Up to date,40.9,63,Lumpy Skin Disease
+Cow,2.6,No,No,Yes,Not up to date,37.6,65,Minor Illness
+Sheep,4.0,No,No,Yes,Up to date,40.9,70,Minor Illness
+Cow,1.7,No,Yes,No,Up to date,39.1,76,Minor Illness
+Sheep,4.7,No,Yes,No,Not up to date,39.9,80,Minor Illness
+Buffalo,3.6,No,Yes,No,Not up to date,39.8,58,Minor Illness
+Sheep,7.6,Yes,Yes,Yes,Not up to date,40.2,87,Lumpy Skin Disease
+Goat,9.7,No,Yes,No,Up to date,40.0,56,Minor Illness
+Goat,4.2,No,No,Yes,Not up to date,38.0,47,Minor Illness
+Sheep,3.5,Yes,No,No,Up to date,37.6,62,Minor Illness
+Goat,10.2,No,No,No,Up to date,40.3,65,Healthy
+Goat,6.8,Yes,No,Yes,Up to date,41.2,48,FMD
+Cow,10.0,No,No,No,Not up to date,38.2,89,Healthy
+Buffalo,3.5,No,Yes,Yes,Up to date,41.4,69,Infection
+Goat,5.7,Yes,No,Yes,Not up to date,39.3,51,Minor Illness
+Goat,9.4,No,No,No,Up to date,40.2,71,Healthy
+Cow,12.0,Yes,No,No,Up to date,40.6,67,FMD
+Goat,9.8,Yes,No,No,Not up to date,38.1,52,Minor Illness
+Goat,2.7,Yes,Yes,No,Up to date,38.9,42,Minor Illness
+Goat,1.1,Yes,Yes,Yes,Up to date,38.2,49,Infection
+Goat,1.9,Yes,Yes,No,Not up to date,40.2,40,Lumpy Skin Disease
+Sheep,7.8,No,No,No,Not up to date,38.1,55,Healthy
+Cow,11.7,Yes,No,Yes,Not up to date,39.2,66,Minor Illness
+Buffalo,1.7,Yes,Yes,No,Not up to date,37.6,58,Minor Illness
+Cow,9.0,Yes,Yes,Yes,Up to date,37.5,50,Infection
+Sheep,8.9,Yes,Yes,Yes,Not up to date,38.5,63,Infection
+Buffalo,4.9,No,No,Yes,Up to date,40.5,86,Minor Illness
+Buffalo,9.4,Yes,Yes,No,Not up to date,39.1,46,Minor Illness
+Sheep,7.3,Yes,Yes,No,Up to date,40.3,67,FMD
+Buffalo,5.1,Yes,No,No,Not up to date,37.7,87,Minor Illness
+Buffalo,5.5,Yes,No,Yes,Not up to date,40.7,61,FMD
+Goat,2.9,Yes,No,Yes,Up to date,40.8,49,FMD
+Goat,1.8,No,Yes,Yes,Up to date,41.3,59,Infection
+Cow,2.0,No,Yes,No,Not up to date,39.3,75,Minor Illness
+Buffalo,9.1,No,No,Yes,Up to date,40.5,48,Minor Illness
+Cow,9.2,Yes,No,Yes,Not up to date,37.8,83,Minor Illness
+Cow,4.2,No,No,No,Up to date,40.9,58,Healthy
+Cow,2.1,Yes,No,No,Up to date,38.5,67,Minor Illness
+Buffalo,2.7,Yes,Yes,Yes,Not up to date,39.7,69,Infection
+Buffalo,7.2,Yes,Yes,Yes,Up to date,37.8,75,Infection
+Sheep,10.3,No,Yes,Yes,Not up to date,41.0,84,Infection
+Buffalo,2.5,Yes,Yes,Yes,Up to date,40.2,50,FMD
+Cow,1.7,Yes,Yes,Yes,Up to date,41.2,82,FMD
+Buffalo,2.6,No,No,No,Not up to date,38.0,60,Healthy
+Goat,1.2,Yes,Yes,Yes,Not up to date,38.7,41,Infection
+Sheep,2.0,Yes,No,No,Up to date,39.2,82,Minor Illness
+Goat,10.1,No,Yes,No,Up to date,37.8,58,Minor Illness
+Sheep,10.7,No,Yes,Yes,Up to date,40.6,67,Infection
+Goat,9.8,Yes,Yes,Yes,Not up to date,41.0,60,FMD
+Goat,6.6,Yes,No,Yes,Not up to date,40.1,57,FMD
+Sheep,10.5,Yes,No,Yes,Not up to date,38.7,73,Minor Illness
+Goat,7.7,No,Yes,No,Not up to date,39.9,59,Minor Illness
+Goat,3.8,Yes,No,Yes,Up to date,39.7,64,Minor Illness
+Cow,7.6,No,No,No,Up to date,38.7,72,Healthy
+Buffalo,6.6,No,No,Yes,Up to date,38.2,66,Minor Illness
+Cow,2.1,Yes,No,Yes,Not up to date,41.0,82,FMD
+Goat,9.1,Yes,Yes,Yes,Up to date,40.3,55,FMD
+Cow,10.9,No,Yes,No,Not up to date,39.9,59,Minor Illness
+Sheep,7.9,No,No,Yes,Up to date,40.5,76,Minor Illness
+Cow,5.5,No,No,Yes,Not up to date,40.6,44,Minor Illness
+Goat,6.0,No,No,No,Not up to date,39.3,55,Healthy
+Sheep,9.1,No,Yes,No,Up to date,37.8,59,Minor Illness
+Sheep,3.9,Yes,Yes,Yes,Not up to date,38.7,77,Infection
+Goat,11.5,No,No,Yes,Not up to date,41.4,59,Minor Illness
+Goat,10.1,No,No,No,Up to date,38.0,49,Healthy
+Sheep,3.9,No,No,No,Not up to date,39.0,68,Healthy
+Goat,10.1,Yes,Yes,No,Up to date,38.2,88,Minor Illness
+Buffalo,1.6,Yes,Yes,Yes,Not up to date,39.7,52,Infection
+Sheep,5.6,No,No,Yes,Up to date,40.6,50,Minor Illness
+Buffalo,2.4,No,No,Yes,Up to date,39.2,89,Minor Illness
+Cow,4.3,No,No,No,Up to date,40.0,76,Healthy
+Cow,10.6,Yes,No,No,Up to date,38.0,45,Minor Illness
+Cow,2.1,No,No,No,Up to date,40.1,73,Healthy
+Goat,9.2,No,No,No,Not up to date,39.2,76,Healthy
+Sheep,5.6,No,Yes,Yes,Not up to date,39.3,78,Infection
+Goat,6.8,Yes,Yes,No,Not up to date,40.8,73,FMD
+Goat,9.7,Yes,Yes,No,Not up to date,40.7,42,Lumpy Skin Disease
+Sheep,6.6,No,No,No,Up to date,38.1,75,Healthy
+Buffalo,1.0,Yes,Yes,No,Up to date,39.4,77,Minor Illness
+Buffalo,6.0,No,Yes,Yes,Up to date,41.1,41,Infection
+Cow,5.5,No,No,No,Up to date,41.4,53,Healthy
+Sheep,4.5,No,No,Yes,Up to date,41.3,77,Minor Illness
+Cow,10.1,Yes,Yes,Yes,Up to date,39.3,77,Infection
+Buffalo,11.3,Yes,Yes,Yes,Up to date,39.2,57,Infection
+Goat,11.7,No,Yes,No,Up to date,37.5,65,Minor Illness
+Buffalo,2.7,No,Yes,Yes,Not up to date,38.9,77,Infection
+Cow,12.0,Yes,No,No,Up to date,41.0,80,FMD
+Cow,5.2,Yes,No,No,Up to date,37.6,74,Minor Illness
+Sheep,8.2,No,No,No,Up to date,38.2,55,Healthy
+Goat,12.0,No,No,No,Not up to date,39.3,44,Healthy
+Goat,3.6,No,No,No,Up to date,40.2,76,Healthy
+Buffalo,6.6,Yes,Yes,Yes,Up to date,39.4,77,Infection
+Cow,10.5,Yes,No,Yes,Not up to date,38.8,40,Minor Illness
+Sheep,8.6,Yes,No,No,Up to date,39.0,45,Minor Illness
+Goat,8.6,Yes,Yes,Yes,Up to date,38.4,78,Infection
+Cow,1.0,Yes,No,Yes,Up to date,39.5,59,Minor Illness
+Goat,2.1,Yes,No,No,Up to date,37.9,80,Minor Illness
+Cow,2.3,Yes,Yes,No,Up to date,38.6,72,Minor Illness
+Goat,6.9,No,No,Yes,Up to date,38.1,54,Minor Illness
+Cow,4.4,Yes,Yes,Yes,Not up to date,37.6,63,Infection
+Goat,0.8,Yes,No,Yes,Up to date,41.2,52,Lumpy Skin Disease
+Cow,5.7,No,Yes,No,Up to date,38.9,44,Minor Illness
+Cow,4.9,Yes,No,No,Not up to date,40.3,52,FMD
+Buffalo,1.8,No,No,Yes,Up to date,38.9,83,Minor Illness
+Goat,2.9,Yes,Yes,Yes,Not up to date,40.8,80,Lumpy Skin Disease
+Cow,3.7,Yes,No,Yes,Not up to date,41.3,60,FMD
+Sheep,7.9,No,Yes,Yes,Not up to date,38.1,58,Infection
+Goat,4.9,No,No,No,Up to date,38.1,69,Healthy
+Sheep,2.9,Yes,No,Yes,Up to date,39.2,64,Minor Illness
+Sheep,8.5,Yes,Yes,Yes,Not up to date,41.2,43,FMD
+Goat,6.7,Yes,No,No,Not up to date,39.9,49,Minor Illness
+Goat,4.5,No,No,Yes,Up to date,39.3,69,Minor Illness
+Sheep,9.3,No,Yes,Yes,Not up to date,38.5,86,Infection
+Cow,9.6,No,No,No,Up to date,41.2,72,Healthy
+Buffalo,0.7,No,Yes,No,Up to date,39.9,65,Minor Illness
+Goat,2.2,No,No,Yes,Not up to date,39.8,43,Minor Illness
+Sheep,5.5,No,No,Yes,Not up to date,40.3,52,Minor Illness
+Sheep,2.3,Yes,Yes,Yes,Not up to date,40.0,61,Infection
+Goat,7.9,No,Yes,No,Up to date,40.0,51,Minor Illness
+Goat,1.8,Yes,Yes,No,Not up to date,38.8,90,Minor Illness
+Buffalo,9.6,Yes,No,No,Up to date,39.3,89,Minor Illness
+Cow,3.5,No,Yes,No,Up to date,40.6,64,Minor Illness
+Goat,7.1,No,No,Yes,Up to date,41.3,75,Minor Illness
+Sheep,7.4,No,No,No,Not up to date,39.3,64,Healthy
+Cow,10.7,Yes,No,No,Up to date,38.0,68,Minor Illness
+Buffalo,10.9,No,Yes,No,Up to date,40.6,45,Minor Illness
+Cow,8.9,No,Yes,No,Up to date,39.4,90,Minor Illness
+Goat,10.5,Yes,Yes,No,Not up to date,37.9,65,Minor Illness
+Cow,3.0,Yes,No,Yes,Up to date,38.7,52,Minor Illness
+Sheep,8.5,Yes,No,No,Not up to date,39.6,55,Minor Illness
+Buffalo,9.0,No,No,Yes,Not up to date,37.6,51,Minor Illness
+Cow,10.5,No,No,No,Not up to date,39.4,53,Healthy
+Buffalo,5.4,No,Yes,No,Not up to date,39.4,47,Minor Illness
+Buffalo,1.4,No,Yes,No,Not up to date,40.4,81,Minor Illness
+Sheep,2.4,No,No,Yes,Up to date,38.9,85,Minor Illness
+Cow,7.3,Yes,Yes,No,Up to date,38.0,82,Minor Illness
+Buffalo,1.4,No,Yes,Yes,Up to date,39.8,50,Infection
+Buffalo,5.8,Yes,No,Yes,Not up to date,39.1,81,Minor Illness
+Cow,1.2,No,No,No,Not up to date,40.3,57,Healthy
+Cow,9.1,Yes,Yes,Yes,Not up to date,41.2,53,FMD
+Cow,9.1,Yes,Yes,Yes,Not up to date,40.1,80,FMD
+Cow,3.8,Yes,No,Yes,Not up to date,38.7,66,Minor Illness
+Buffalo,4.7,Yes,No,No,Up to date,39.3,88,Minor Illness
+Goat,6.0,No,No,Yes,Not up to date,40.2,76,Minor Illness
+Buffalo,10.9,No,No,No,Up to date,38.3,51,Healthy
+Goat,7.0,Yes,No,Yes,Up to date,39.9,86,Minor Illness
+Cow,7.3,No,Yes,No,Up to date,39.6,73,Minor Illness
+Sheep,8.3,Yes,No,No,Not up to date,41.1,90,Lumpy Skin Disease
+Goat,2.0,Yes,No,Yes,Not up to date,38.1,58,Minor Illness
+Goat,3.4,Yes,Yes,Yes,Not up to date,39.5,59,Infection
+Goat,5.5,Yes,Yes,No,Up to date,39.2,43,Minor Illness
+Sheep,4.8,Yes,Yes,Yes,Up to date,39.0,59,Infection
+Sheep,1.4,No,Yes,Yes,Up to date,41.1,49,Infection
+Sheep,5.7,Yes,Yes,Yes,Up to date,40.3,67,FMD
+Cow,3.5,Yes,No,Yes,Not up to date,37.8,62,Minor Illness
+Buffalo,5.5,Yes,No,No,Not up to date,41.2,89,FMD
+Goat,11.4,No,Yes,No,Up to date,41.3,62,Minor Illness
+Cow,9.7,Yes,Yes,No,Not up to date,39.3,89,Minor Illness
+Buffalo,8.0,No,Yes,Yes,Not up to date,38.6,81,Infection
+Cow,1.1,No,Yes,Yes,Up to date,37.8,76,Infection
+Goat,6.8,No,Yes,Yes,Up to date,38.6,55,Infection
+Buffalo,7.9,Yes,Yes,No,Up to date,40.8,85,Lumpy Skin Disease
+Buffalo,3.1,No,Yes,Yes,Not up to date,38.6,61,Infection
+Goat,9.7,No,No,Yes,Up to date,39.3,44,Minor Illness
+Goat,9.8,No,No,Yes,Up to date,40.8,75,Minor Illness
+Buffalo,0.7,No,No,No,Not up to date,41.4,48,Healthy
+Cow,10.7,No,No,Yes,Not up to date,38.4,42,Minor Illness
+Buffalo,11.5,Yes,Yes,No,Not up to date,39.7,87,Minor Illness
+Buffalo,7.8,No,No,No,Up to date,38.6,45,Healthy
+Goat,4.6,Yes,No,Yes,Up to date,38.1,54,Minor Illness
+Sheep,10.8,No,Yes,Yes,Up to date,38.0,47,Infection

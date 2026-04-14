@@ -13,6 +13,7 @@
 .ent-text-gradient {
   background: linear-gradient(135deg, var(--accent-green-dark), var(--accent-green));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

@@ -12,7 +12,6 @@ import Features from './pages/public/Features';
 import Solution from './pages/public/Solution';
 import AIModel from './pages/public/AIModel';
 import Login from './pages/public/Login';
-import DashboardUnderConstruction from './pages/user/DashboardUnderConstruction';
 import UserDashboard from './pages/user/UserDashboard';
 import DiseasePrediction from './pages/user/DiseasePrediction';
 import PredictionResult from './pages/user/PredictionResult';
