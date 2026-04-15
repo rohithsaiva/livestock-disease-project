@@ -123,6 +123,35 @@ export const authService = {
 
   // Fallback to maintain component layouts safely
   saveInteraction: (type, data) => {
-    console.log("[Secure Interaction Successfully Processed]:", type);
+    try {
+      const user = auth?.currentUser;
+      if (!user) return;
+      const key = `interactions_${user.uid}`;
+      const existing = JSON.parse(localStorage.getItem(key) || '[]');
+      existing.unshift({
+        id: `${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        type,
+        details: data,
+        date: new Date().toISOString(),
+        userId: user.uid
+      });
+      localStorage.setItem(key, JSON.stringify(existing.slice(0, 50)));
+      console.log('[Interaction saved]:', type);
+    } catch (e) {
+      console.warn('saveInteraction failed:', e.message);
+    }
+  },
+
+  // Returns stored interactions for current user
+  getUserInteractions: () => {
+    try {
+      const user = auth?.currentUser;
+      if (!user) return { success: false, interactions: [] };
+      const key = `interactions_${user.uid}`;
+      const interactions = JSON.parse(localStorage.getItem(key) || '[]');
+      return { success: true, interactions };
+    } catch (e) {
+      return { success: false, interactions: [] };
+    }
   }
 };

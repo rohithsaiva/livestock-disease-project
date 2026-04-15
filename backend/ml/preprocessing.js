@@ -6,10 +6,10 @@ export const YES_NO_MAP = { 'Yes': 1, 'No': 0 };
 export const VACCINE_MAP = { 'Up to date': 1, 'Not Vaccinated': 0 };
 export const DISEASE_MAP = { 
     'Healthy': 0, 
-    'Mastitis': 1, 
-    'Foot and Mouth': 2, 
-    'Respiratory Infection': 3, 
-    'Heat Stress': 4 
+    'Infection': 1, 
+    'Minor Illness': 2, 
+    'FMD': 3, 
+    'Lumpy Skin Disease': 4 
 };
 export const REVERSE_DISEASE_MAP = Object.keys(DISEASE_MAP).reduce((acc, key) => {
     acc[DISEASE_MAP[key]] = key;
@@ -25,18 +25,24 @@ export const normalizationStats = {
 
 export function initNormalizationStats(dataRows) {
     dataRows.forEach(row => {
-        const age = parseFloat(row.Age);
-        const temp = parseFloat(row.Temp);
-        const hum = parseFloat(row.Humidity);
+        const age = parseFloat(row.Age !== undefined ? row.Age : row.Age_years);
+        const temp = parseFloat(row.Temp !== undefined ? row.Temp : row.Core_Temperature_C);
+        const hum = parseFloat(row.Humidity !== undefined ? row.Humidity : row['Surrounding_Humidity_%']);
         
-        if (age < normalizationStats.age.min) normalizationStats.age.min = age;
-        if (age > normalizationStats.age.max) normalizationStats.age.max = age;
+        if (!isNaN(age)) {
+            if (age < normalizationStats.age.min) normalizationStats.age.min = age;
+            if (age > normalizationStats.age.max) normalizationStats.age.max = age;
+        }
         
-        if (temp < normalizationStats.temp.min) normalizationStats.temp.min = temp;
-        if (temp > normalizationStats.temp.max) normalizationStats.temp.max = temp;
+        if (!isNaN(temp)) {
+            if (temp < normalizationStats.temp.min) normalizationStats.temp.min = temp;
+            if (temp > normalizationStats.temp.max) normalizationStats.temp.max = temp;
+        }
         
-        if (hum < normalizationStats.humidity.min) normalizationStats.humidity.min = hum;
-        if (hum > normalizationStats.humidity.max) normalizationStats.humidity.max = hum;
+        if (!isNaN(hum)) {
+            if (hum < normalizationStats.humidity.min) normalizationStats.humidity.min = hum;
+            if (hum > normalizationStats.humidity.max) normalizationStats.humidity.max = hum;
+        }
     });
 }
 
@@ -46,15 +52,25 @@ export function normalize(value, min, max) {
 }
 
 export function preprocessRow(row) {
-    const animal = ANIMAL_MAP[row.Animal] !== undefined ? ANIMAL_MAP[row.Animal] : 0;
-    const fever = YES_NO_MAP[row.Fever] !== undefined ? YES_NO_MAP[row.Fever] : 0;
-    const appetite = YES_NO_MAP[row.AppetiteLoss] !== undefined ? YES_NO_MAP[row.AppetiteLoss] : 0;
-    const weakness = YES_NO_MAP[row.Weakness] !== undefined ? YES_NO_MAP[row.Weakness] : 0;
-    const vaccine = VACCINE_MAP[row.Vaccination] !== undefined ? VACCINE_MAP[row.Vaccination] : 0;
+    const rawAnimal = row.Animal !== undefined ? row.Animal : row.Animal_Type;
+    const rawFever = row.Fever !== undefined ? row.Fever : row.Fever_Detected;
+    const rawAppetite = row.AppetiteLoss !== undefined ? row.AppetiteLoss : row.Appetite_Loss;
+    const rawWeakness = row.Weakness !== undefined ? row.Weakness : row.Physical_Weakness;
+    const rawVaccine = row.Vaccination !== undefined ? row.Vaccination : row.Vaccination_Status;
+
+    const animal = ANIMAL_MAP[rawAnimal] !== undefined ? ANIMAL_MAP[rawAnimal] : 0;
+    const fever = YES_NO_MAP[rawFever] !== undefined ? YES_NO_MAP[rawFever] : 0;
+    const appetite = YES_NO_MAP[rawAppetite] !== undefined ? YES_NO_MAP[rawAppetite] : 0;
+    const weakness = YES_NO_MAP[rawWeakness] !== undefined ? YES_NO_MAP[rawWeakness] : 0;
+    const vaccine = VACCINE_MAP[rawVaccine] !== undefined ? VACCINE_MAP[rawVaccine] : 0;
     
-    const age = normalize(parseFloat(row.Age), normalizationStats.age.min, normalizationStats.age.max);
-    const temp = normalize(parseFloat(row.Temp), normalizationStats.temp.min, normalizationStats.temp.max);
-    const humidity = normalize(parseFloat(row.Humidity), normalizationStats.humidity.min, normalizationStats.humidity.max);
+    const rawAge = parseFloat(row.Age !== undefined ? row.Age : row.Age_years);
+    const rawTemp = parseFloat(row.Temp !== undefined ? row.Temp : row.Core_Temperature_C);
+    const rawHum = parseFloat(row.Humidity !== undefined ? row.Humidity : row['Surrounding_Humidity_%']);
+
+    const age = normalize(rawAge, normalizationStats.age.min, normalizationStats.age.max);
+    const temp = normalize(rawTemp, normalizationStats.temp.min, normalizationStats.temp.max);
+    const humidity = normalize(rawHum, normalizationStats.humidity.min, normalizationStats.humidity.max);
 
     let disease = -1;
     if (row.Disease !== undefined) {
