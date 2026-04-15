@@ -26,7 +26,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import { authService } from './services/auth';
 import { securityService } from './services/securityService';
 import { auth } from './config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 import './App.css';
 import './pages/user/EnterpriseDashboard.css';
@@ -103,11 +103,18 @@ function App() {
     return () => clearInterval(interval);
   }, [user]);
 
-  const handleLogout = () => {
-    authService.logout();
-    setUser(null);
-    setActiveTab('home');
-    window.scrollTo(0, 0);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      authService.logout();
+      localStorage.removeItem('otpEmail');
+      console.log('User logged out');
+      window.location.href = '/';
+    } catch (err) {
+      console.error('Logout error:', err);
+      setUser(null);
+      setActiveTab('home');
+    }
   };
 
   // Tab order for prev/next nav (public only)
