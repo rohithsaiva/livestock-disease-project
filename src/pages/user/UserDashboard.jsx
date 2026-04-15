@@ -1,30 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { BrainCircuit, FileText, ClipboardList, Activity, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, useMotionValue, useSpring, animate } from 'framer-motion';
+import {
+  BrainCircuit, FileText, ClipboardList, Activity,
+  ArrowRight, ShieldCheck, AlertCircle, TrendingUp,
+  Cpu, HeartPulse, Zap
+} from 'lucide-react';
 import { authService } from '../../services/auth';
 import { interactionService } from '../../services/interactionService';
 import { dateFormatter } from '../../utils/dateFormatter';
 import './UserDashboard.css';
 
-// Animation variants
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 }
-  }
+/* ─── Animation Variants ────────────────────────────────────────── */
+const fadeUp = {
+  hidden:  { opacity: 0, y: 32 },
+  visible: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }
+  })
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } }
+const stagger = {
+  visible: { transition: { staggerChildren: 0.13 } }
 };
 
-const cardHover = {
-  whileHover: { scale: 1.03, boxShadow: '0 8px 32px rgba(39,174,96,0.18)' },
-  whileTap:   { scale: 0.97 },
-  transition: { type: 'spring', stiffness: 220, damping: 18 }
+/* ─── Animated Counter ──────────────────────────────────────────── */
+const Counter = ({ to, suffix = '' }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const count  = useMotionValue(0);
+  const spring = useSpring(count, { stiffness: 80, damping: 18 });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (inView) {
+      const ctrl = animate(count, to, { duration: 1.4, ease: 'easeOut' });
+      return ctrl.stop;
+    }
+  }, [inView, to, count]);
+
+  useEffect(() => spring.on('change', v => setDisplay(Math.round(v))), [spring]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
 };
 
+/* ─── Animated Progress Bar ─────────────────────────────────────── */
+const ProgressBar = ({ pct, color }) => (
+  <div className="ud-progress-track">
+    <motion.div
+      className="ud-progress-fill"
+      style={{ background: color }}
+      initial={{ width: 0 }}
+      animate={{ width: `${pct}%` }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+    />
+  </div>
+);
+
+/* ─── Stat Card ─────────────────────────────────────────────────── */
+const StatCard = ({ icon: Icon, label, value, suffix, pct, color, delay }) => (
+  <motion.div
+    className="ud-stat-card"
+    variants={fadeUp}
+    custom={delay}
+    whileHover={{ y: -4, boxShadow: `0 16px 48px ${color}30` }}
+    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+  >
+    <div className="ud-stat-icon" style={{ background: `${color}18`, color }}>
+      <Icon size={22} />
+    </div>
+    <div className="ud-stat-info">
+      <p className="ud-stat-label">{label}</p>
+      <h3 className="ud-stat-value" style={{ color }}>
+        <Counter to={value} suffix={suffix} />
+      </h3>
+    </div>
+    <ProgressBar pct={pct} color={color} />
+  </motion.div>
+);
+
+/* ─── Tool Card ─────────────────────────────────────────────────── */
+const ToolCard = ({ icon: Icon, title, desc, action, color, delay, onClick }) => (
+  <motion.div
+    className="ud-tool-card"
+    variants={fadeUp}
+    custom={delay}
+    whileHover={{ y: -6, boxShadow: `0 20px 60px ${color}25` }}
+    whileTap={{ scale: 0.97 }}
+    transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+    onClick={onClick}
+    style={{ cursor: 'pointer', '--card-color': color }}
+  >
+    <div className="ud-tool-icon" style={{ background: `${color}15`, color, border: `1px solid ${color}30` }}>
+      <Icon size={26} />
+    </div>
+    <h3 className="ud-tool-title">{title}</h3>
+    <p className="ud-tool-desc">{desc}</p>
+    <div className="ud-tool-action" style={{ color }}>
+      {action} <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}>
+        <ArrowRight size={16} />
+      </motion.span>
+    </div>
+    <div className="ud-tool-glow" style={{ background: `radial-gradient(circle at 70% 70%, ${color}18, transparent 70%)` }} />
+  </motion.div>
+);
+
+/* ─── Main Component ─────────────────────────────────────────────── */
 const UserDashboard = ({ onNavigate }) => {
   const [recentAlerts, setRecentAlerts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -32,173 +112,176 @@ const UserDashboard = ({ onNavigate }) => {
   useEffect(() => {
     const user = authService.getCurrentUser();
     setCurrentUser(user);
-
-    const fetchInteractions = () => {
-      try {
-        const alerts = interactionService.getRecentAlerts(3);
-        const formattedAlerts = (alerts || []).map(p => ({
-          id: p.id,
-          animal: `${p.details?.animalType || 'Animal'} #${p.id.slice(-4).toUpperCase()}`,
-          issue: 'Analysis Pending',
-          timeAgo: dateFormatter.formatTimeAgo(p.date)
-        }));
-        setRecentAlerts(formattedAlerts);
-      } catch (err) {
-        console.warn('fetchInteractions failed (non-critical):', err.message);
-        setRecentAlerts([]);
-      }
-    };
-    fetchInteractions();
+    try {
+      const alerts = interactionService.getRecentAlerts(3);
+      setRecentAlerts((alerts || []).map(p => ({
+        id: p.id,
+        animal: `${p.details?.animalType || 'Animal'} #${p.id.slice(-4).toUpperCase()}`,
+        issue: 'Analysis Pending',
+        timeAgo: dateFormatter.formatTimeAgo(p.date)
+      })));
+    } catch (e) {
+      console.warn('Alerts load skipped:', e.message);
+    }
   }, []);
 
   return (
     <motion.div
-      className="ent-layout-container ent-animate-fade-in"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      className="ud-wrapper"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
     >
-      {/* Hero Section */}
-      <div className="ent-hero-section">
-        <motion.h1
-          className="ent-hero-title"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Livestock Intelligence <span className="ent-text-gradient">Hub</span>
+
+      {/* ── Hero ───────────────────────────────────────────────── */}
+      <motion.div className="ud-hero" initial="hidden" animate="visible" variants={stagger}>
+
+        <motion.div className="ud-hero-badge" variants={fadeUp} custom={0}>
+          <span className="ud-pulse-dot" />
+          AI System Online
+        </motion.div>
+
+        <motion.h1 className="ud-hero-title" variants={fadeUp} custom={1}>
+          Livestock Intelligence{' '}
+          <span className="ud-gradient-text">Hub</span>
         </motion.h1>
-        <motion.p
-          className="ent-hero-subtitle"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
-        >
-          Welcome back, {currentUser?.name || 'Farmer'}. Monitor livestock vitals, predict health anomalies, and get AI-driven advisory across your farm.
+
+        <motion.p className="ud-hero-sub" variants={fadeUp} custom={2}>
+          Welcome back, <strong>{currentUser?.name || 'Farmer'}</strong>. Monitor vitals, predict health anomalies, and receive AI-driven advisory across your farm.
         </motion.p>
 
         {/* Stat Pills */}
-        <motion.div
-          className="ent-stat-pills"
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.25, duration: 0.4 }}
-        >
-          <div className="ent-pill"><ShieldCheck size={16} className="ent-icon-green" /> System Healthy</div>
-          <div className="ent-pill"><Activity size={16} className="ent-icon-blue" /> 3 AI Models Active</div>
-          <div className="ent-pill">
-            <AlertCircle size={16} className={recentAlerts.length > 0 ? 'ent-icon-warn' : 'ent-icon-gray'} />
-            {recentAlerts.length} Alerts
-          </div>
+        <motion.div className="ud-pills" variants={fadeUp} custom={3}>
+          {[
+            { icon: ShieldCheck, label: 'System Healthy', color: '#22c55e' },
+            { icon: Cpu,         label: '3 AI Models Active', color: '#3b82f6' },
+            { icon: Activity,    label: 'Live Monitoring', color: '#a855f7' },
+            { icon: AlertCircle, label: `${recentAlerts.length} Alerts`, color: recentAlerts.length > 0 ? '#eab308' : '#9ca3af' },
+          ].map(({ icon: Icon, label, color }) => (
+            <motion.div
+              key={label}
+              className="ud-pill"
+              whileHover={{ scale: 1.08, y: -2 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <Icon size={15} style={{ color }} />
+              <span>{label}</span>
+            </motion.div>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Dashboard Grid */}
-      <div className="ent-dashboard-grid">
+      {/* ── Stats Row ─────────────────────────────────────────── */}
+      <motion.div
+        className="ud-stats-row"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <StatCard icon={HeartPulse}  label="Animals Monitored" value={128}  suffix="+"  pct={82} color="#22c55e" delay={0} />
+        <StatCard icon={BrainCircuit} label="Predictions Run"  value={347}  suffix=""   pct={70} color="#a855f7" delay={1} />
+        <StatCard icon={TrendingUp}  label="Accuracy Rate"    value={96}   suffix="%"  pct={96} color="#3b82f6" delay={2} />
+        <StatCard icon={Zap}         label="Alerts Resolved"  value={89}   suffix="%"  pct={89} color="#f97316" delay={3} />
+      </motion.div>
 
-        {/* Tool Cards */}
-        <div className="ent-tools-section">
-          <h2 className="ent-section-title">Health Management Tools</h2>
-          <motion.div
-            className="ent-grid-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-
-            <motion.div
-              className="ent-card ent-card-clickable"
-              variants={itemVariants}
-              {...cardHover}
-              onClick={() => onNavigate('disease-prediction')}
-            >
-              <div className="ent-icon-container gradient-purple">
-                <BrainCircuit size={28} />
-              </div>
-              <h3>Disease Prediction</h3>
-              <p>Analyze livestock symptoms and conditions to predict potential diseases using cutting-edge neural networks.</p>
-              <div className="ent-card-action">Run Diagnostics <ArrowRight size={16} /></div>
-            </motion.div>
-
-            <motion.div
-              className="ent-card ent-card-clickable"
-              variants={itemVariants}
-              {...cardHover}
-              onClick={() => onNavigate('advisory-system')}
-            >
-              <div className="ent-icon-container gradient-blue">
-                <FileText size={28} />
-              </div>
-              <h3>AI Advisory</h3>
-              <p>Get data-driven expert recommendations and precision livestock health guidance from our AI vet bank.</p>
-              <div className="ent-card-action">View Guidelines <ArrowRight size={16} /></div>
-            </motion.div>
-
-            <motion.div
-              className="ent-card ent-card-clickable"
-              variants={itemVariants}
-              {...cardHover}
-              onClick={() => onNavigate('animal-records')}
-            >
-              <div className="ent-icon-container gradient-green">
-                <ClipboardList size={28} />
-              </div>
-              <h3>Animal Records</h3>
-              <p>Securely store and track historical livestock health and vaccination data in organized, encrypted logs.</p>
-              <div className="ent-card-action">Manage Logs <ArrowRight size={16} /></div>
-            </motion.div>
-
-          </motion.div>
+      {/* ── Tool Cards ─────────────────────────────────────────── */}
+      <motion.div
+        className="ud-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.h2 className="ud-section-title" variants={fadeUp} custom={0}>
+          Health Management Tools
+        </motion.h2>
+        <div className="ud-tools-grid">
+          <ToolCard
+            icon={BrainCircuit} color="#a855f7" delay={1}
+            title="Disease Prediction"
+            desc="Analyze livestock symptoms using cutting-edge neural networks to detect diseases early."
+            action="Run Diagnostics"
+            onClick={() => onNavigate('disease-prediction')}
+          />
+          <ToolCard
+            icon={FileText} color="#3b82f6" delay={2}
+            title="AI Advisory"
+            desc="Get precision health guidance and data-driven expert recommendations from our AI vet bank."
+            action="View Guidelines"
+            onClick={() => onNavigate('advisory-system')}
+          />
+          <ToolCard
+            icon={ClipboardList} color="#22c55e" delay={3}
+            title="Animal Records"
+            desc="Securely store and track historical livestock health, vaccination, and treatment data."
+            action="Manage Logs"
+            onClick={() => onNavigate('animal-records')}
+          />
         </div>
+      </motion.div>
 
-        {/* Alerts Section */}
-        <div className="ent-alerts-section">
-          <h2 className="ent-section-title">Recent Alerts</h2>
-          <motion.div
-            className="ent-card"
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.45 }}
-          >
-            <div className="ent-alerts-list">
-              {recentAlerts.length === 0 ? (
-                <div className="ent-empty-state">
-                  <ShieldCheck size={32} />
-                  <p>No active health alerts detected across your herd.</p>
-                </div>
-              ) : (
-                <motion.div variants={containerVariants} initial="hidden" animate="visible">
-                  {recentAlerts.map((alert) => (
-                    <motion.div
-                      key={alert.id}
-                      className="ent-alert-item"
-                      variants={itemVariants}
-                    >
-                      <div className="ent-alert-content">
-                        <h4>{alert.animal}</h4>
-                        <span className="ent-alert-time">{alert.timeAgo}</span>
-                      </div>
-                      <div className="ent-badge pending">{alert.issue}</div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </div>
-            {recentAlerts.length > 0 && (
-              <motion.button
-                className="ent-btn ent-btn-secondary w-full"
-                style={{ marginTop: '24px' }}
-                onClick={() => onNavigate('ai-reports')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+      {/* ── Alerts ──────────────────────────────────────────────── */}
+      <motion.div
+        className="ud-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.h2 className="ud-section-title" variants={fadeUp} custom={0}>
+          Recent Health Alerts
+        </motion.h2>
+        <motion.div className="ud-alerts-card" variants={fadeUp} custom={1}>
+          {recentAlerts.length === 0 ? (
+            <motion.div
+              className="ud-empty-state"
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
               >
-                View All Alerts
-              </motion.button>
-            )}
-          </motion.div>
-        </div>
+                <ShieldCheck size={40} color="#22c55e" />
+              </motion.div>
+              <p>No active health alerts across your herd. All systems nominal.</p>
+            </motion.div>
+          ) : (
+            <motion.div className="ud-alert-list" variants={stagger} initial="hidden" animate="visible">
+              {recentAlerts.map((a, i) => (
+                <motion.div
+                  key={a.id}
+                  className="ud-alert-row"
+                  variants={fadeUp}
+                  custom={i}
+                  whileHover={{ x: 4, backgroundColor: '#fffbeb' }}
+                >
+                  <div className="ud-alert-dot" />
+                  <div className="ud-alert-info">
+                    <strong>{a.animal}</strong>
+                    <span>{a.timeAgo}</span>
+                  </div>
+                  <span className="ud-badge-pending">{a.issue}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+          {recentAlerts.length > 0 && (
+            <motion.button
+              className="ud-btn-outline"
+              style={{ marginTop: 24 }}
+              onClick={() => onNavigate('ai-reports')}
+              whileHover={{ scale: 1.04, backgroundColor: '#f0fdf4' }}
+              whileTap={{ scale: 0.96 }}
+            >
+              View All Alerts <ArrowRight size={16} />
+            </motion.button>
+          )}
+        </motion.div>
+      </motion.div>
 
-      </div>
     </motion.div>
   );
 };
