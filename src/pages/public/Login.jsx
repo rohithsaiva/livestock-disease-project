@@ -1,610 +1,372 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, LogIn, ArrowRight, User, Phone, KeyRound, Activity, BrainCircuit, Heart } from 'lucide-react';
-import './Login.css';
-import { authService } from '../../services/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../config/firebase';
+import { 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithPopup, 
+  GoogleAuthProvider 
+} from 'firebase/auth';
 
-const Login = ({ onAuthSuccess }) => {
-  const [view, setView] = useState('login'); // 'login', 'signup', 'otp'
+export default function Login() {
+  const navigate = useNavigate();
+  const [view, setView] = useState('login'); // 'login' | 'signup' | 'otp'
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Form states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [resetToken, setResetToken] = useState('');
-
-  // OTP States
-  const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
-  const [isSendingOTP, setIsSendingOTP] = useState(false);
 
-  // Security Simulation States (Phase 1)
-  const [failedAttempts, setFailedAttempts] = useState(0);
-  const [showCaptcha, setShowCaptcha] = useState(false);
-  const [captchaValues, setCaptchaValues] = useState({ num1: 0, num2: 0 });
-  const [captchaAnswer, setCaptchaAnswer] = useState('');
-
-  const generateCaptcha = () => {
-    setCaptchaValues({
-      num1: Math.floor(Math.random() * 10) + 1,
-      num2: Math.floor(Math.random() * 10) + 1
-    });
-    setCaptchaAnswer('');
-  };
-
-  // Explicitly clear state on component mount
-  React.useEffect(() => {
-    setEmail('');
-    setPassword('');
-    setError('');
-    setOtpSent(false);
-    setOtp('');
-    setIsSendingOTP(false);
-  }, [view]);
-
-  // handleSendOTP functionally deprecated as Login routing natively omits it
-
-  const handleVerifyOTP = async (e) => {
-    if (e) e.preventDefault();
-    if (!otp) {
-      setError('Please enter the OTP.');
-      return;
-    }
-    
-    setError('');
-    
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp })
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        // We received the securely dispatched JWT `data.token`
-        // We utilize it completely via standard memory states moving forward
-        if (onAuthSuccess) {
-          onAuthSuccess('user');
-        }
-      } else {
-        setError(data.message || 'Verification processed.');
-      }
-    } catch (err) {
-      setError('Network error. Please try again later.');
+  const handleError = (err) => {
+    console.error(err);
+    if (err.code === 'auth/email-already-in-use') {
+      setError('Account exists, login instead');
+    } else if (err.code === 'auth/popup-closed-by-user') {
+      // ignore
+      setError('');
+    } else {
+      setError(err.message || 'Something went wrong');
     }
   };
 
-  const validateSignup = () => {
-    // Phase 2: Validate email format robustly
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address.');
-      return false;
-    }
-    
-    // Add simple password constraint
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
-      return false;
-    }
-
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phone)) {
-      setError('Phone number must be exactly 10 digits.');
-      return false;
-    }
-    setError('');
-    return true;
-  };
-
-  const handleLoginSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    if (showCaptcha) {
-      if (parseInt(captchaAnswer) !== captchaValues.num1 + captchaValues.num2) {
-        setError('Invalid credentials.');
-        generateCaptcha();
-        return;
-      }
+    setError('');
+    setLoading(true);
+    try {
+      if (!email || !password) throw new Error("Please fill in both email and password.");
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/dashboard');
+    } catch (err) {
+      handleError(err);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const result = await authService.login(email, password);
+  const handleGoogleLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      navigate('/dashboard');
+    } catch (err) {
+      handleError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    if (result.success) {
-      // Check backend explicitly mapping verification strictly
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      if (!name || !email || !password) throw new Error("Please fill in all fields.");
+      
+      // Attempt to register
+      await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Call send-otp API safely
       try {
-        const verifyCheck = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/check-verification`, {
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/send-otp`, {
           method: 'POST',
-          headers: { "Content-Type": "application/json" },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
         });
-        const checkData = await verifyCheck.json();
-        
-        if (checkData.verified) {
-          setError('');
-          setFailedAttempts(0);
-          setShowCaptcha(false);
-          setCaptchaAnswer('');
-          if (onAuthSuccess) {
-            onAuthSuccess(result.user.role);
-          }
-        } else {
-          setError('Please verify your email to access the dashboard.');
-          authService.logout();
-        }
-      } catch (e) {
-        setError('Network error. Please try again later.');
-        authService.logout();
+        if (!res.ok) console.warn("Failed to send OTP via API, but continuing flow.");
+      } catch (apiErr) {
+        console.warn("API Error (send-otp):", apiErr);
       }
-    } else {
-      setError(result.error || 'Invalid credentials.');
-      setFailedAttempts(prev => prev + 1);
       
-      if (failedAttempts >= 2 && !showCaptcha) {
-        generateCaptcha();
-        setShowCaptcha(true);
-      }
-    }
-  };
-
-  const decodeJwt = (token) => {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-      return JSON.parse(jsonPayload);
+      setView('otp');
     } catch (err) {
-      console.error("JWT decode failed:", err);
-      return null;
+      handleError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  React.useEffect(() => {
-    if (!['login', 'signup', 'forgot-request'].includes(view)) return;
-
-    const handleGoogleResponse = async (response) => {
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      if (!otp) throw new Error("Please enter the OTP.");
+      
+      // Call verify-otp API safely
+      let isSuccess = true;
       try {
-        const token = response.credential;
-        // Decode JWT payload safely
-        const payload = decodeJwt(token);
-        if (!payload) {
-          setError("Google login failed");
-          return;
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+        if (!res.ok) {
+          isSuccess = false;
+          throw new Error("Invalid OTP");
         }
-
-        // Use backend auth mapping
-        const result = await authService.googleLogin(token);
-
-        if (result.success) {
-          // Auto verify inside backend DB explicitly mapping out bypass logic
-          try {
-            await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/mark-verified`, {
-              method: 'POST',
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email: payload.email })
-            });
-          } catch(e) { }
-
-          setError('');
-          if (onAuthSuccess) {
-            onAuthSuccess(result.user.role);
-          }
-        } else {
-          setError('Invalid credentials.');
-        }
-      } catch (err) {
-        console.error('Error processing Google login:', err);
-        setError('Error processing Google login.');
+      } catch (apiErr) {
+        console.warn("API Error (verify-otp):", apiErr);
+        // Fallback for simple local test if APIs are down (or strict reject):
+        if (apiErr.message === "Invalid OTP") throw apiErr;
+        // If fetch fails entirely, we log it, but wait, the prompt says:
+        // "if success -> navigate, if fail -> show error". Let's assume fetch failure means OTP verify failed unless we stub it.
+        // I will throw if it wasn't ok, or if it failed to fetch.
+        throw new Error("OTP verification failed. Please try again.");
       }
-    };
-
-    const initializeGoogle = () => {
-      if (!window.google?.accounts?.id) return;
-
-      window.google.accounts.id.initialize({
-        client_id: '503037661664-rpt8278k8bk4v9uitp55q1jg5nj47thd.apps.googleusercontent.com',
-        callback: handleGoogleResponse
-      });
-
-      const btnContainer = document.getElementById('google-btn-container');
-      if (btnContainer) {
-        btnContainer.innerHTML = "";
-        window.google.accounts.id.renderButton(
-          btnContainer,
-          { theme: 'outline', size: 'large', type: 'standard', text: 'continue_with', width: '100%', shape: 'rectangular' }
-        );
+      
+      if (isSuccess) {
+        navigate('/dashboard');
       }
-    };
-
-    const loadGoogleScript = () => {
-      if (window.google?.accounts?.id) {
-        initializeGoogle();
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://accounts.google.com/gsi/client';
-      script.async = true;
-      script.defer = true;
-      script.onload = initializeGoogle;
-      document.head.appendChild(script);
-    };
-
-    loadGoogleScript();
-
-  }, [view, onAuthSuccess]);
-
-  const handleSignupSubmit = async (e) => {
-    e.preventDefault();
-    if (validateSignup()) {
-      const result = await authService.register({ name, email, phone, password });
-      if (result.success) {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/send-otp`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })
-          });
-          if (response.ok) {
-            setError('Please check your email for the verification code.');
-            setView('signup-verify');
-          } else {
-            setError('Request processed. Please proceed to login.');
-          }
-        } catch(err) {
-          setError('Network error. Please try again later.');
-        }
-      } else {
-        // Enforced strict Generic Return fallback masking logic per Rule Requirements!
-        setError('Request processed. Please proceed to login.');
-      }
-    }
-  };
-
-  const handlePasswordResetRequest = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      setError('Please enter your email address.');
-      return;
-    }
-    
-    await authService.requestPasswordReset(email);
-    setError('Request processed. If the email is registered, a secure reset action has been dispatched to your inbox.');
-  };
-
-  const handlePasswordResetSubmit = (e) => {
-    e.preventDefault();
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
-      return;
-    }
-    
-    const result = authService.resetPassword(resetToken, password);
-    if (result.success) {
-      setError('');
-      setView('login');
-    } else {
-      setError(result.error);
+    } catch (err) {
+      handleError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="login-section bg-gradient">
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={styles.title}>
+          {view === 'login' && 'Welcome Back'}
+          {view === 'signup' && 'Create Account'}
+          {view === 'otp' && 'Verify Email'}
+        </h2>
+        
+        {error && <div style={styles.error}>{error}</div>}
 
-      {/* 3D Animated Floating Background Elements */}
-      <div className="floating-background-elements">
-        <motion.div className="floating-item float-icon-1" animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}>
-          <Activity size={48} className="float-svg" />
-        </motion.div>
-        <motion.div className="floating-item float-icon-2" animate={{ y: [0, 30, 0], rotate: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", delay: 1 }}>
-          <span role="img" aria-label="Cow" className="float-emoji">🐄</span>
-        </motion.div>
-        <motion.div className="floating-item float-icon-3" animate={{ y: [0, -15, 0], x: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 2 }}>
-          <Heart fill="rgba(231, 76, 60, 0.4)" stroke="none" size={60} className="float-svg heart-svg" />
-        </motion.div>
-        <motion.div className="floating-item float-icon-4" animate={{ y: [0, 25, 0], rotate: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 9, ease: "easeInOut", delay: 0.5 }}>
-          <span role="img" aria-label="Sheep" className="float-emoji">🐑</span>
-        </motion.div>
-        <motion.div className="floating-item float-icon-5" animate={{ y: [0, -25, 0], x: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 8.5, ease: "easeInOut", delay: 1.5 }}>
-          <BrainCircuit size={55} className="float-svg" />
-        </motion.div>
-        {/* Slow rotating health sphere */}
-        <motion.div className="floating-item float-sphere" animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 25, ease: "linear" }}>
-          <div className="sphere-inner"></div>
-        </motion.div>
+        {view === 'login' && (
+          <form style={styles.form} onSubmit={handleLogin}>
+            <input 
+              style={styles.input} 
+              type="email" 
+              placeholder="Email address" 
+              value={email} 
+              onChange={e => setEmail(e.target.value)} 
+            />
+            <input 
+              style={styles.input} 
+              type="password" 
+              placeholder="Password" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+            />
+            <button disabled={loading} style={styles.button} type="submit">
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+            <div style={styles.toggleText}>
+              Don't have an account?{' '}
+              <span style={styles.link} onClick={() => { setView('signup'); setError(''); }}>Sign up</span>
+            </div>
+          </form>
+        )}
+
+        {view === 'signup' && (
+          <form style={styles.form} onSubmit={handleSignup}>
+            <input 
+              style={styles.input} 
+              type="text" 
+              placeholder="Full Name" 
+              value={name} 
+              onChange={e => setName(e.target.value)} 
+            />
+            <input 
+              style={styles.input} 
+              type="email" 
+              placeholder="Email address" 
+              value={email} 
+              onChange={e => setEmail(e.target.value)} 
+            />
+            <input 
+              style={styles.input} 
+              type="password" 
+              placeholder="Password" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+            />
+            <button disabled={loading} style={styles.button} type="submit">
+              {loading ? 'Creating account...' : 'Register'}
+            </button>
+            <div style={styles.toggleText}>
+              Already have an account?{' '}
+              <span style={styles.link} onClick={() => { setView('login'); setError(''); }}>Login instead</span>
+            </div>
+          </form>
+        )}
+
+        {view === 'otp' && (
+          <form style={styles.form} onSubmit={handleVerifyOtp}>
+            <p style={styles.subtitle}>Enter the OTP sent to {email}</p>
+            <input 
+              style={styles.input} 
+              type="text" 
+              placeholder="Enter OTP" 
+              value={otp} 
+              onChange={e => setOtp(e.target.value)} 
+            />
+            <button disabled={loading} style={styles.button} type="submit">
+              {loading ? 'Verifying...' : 'Verify OTP'}
+            </button>
+            <div style={styles.toggleText}>
+              Entered wrong email?{' '}
+              <span style={styles.link} onClick={() => { setView('signup'); setError(''); }}>Go back</span>
+            </div>
+          </form>
+        )}
+
+        {view !== 'otp' && (
+          <>
+            <div style={styles.divider}>
+              <span style={styles.dividerLine}></span>
+              <span style={styles.dividerText}>OR</span>
+              <span style={styles.dividerLine}></span>
+            </div>
+            
+            <button disabled={loading} style={styles.googleButton} onClick={handleGoogleLogin} type="button">
+              <svg style={styles.googleIcon} viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Continue with Google
+            </button>
+          </>
+        )}
       </div>
-
-      <div className="container login-container">
-        <AnimatePresence mode="wait">
-          {view === 'login' && (
-            <motion.div
-              key="login"
-              className="login-card glass-card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="login-header">
-                <div className="login-icon-wrapper">
-                  <LogIn size={32} className="login-icon" />
-                </div>
-                <h2>Dashboard Login</h2>
-                <p>Welcome back securely</p>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-
-              <form onSubmit={handleLoginSubmit} className="auth-form" autoComplete="off">
-                <div className="input-group">
-                  <label htmlFor="login-email">Email Address</label>
-                  <div className="input-wrapper">
-                    <Mail size={18} className="input-icon" />
-                    <input
-                      type="email"
-                      id="login-email"
-                      placeholder="farmer@gmail.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="username"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="input-group">
-                  <label htmlFor="login-password">Password</label>
-                  <div className="input-wrapper">
-                    <Lock size={18} className="input-icon" />
-                    <input
-                      type="password"
-                      id="login-password"
-                      placeholder="••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      autoComplete="current-password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="form-options">
-                  <label className="remember-me">
-                    <input type="checkbox" />
-                    <span>Remember me</span>
-                  </label>
-                  <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); setView('forgot-request'); }}>Forgot Password</a>
-                </div>
-
-                <button type="submit" className="btn btn-primary auth-btn">
-                  Login to Dashboard <ArrowRight size={18} />
-                </button>
-              </form>
-
-              <div className="login-divider">
-                <span>OR</span>
-              </div>
-
-              <div id="google-btn-container" className="google-btn-wrapper"></div>
-
-              <div className="auth-footer">
-                <p>Don't have an account? <button className="text-btn" onClick={() => { setView('signup'); setError(''); }}>Sign Up</button></p>
-              </div>
-            </motion.div>
-          )}
-
-
-
-          {view === 'signup' && (
-            <motion.div
-              key="signup"
-              className="login-card glass-card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="login-header">
-                <div className="login-icon-wrapper">
-                  <User size={32} className="login-icon" />
-                </div>
-                <h2>Create Account</h2>
-                <p>Register for LivestockAI</p>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-
-              <form onSubmit={handleSignupSubmit} className="auth-form" autoComplete="off">
-                <div className="input-group">
-                  <label htmlFor="signup-name">Full Name</label>
-                  <div className="input-wrapper">
-                    <User size={18} className="input-icon" />
-                    <input
-                      type="text"
-                      id="signup-name"
-                      placeholder="John Doe"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      autoComplete="new-password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="input-group">
-                  <label htmlFor="signup-email">Email Address (@gmail.com)</label>
-                  <div className="input-wrapper">
-                    <Mail size={18} className="input-icon" />
-                    <input
-                      type="email"
-                      id="signup-email"
-                      placeholder="farmer@gmail.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      autoComplete="new-password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="input-group">
-                  <label htmlFor="signup-phone">Phone Number (10 digits)</label>
-                  <div className="input-wrapper">
-                    <Phone size={18} className="input-icon" />
-                    <input
-                      type="tel"
-                      id="signup-phone"
-                      placeholder="1234567890"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      autoComplete="new-password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="input-group">
-                  <label htmlFor="signup-password">Create Password</label>
-                  <div className="input-wrapper">
-                    <Lock size={18} className="input-icon" />
-                    <input
-                      type="password"
-                      id="signup-password"
-                      placeholder="••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      autoComplete="new-password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <button type="submit" className="btn btn-primary auth-btn">
-                  Register to Dashboard <ArrowRight size={18} />
-                </button>
-              </form>
-
-              <div className="login-divider">
-                <span>OR</span>
-              </div>
-
-              <div id="google-btn-container" className="google-btn-wrapper"></div>
-
-              <div className="auth-footer">
-                <p>Already have an account? <button className="text-btn" onClick={() => { setView('login'); setError(''); }}>Log in</button></p>
-              </div>
-            </motion.div>
-          )}
-
-          {view === 'signup-verify' && (
-            <motion.div
-              key="signup-verify"
-              className="login-card glass-card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="login-header">
-                <div className="login-icon-wrapper">
-                  <KeyRound size={32} className="login-icon" />
-                </div>
-                <h2>Verify Email</h2>
-                <p>Enter the 6-digit code sent to your email</p>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-
-              <form onSubmit={handleVerifyOTP} className="auth-form" autoComplete="off">
-                 <div className="input-group">
-                    <label htmlFor="verify-otp">One-Time Password (OTP)</label>
-                    <div className="input-wrapper">
-                      <KeyRound size={18} className="input-icon" />
-                      <input
-                        type="text"
-                        id="verify-otp"
-                        placeholder="Enter 6-digit OTP"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        autoComplete="one-time-code"
-                        required
-                      />
-                    </div>
-                  </div>
-                <button type="submit" className="btn btn-primary auth-btn">
-                  Verify & Access Dashboard <ArrowRight size={18} />
-                </button>
-              </form>
-            </motion.div>
-          )}
-
-          {view === 'forgot-request' && (
-            <motion.div
-              key="forgot-request"
-              className="login-card glass-card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="login-header">
-                <div className="login-icon-wrapper">
-                  <KeyRound size={32} className="login-icon" />
-                </div>
-                <h2>Password Recovery</h2>
-                <p>Enter your email to request a reset link</p>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-
-              <form onSubmit={handlePasswordResetRequest} className="auth-form" autoComplete="off">
-                <div className="input-group">
-                  <label htmlFor="recovery-email">Email Address</label>
-                  <div className="input-wrapper">
-                    <Mail size={18} className="input-icon" />
-                    <input
-                      type="email"
-                      id="recovery-email"
-                      placeholder="e.g. farmer@gmail.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <button type="button" className="btn btn-secondary auth-btn" style={{ flex: 1 }} onClick={() => setView('login')}>
-                    Back
-                  </button>
-                  <button type="submit" className="btn btn-primary auth-btn" style={{ flex: 1 }}>
-                    Request Reset
-                  </button>
-                </div>
-              </form>
-
-              <div className="login-divider">
-                <span>OR</span>
-              </div>
-
-              <div id="google-btn-container" className="google-btn-wrapper"></div>
-
-            </motion.div>
-          )}
-
-
-
-        </AnimatePresence>
-      </div>
-    </section>
+    </div>
   );
-};
+}
 
-export default Login;
+const styles = {
+  container: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0f172a',
+    fontFamily: 'Inter, "DM Sans", sans-serif',
+    padding: '20px',
+    color: '#ffffff'
+  },
+  card: {
+    backgroundColor: '#1e293b',
+    padding: '30px',
+    borderRadius: '12px',
+    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
+    width: '100%',
+    maxWidth: '350px',
+    boxSizing: 'border-box'
+  },
+  title: {
+    fontSize: '24px',
+    fontWeight: '700',
+    color: '#ffffff',
+    marginBottom: '24px',
+    textAlign: 'center'
+  },
+  subtitle: {
+    fontSize: '14px',
+    color: '#94a3b8',
+    marginBottom: '20px',
+    textAlign: 'center'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px'
+  },
+  input: {
+    width: '100%',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    border: '1px solid #334155',
+    backgroundColor: '#0f172a',
+    color: '#ffffff',
+    fontSize: '15px',
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s',
+  },
+  button: {
+    width: '100%',
+    padding: '14px',
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  },
+  googleButton: {
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    marginTop: '16px',
+    transition: 'background-color 0.2s',
+  },
+  googleIcon: {
+    width: '20px',
+    height: '20px'
+  },
+  error: {
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    color: '#ef4444',
+    border: '1px solid rgba(239, 68, 68, 0.2)',
+    padding: '12px',
+    borderRadius: '8px',
+    marginBottom: '16px',
+    fontSize: '14px',
+    textAlign: 'center'
+  },
+  toggleText: {
+    marginTop: '16px',
+    fontSize: '14px',
+    textAlign: 'center',
+    color: '#94a3b8'
+  },
+  link: {
+    color: '#3b82f6',
+    cursor: 'pointer',
+    fontWeight: '500',
+    textDecoration: 'none'
+  },
+  divider: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '24px 0 8px',
+    color: '#64748b',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px'
+  },
+  dividerLine: {
+    flex: '1',
+    height: '1px',
+    backgroundColor: '#334155'
+  },
+  dividerText: {
+    padding: '0 10px',
+    fontWeight: '600'
+  }
+};
