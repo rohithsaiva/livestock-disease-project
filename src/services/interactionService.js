@@ -22,19 +22,8 @@ export const interactionService = {
      * Returns records with status 'Pending' or flagged by AI.
      */
     getRecentAlerts: (limit = 3) => {
-        if (!authService.getUserInteractions) {
-            console.log("Function missing, returning empty");
-            return [];
-        }
-
         const result = authService.getUserInteractions();
-        
-        // Handle mock direct array or older object format
-        if (Array.isArray(result)) {
-            return result.filter(i => i.type === 'disease_prediction').slice(0, limit);
-        }
-
-        if (!result || !result.success || !result.interactions) return [];
+        if (!result.success) return [];
 
         return result.interactions
             .filter(i => i.type === 'disease_prediction')

@@ -74,13 +74,11 @@ app.post('/api/mark-verified', (req, res) => {
 app.post('/api/send-otp', async (req, res) => {
     try {
         const { email } = req.body;
-        // Non-blocking asynchronous SMTP physical routing exclusively invoked locally
-        const result = await sendOtp(email);
-        return res.status(200).json(result);
+        await sendOtp(email);
+        return res.json({ success: true });
     } catch (err) {
-        console.error("Endpoint Routing Handled Log:", err.message);
-        // Generic fallback exclusively mapping out error exposures natively blocking logic leaking
-        return res.status(400).json({ success: false, message: "OTP sent successfully" }); 
+        console.error("Email send failed:", err);
+        return res.status(500).json({ success: false, message: "Failed to send OTP" });
     }
 });
 

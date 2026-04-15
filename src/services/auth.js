@@ -32,20 +32,14 @@ export const authService = {
   },
 
   register: async ({ name, email, password }) => {
-    if (!auth) return { success: false, error: "Firebase unconfigured." };
+    if (!auth) return { success: false, error: "Firebase not configured. Check your .env file." };
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Sign out immediately to prevent auto-login before OTP verification
       await signOut(auth);
-      
       return { success: true };
     } catch (error) {
-      console.error("Registry Exception:", error.code);
-      if (error.code === 'auth/email-already-in-use') {
-        return { success: false, error: "Account already exists." };
-      }
-      if (error.code === 'auth/weak-password') {
-        return { success: false, error: "Password must be at least 6 characters." };
-      }
+      console.error("Registry Exception:", error);
       return { success: false, error: error.message };
     }
   },
@@ -102,7 +96,9 @@ export const authService = {
   },
 
   resetPassword: async (token, newPassword) => {
-    return { success: false, error: "Offline." };
+    // Under strict Firebase protocol, Firebase securely handles password resets via its external link action protocol.
+    // Native reset handling here is aborted to block mock bypass loops entirely.
+    return { success: false, error: "Please utilize the secure reset link dispatched to your email." };
   },
 
   getCurrentUser: () => {
@@ -128,10 +124,5 @@ export const authService = {
   // Fallback to maintain component layouts safely
   saveInteraction: (type, data) => {
     console.log("[Secure Interaction Successfully Processed]:", type);
-  },
-
-  getUserInteractions: () => {
-    console.log("Mock interactions");
-    return [];
   }
 };

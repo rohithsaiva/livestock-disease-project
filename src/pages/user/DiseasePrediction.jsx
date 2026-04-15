@@ -44,7 +44,7 @@ const DiseasePrediction = ({ onNavigate }) => {
     authService.saveInteraction('disease_prediction', formData);
 
     try {
-      const response = await fetch('http://localhost:5000/api/predict', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -85,7 +85,7 @@ const DiseasePrediction = ({ onNavigate }) => {
     formDataToSubmit.append('image', selectedImage);
 
     try {
-      const response = await fetch('http://localhost:5000/api/predict-image', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/predict-image`, {
         method: 'POST',
         body: formDataToSubmit,
       });

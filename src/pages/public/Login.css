@@ -1,0 +1,328 @@
+.login-section {
+  padding: 6rem 1rem;
+  min-height: calc(100vh - 80px); /* Account for navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container {
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.login-card {
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: var(--shadow-card);
+  background: #ffffff;
+  border: 1px solid var(--color-gray-light);
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-soft-green);
+  border-radius: 50%;
+  color: var(--color-primary);
+  box-shadow: 0 8px 16px rgba(46, 125, 50, 0.2);
+}
+
+.login-header h2 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: #666;
+  font-weight: 500;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: #888;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-light);
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: var(--color-soft-green);
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+  background: white;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #555;
+  font-weight: 500;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.forgot-password {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: var(--color-accent);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #666;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 1.5rem;
+}
+
+.signup-link {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.login-divider::before {
+  margin-right: 1rem;
+}
+
+.login-divider::after {
+  margin-left: 1rem;
+}
+
+.google-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    padding: 2rem;
+  }
+}
+
+.error-message {
+  background: rgba(255, 76, 76, 0.1);
+  color: #d32f2f;
+  border: 1px solid rgba(255, 76, 76, 0.3);
+  padding: 0.8rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
+.otp-group {
+  margin-bottom: 1rem;
+}
+
+.otp-input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-light);
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 1.25rem;
+  letter-spacing: 0.5rem;
+  text-align: center;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: var(--color-soft-green);
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+  background: white;
+}
+
+.cancel-btn {
+  color: #777;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
+.cancel-btn:hover {
+  color: #333;
+}
+
+/* 3D Animated Floating Background Elements */
+.floating-background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-item {
+  position: absolute;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+.float-icon-1 { top: 15%; left: 10%; color: var(--color-soft-green); opacity: 0.7; }
+.float-icon-2 { top: 20%; right: 15%; font-size: 3rem; opacity: 0.8; }
+.float-icon-3 { bottom: 25%; left: 15%; opacity: 0.8; }
+.float-icon-4 { bottom: 15%; right: 20%; font-size: 3rem; opacity: 0.8; }
+.float-icon-5 { top: 45%; left: 5%; color: #3498db; opacity: 0.6; }
+
+.float-sphere {
+  top: 50%;
+  right: 5%;
+  width: 150px;
+  height: 150px;
+  perspective: 1000px;
+  opacity: 0.1;
+  margin-top: -75px; 
+}
+
+.sphere-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-soft-green-light);
+  border: 1px solid var(--color-gray-light);
+}
+
+.float-emoji {
+  text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.captcha-container {
+  margin-top: 0.5rem;
+  background: rgba(255, 152, 0, 0.05);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(255, 152, 0, 0.3);
+  overflow: hidden;
+}
+
+.captcha-container label {
+  color: #d84315;
+}
+
+.captcha-input {
+  border-color: rgba(255, 152, 0, 0.2) !important;
+}
+
+.captcha-input:focus {
+  border-color: #ff9800 !important;
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2) !important;
+}

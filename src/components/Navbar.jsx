@@ -9,11 +9,15 @@ const Navbar = ({ activeTab, setActiveTab, onLogout }) => {
   const user = authService.getCurrentUser();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    try {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 10);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    } catch (e) {
+      console.error('Navbar scroll effect error:', e);
+    }
   }, []);
 
   const getNavLinks = () => {
@@ -62,14 +66,14 @@ const Navbar = ({ activeTab, setActiveTab, onLogout }) => {
 
         {/* Desktop Menu */}
         <div className="nav-links desktop-only">
-          {navLinks.map((link) => (
+          {navLinks?.map((link) => (
             <a 
-              key={link.id} 
-              href={`#${link.id}`} 
-              onClick={(e) => handleNavClick(e, link.id)}
-              className={`nav-link ${activeTab === link.id ? 'active-tab' : ''}`}
+              key={link?.id} 
+              href={`#${link?.id}`} 
+              onClick={(e) => handleNavClick(e, link?.id)}
+              className={`nav-link ${activeTab === link?.id ? 'active-tab' : ''}`}
             >
-              {link.name}
+              {link?.name}
             </a>
           ))}
           {!user ? (
@@ -101,14 +105,14 @@ const Navbar = ({ activeTab, setActiveTab, onLogout }) => {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open glass-card' : ''}`}>
-        {navLinks.map((link) => (
+        {navLinks?.map((link) => (
           <a 
-            key={link.id} 
-            href={`#${link.id}`} 
-            className={`mobile-link ${activeTab === link.id ? 'active-mobile-tab' : ''}`}
-            onClick={(e) => handleNavClick(e, link.id)}
+            key={link?.id} 
+            href={`#${link?.id}`} 
+            className={`mobile-link ${activeTab === link?.id ? 'active-mobile-tab' : ''}`}
+            onClick={(e) => handleNavClick(e, link?.id)}
           >
-            {link.name}
+            {link?.name}
           </a>
         ))}
         {!user ? (

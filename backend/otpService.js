@@ -3,9 +3,8 @@ import nodemailer from 'nodemailer';
 // Secure in-memory OTP Tracker constrained tightly with time bounds and attempt guards
 const otpStore = new Map();
 
-// Initialize the Nodemailer transporter exclusively executing using standard Gmail routing
-// Evaluates strictly off the local environment mapped bounds
-const createTransporter = () => nodemailer.createTransport({
+// Initialize the Nodemailer transporter exactly once
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
@@ -16,9 +15,8 @@ const createTransporter = () => nodemailer.createTransport({
 export async function sendOtp(email) {
     if (!email) throw new Error("Email is required");
 
-    // Dynamic 6-digit natively-randomized sequence
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiry = Date.now() + 10 * 60 * 1000; // Strictly enforced 10 minutes bounds
+    const expiry = Date.now() + 10 * 60 * 1000;
 
     const record = otpStore.get(email);
     const attempts = record ? record.attempts : 0;
@@ -26,22 +24,18 @@ export async function sendOtp(email) {
     otpStore.set(email, { otp, expiry, attempts });
 
     try {
-        const transporter = createTransporter();
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
-            subject: 'LivestockAI Dashboard - Secure Authorization',
-            text: `Your One-Time Password (OTP) authorization sequence is: ${otp}. \n\nThis payload strictly expires locally within 10 minutes. Do not share this sequence natively.`
+            subject: 'Your OTP Code',
+            text: `Your OTP is ${otp}`
         });
         
-        console.log(`[SMTP DISPATCH SUCCESS] Real OTP natively dispatched cleanly to ${email}`);
-        
-        // Strict Generic Execution returning string strictly per Rules Constraints avoiding exposure
+        console.log("OTP sent to:", email);
         return { success: true, message: "OTP sent successfully" };
     } catch (error) {
-        console.error("Nodemailer SMTP Route Blocked/Failed strictly handled:", error.message);
-        // Expose strict Generic fallbacks structurally preventing routing enumeration natively
-        return { success: false, error: "OTP sent successfully" }; 
+        console.error("Email send failed:", error);
+        return { success: false, error: "Failed to send email. Please check server email config." }; 
     }
 }
 
