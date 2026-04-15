@@ -199,7 +199,11 @@ function App() {
     return <SplashScreen onFinish={() => setLoading(false)} />;
   }
 
-  // MAIN RENDER — always returns UI
+  // All known tabs
+  const knownTabs = ['home', 'features', 'solution', 'model', 'about', 'contact',
+    'login', 'dashboard', 'disease-prediction', 'prediction-result',
+    'advisory-system', 'animal-records', 'ai-reports', 'user-about', 'admin'];
+
   return (
     <div className="tab-layout-wrapper">
 
@@ -224,9 +228,61 @@ function App() {
         </nav>
       )}
 
-      {/* Page content */}
+      {/* Page content — conditional rendering */}
       <main className="tab-content-area" style={user && user.role === 'user' ? { paddingTop: 0 } : {}}>
-        {renderTab()}
+
+        {activeTab === 'home'        && <Home setActiveTab={setActiveTab} />}
+        {activeTab === 'features'    && <Features />}
+        {activeTab === 'solution'    && <Solution />}
+        {activeTab === 'model'       && <AIModel />}
+        {activeTab === 'about'       && <About />}
+        {activeTab === 'contact'     && <GetInTouch />}
+        {activeTab === 'login'       && (
+          <Login onAuthSuccess={(role) => { setActiveTab(role === 'admin' ? 'admin' : 'dashboard'); window.scrollTo(0, 0); }} />
+        )}
+        {activeTab === 'dashboard'   && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <UserDashboard onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'disease-prediction' && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <DiseasePrediction onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'prediction-result' && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <PredictionResult onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'advisory-system' && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <AdvisorySystem onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'animal-records' && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <AnimalRecords onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'ai-reports'  && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <Alerts onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'user-about'  && (
+          <ProtectedRoute user={user} requiredRole="user" fallbackAction={setActiveTab}>
+            <UserAbout onNavigate={(tab) => { setActiveTab(tab); window.scrollTo(0, 0); }} />
+          </ProtectedRoute>
+        )}
+        {activeTab === 'admin'       && (
+          <ProtectedRoute user={user} requiredRole="admin" fallbackAction={setActiveTab}>
+            <AdminDashboard user={user} onLogout={handleLogout} />
+          </ProtectedRoute>
+        )}
+
+        {/* FINAL SAFETY — unknown tab → always show Home */}
+        {!knownTabs.includes(activeTab) && <Home setActiveTab={setActiveTab} />}
 
         {/* Prev / Next nav — public only */}
         {!user && (
@@ -247,3 +303,4 @@ function App() {
 }
 
 export default App;
+
