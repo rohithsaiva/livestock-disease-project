@@ -15,14 +15,19 @@ const UserDashboard = ({ onNavigate }) => {
     setCurrentUser(user);
 
     const fetchInteractions = () => {
-      const alerts = interactionService.getRecentAlerts(3);
-      const formattedAlerts = alerts.map(p => ({
-        id: p.id,
-        animal: `${p.details.animalType} #${p.id.slice(-4).toUpperCase()}`,
-        issue: 'Analysis Pending',
-        timeAgo: dateFormatter.formatTimeAgo(p.date)
-      }));
-      setRecentAlerts(formattedAlerts);
+      try {
+        const alerts = interactionService.getRecentAlerts(3);
+        const formattedAlerts = (alerts || []).map(p => ({
+          id: p.id,
+          animal: `${p.details?.animalType || 'Animal'} #${p.id.slice(-4).toUpperCase()}`,
+          issue: 'Analysis Pending',
+          timeAgo: dateFormatter.formatTimeAgo(p.date)
+        }));
+        setRecentAlerts(formattedAlerts);
+      } catch (err) {
+        console.warn('fetchInteractions failed (non-critical):', err.message);
+        setRecentAlerts([]);
+      }
     };
     fetchInteractions();
   }, []);

@@ -22,10 +22,14 @@ export const interactionService = {
      * Returns records with status 'Pending' or flagged by AI.
      */
     getRecentAlerts: (limit = 3) => {
-        const result = authService.getUserInteractions();
-        if (!result.success) return [];
+        const user = authService.getCurrentUser();
+        if (!user) return [];
 
-        return result.interactions
+        const interactions = projectDataStorage.getInteractionsByUser
+            ? projectDataStorage.getInteractionsByUser(user.uid)
+            : (projectDataStorage.interactions || []).filter(i => i.userId === user.uid);
+
+        return interactions
             .filter(i => i.type === 'disease_prediction')
             .slice(0, limit);
     },
