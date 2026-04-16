@@ -95,10 +95,13 @@ const ToolCard = ({ icon: Icon, title, desc, action, color, delay, onClick }) =>
     </div>
     <h3 className="ud-tool-title">{title}</h3>
     <p className="ud-tool-desc">{desc}</p>
-    <div className="ud-tool-action" style={{ color }}>
-      {action} <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}>
-        <ArrowRight size={16} />
-      </motion.span>
+    <div style={{ marginTop: '16px' }}>
+      <button className="ent-btn ent-btn-primary" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '12px 20px', height: 'auto', borderRadius: '10px' }}>
+        <span>{action}</span>
+        <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}>
+          <ArrowRight size={18} />
+        </motion.span>
+      </button>
     </div>
     <div className="ud-tool-glow" style={{ background: `radial-gradient(circle at 70% 70%, ${color}18, transparent 70%)` }} />
   </motion.div>
@@ -127,9 +130,9 @@ const UserDashboard = ({ onNavigate }) => {
 
   return (
     <motion.div
-      className="ud-wrapper"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      className="dashboard-container ud-wrapper"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
 
@@ -273,8 +276,9 @@ const UserDashboard = ({ onNavigate }) => {
               className="ud-btn-outline"
               style={{ marginTop: 24 }}
               onClick={() => onNavigate('ai-reports')}
-              whileHover={{ scale: 1.04, backgroundColor: '#f0fdf4' }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               View All Alerts <ArrowRight size={16} />
             </motion.button>

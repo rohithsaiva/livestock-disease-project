@@ -26,6 +26,20 @@ const UserAbout = ({ onNavigate }) => {
         </p>
       </div>
 
+      {/* Advisory Banner Image */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        style={{ marginBottom: '48px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.10)' }}
+      >
+        <img
+          src="/advisory-banner.png"
+          alt="AI Advisory System — Livestock Health Intelligence"
+          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '340px' }}
+        />
+      </motion.div>
+
       <div className="ent-about-content">
         <motion.section 
           className="ent-card about-ent-card"

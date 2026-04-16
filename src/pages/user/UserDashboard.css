@@ -48,6 +48,7 @@
 }
 
 .ud-hero-title {
+  font-family: 'Syne', sans-serif;
   font-size: clamp(2.4rem, 5vw, 3.6rem);
   font-weight: 800;
   letter-spacing: -1.5px;
@@ -64,6 +65,7 @@
 }
 
 .ud-hero-sub {
+  font-family: 'DM Sans', sans-serif;
   font-size: 1.1rem;
   color: #6b7280;
   max-width: 640px;
@@ -164,6 +166,7 @@
 }
 
 .ud-section-title {
+  font-family: 'Syne', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #111827;
@@ -212,6 +215,7 @@
 }
 
 .ud-tool-title {
+  font-family: 'Syne', sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   color: #1f2937;
@@ -219,6 +223,7 @@
 }
 
 .ud-tool-desc {
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   color: #6b7280;
   line-height: 1.6;

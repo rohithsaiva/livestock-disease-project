@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500&display=swap');
+
 :root {
-  --color-deep-green: #27ae60;
+  --color-deep-green: #22c55e;
   --color-deep-green-dark: #219653;
   --color-soft-green: #2ecc71;
   --color-soft-green-light: #f6fff7;
@@ -30,7 +32,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background-color: var(--color-deep-green-dark);
   color: var(--color-gray-dark);
   line-height: 1.6;
@@ -38,7 +40,7 @@ body {
 }
 
 #root {
-  background-color: var(--color-bg);
+  background-color: #f8fafc;
   min-height: 100vh;
 }
 
@@ -80,8 +82,8 @@ img {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--color-deep-green);
+h1, h2, h3, h4, h5 {
+  font-family: 'Syne', sans-serif;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
@@ -198,6 +200,30 @@ p {
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.dashboard-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 @media (max-width: 768px) {

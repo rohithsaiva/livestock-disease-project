@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import { Activity, ChevronLeft, ChevronRight, LogOut, BrainCircuit, Heart } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Home from './pages/public/Home';
 import Features from './pages/public/Features';
@@ -246,7 +246,31 @@ function App() {
   };
 
   return (
-    <div className="tab-layout-wrapper">
+    <div className={`tab-layout-wrapper ${user && user.role === 'user' ? 'enterprise-dashboard' : ''}`}>
+
+      {/* Dashboard Ambient Particles */}
+      {user && user.role === 'user' && (
+        <div className="ent-floating-bg">
+          <motion.div className="floating-item float-icon-1" animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}>
+            <Activity size={50} style={{ color: "rgba(34, 197, 94, 0.7)" }} />
+          </motion.div>
+          <motion.div className="floating-item float-icon-2" animate={{ y: [0, 30, 0], rotate: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 10, ease: "easeInOut", delay: 1 }}>
+            <span role="img" aria-label="Cow" style={{ fontSize: "3.5rem", opacity: 0.85 }}>🐄</span>
+          </motion.div>
+          <motion.div className="floating-item float-icon-3" animate={{ y: [0, -15, 0], x: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 9, ease: "easeInOut", delay: 2 }}>
+            <Heart fill="rgba(34, 197, 94, 0.45)" stroke="none" size={75} />
+          </motion.div>
+          <motion.div className="floating-item float-icon-4" animate={{ y: [0, 25, 0], rotate: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 11, ease: "easeInOut", delay: 0.5 }}>
+            <span role="img" aria-label="Sheep" style={{ fontSize: "3.5rem", opacity: 0.85 }}>🐑</span>
+          </motion.div>
+          <motion.div className="floating-item float-icon-5" animate={{ y: [0, -25, 0], x: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 10.5, ease: "easeInOut", delay: 1.5 }}>
+            <BrainCircuit size={65} style={{ color: "rgba(16, 185, 129, 0.65)" }} />
+          </motion.div>
+          <motion.div className="floating-item float-sphere" animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 30, ease: "linear" }}>
+            <div className="ent-sphere-inner"></div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Public navbar */}
       {!user && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />}
@@ -259,12 +283,24 @@ function App() {
             <span className="ent-brand-text">Livestock<span className="ent-brand-accent">AI</span></span>
           </div>
           <div className="ent-nav-actions">
-            <button onClick={() => { setActiveTab('user-about'); window.scrollTo(0, 0); }} className="ent-btn ent-btn-secondary">
+            <motion.button 
+              onClick={() => { setActiveTab('user-about'); window.scrollTo(0, 0); }} 
+              className="ent-btn ent-btn-secondary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <Activity size={18} /> About
-            </button>
-            <button onClick={handleLogout} className="ent-btn ent-btn-danger">
+            </motion.button>
+            <motion.button 
+              onClick={handleLogout} 
+              className="ent-btn ent-btn-danger"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <LogOut size={18} /> Logout
-            </button>
+            </motion.button>
           </div>
         </nav>
       )}
@@ -286,8 +322,8 @@ function App() {
         )}
       </main>
 
-      {/* Footer — public only */}
-      {!user && <Footer />}
+      {/* Footer — rendered globally as requested */}
+      <Footer />
     </div>
   );
 }
