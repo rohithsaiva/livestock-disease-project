@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
-if (process.env.NODE_ENV !== "production") {
-    dotenv.config();
-}
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
@@ -10,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { trainAndEvaluate, trainedModels } from './ml/model_evaluation.js';
 import { preprocessRow, REVERSE_DISEASE_MAP } from './ml/preprocessing.js';
-import { sendOtp, verifyOtp } from './otpService.js';
+import { sendOtp } from './otpService.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -74,31 +71,40 @@ app.post('/api/mark-verified', (req, res) => {
 app.post('/api/send-otp', async (req, res) => {
     try {
         const { email } = req.body;
-        await sendOtp(email);
-        return res.json({ success: true });
+
+        const otp = Math.floor(100000 + 900000 * Math.random());
+
+        global.otpStore = global.otpStore || {};
+        global.otpStore[email] = otp;
+
+        await sendOtp(email, otp);
+
+        res.json({ success: true });
+
     } catch (err) {
-        console.error("Email send failed:", err);
-        return res.status(500).json({ success: false, message: "Failed to send OTP" });
+        console.error("OTP ERROR:", err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to send OTP"
+        });
     }
 });
 
 app.post('/api/verify-otp', (req, res) => {
-    try {
-        const { email, otp } = req.body;
-        const result = verifyOtp(email, otp);
-        if (result.success) {
-            // Strictly push validation flag physically inside the backend mapping store matching logic
-            addVerifiedUser(email);
-            // Strictly issue stateless JWT upon validation completing Firebase mapping
-            const secret = process.env.JWT_SECRET || 'secure-livestock-jwt-fallback-blocker';
-            const token = jwt.sign({ email, role: 'user' }, secret, { expiresIn: '1h' });
-            return res.status(200).json({ ...result, token });
-        } else {
-            return res.status(400).json(result);
-        }
-    } catch (err) {
-        return res.status(500).json({ success: false, error: err.message });
+    const { email, otp } = req.body;
+
+    if (global.otpStore && global.otpStore[email] == otp) {
+        delete global.otpStore[email];
+
+        return res.json({
+            success: true
+        });
     }
+
+    return res.json({
+        success: false,
+        message: "Invalid OTP"
+    });
 });
 
 // ==================== PREDICTION ROUTE ====================
