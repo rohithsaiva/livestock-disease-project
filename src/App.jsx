@@ -67,7 +67,14 @@ const ProtectedRoute = ({ user, requiredRole, children, fallbackAction }) => {
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+
+  // Seed admin user from localStorage so ProtectedRoute passes without Firebase
+  const [user, setUser] = useState(() => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      return { uid: 'admin', email: 'rohithsaiva8@gmail.com', role: 'admin' };
+    }
+    return null;
+  });
 
   console.log("App State →", { loading, activeTab });
   console.log("Rendering tab:", activeTab);
@@ -75,6 +82,13 @@ function App() {
   // Firebase auth listener
   useEffect(() => {
     if (!auth) return;
+
+    // If admin session already set via localStorage, skip Firebase listener for initial tab
+    if (localStorage.getItem("isAdmin") === "true") {
+      setActiveTab('admin');
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (localStorage.getItem("otpEmail")) {
         console.log("OTP flow active — skip redirect");
@@ -105,6 +119,8 @@ function App() {
 
   const handleLogout = async () => {
     try {
+      // Clear admin override first
+      localStorage.removeItem('isAdmin');
       await signOut(auth);
       authService.logout();
       localStorage.removeItem('otpEmail');
@@ -112,6 +128,7 @@ function App() {
       window.location.href = '/';
     } catch (err) {
       console.error('Logout error:', err);
+      localStorage.removeItem('isAdmin');
       setUser(null);
       setActiveTab('home');
     }

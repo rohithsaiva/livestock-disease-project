@@ -6,6 +6,11 @@ import { authService } from '../../services/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updatePassword, fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth } from '../../config/firebase';
 
+// ── Admin Override Credentials ──────────────────────────────────────────
+const ADMIN_EMAIL    = "rohithsaiva8@gmail.com";
+const ADMIN_PASSWORD = "12345678";
+// ─────────────────────────────────────────────────────────────────────────
+
 const Login = ({ onAuthSuccess }) => {
   const [view, setView] = useState('login'); // 'login', 'signup', 'otp'
   const [error, setError] = useState('');
@@ -120,6 +125,15 @@ const Login = ({ onAuthSuccess }) => {
         return;
       }
     }
+
+    // ── ADMIN OVERRIDE (no Firebase dependency) ───────────────────────────
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      console.log("Admin login detected — bypassing Firebase");
+      localStorage.setItem("isAdmin", "true");
+      if (onAuthSuccess) onAuthSuccess('admin');
+      return;
+    }
+    // ─────────────────────────────────────────────────────────────────────
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
