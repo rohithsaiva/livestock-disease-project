@@ -67,31 +67,19 @@ const ProtectedRoute = ({ user, requiredRole, children, fallbackAction }) => {
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [loading, setLoading] = useState(true);
+  const [authReady, setAuthReady] = useState(false);
+  const [user, setUser] = useState(null);
 
-  // Seed admin user from localStorage so ProtectedRoute passes without Firebase
-  const [user, setUser] = useState(() => {
-    if (localStorage.getItem("isAdmin") === "true") {
-      return { uid: 'admin', email: 'rohithsaiva8@gmail.com', role: 'admin' };
-    }
-    return null;
-  });
-
-  console.log("App State →", { loading, activeTab });
-  console.log("Rendering tab:", activeTab);
-
-  // Firebase auth listener
+  // Firebase auth listener — runs ONCE, atomically sets user + tab before render
   useEffect(() => {
-    if (!auth) return;
-
-    // If admin session already set via localStorage, skip Firebase listener for initial tab
-    if (localStorage.getItem("isAdmin") === "true") {
-      setActiveTab('admin');
+    if (!auth) {
+      setAuthReady(true);
       return;
     }
-
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (localStorage.getItem("otpEmail")) {
         console.log("OTP flow active — skip redirect");
+        setAuthReady(true);
         return;
       }
       if (firebaseUser) {
@@ -104,6 +92,7 @@ function App() {
         setUser(null);
         setActiveTab('home');
       }
+      setAuthReady(true);
     });
     return () => unsubscribe();
   }, []);
@@ -119,8 +108,6 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      // Clear admin override first
-      localStorage.removeItem('isAdmin');
       await signOut(auth);
       authService.logout();
       localStorage.removeItem('otpEmail');
@@ -128,7 +115,6 @@ function App() {
       window.location.href = '/';
     } catch (err) {
       console.error('Logout error:', err);
-      localStorage.removeItem('isAdmin');
       setUser(null);
       setActiveTab('home');
     }
@@ -219,8 +205,8 @@ function App() {
     }
   };
 
-  // SPLASH — early return, nothing else rendered
-  if (loading) {
+  // SPLASH — show until animation done AND Firebase auth is resolved
+  if (loading || !authReady) {
     return <SplashScreen onFinish={() => setLoading(false)} />;
   }
 
