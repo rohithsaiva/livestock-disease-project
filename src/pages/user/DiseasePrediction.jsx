@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, ArrowLeft, BrainCircuit } from 'lucide-react';
 import { authService } from '../../services/auth';
+import { auth } from '../../config/firebase';
 import './DiseasePrediction.css';
 
 const DiseasePrediction = ({ onNavigate }) => {
@@ -61,7 +62,34 @@ const DiseasePrediction = ({ onNavigate }) => {
           throw new Error("Backend reported an error or fetch failed");
       }
 
-      setPrediction(data?.prediction || "No result");
+      const diseaseName = data?.prediction || "No result";
+      setPrediction(diseaseName);
+
+      // ── Save to localStorage so AnimalRecords + Admin panel can display it ──
+      try {
+        const currentUser = auth?.currentUser;
+        const userName = currentUser
+          ? (currentUser.displayName || currentUser.email.split('@')[0])
+          : 'User';
+        const userEmail = currentUser?.email || '';
+
+        authService.saveInteraction('disease_prediction', {
+          userName,
+          userEmail,
+          animalType: formData.animalType,
+          age: formData.age,
+          fever: formData.fever,
+          appetiteLoss: formData.appetiteLoss,
+          weakness: formData.weakness,
+          temperature: formData.temperature,
+          humidity: formData.humidity,
+          vaccination: formData.vaccination,
+          prediction: diseaseName
+        });
+        console.log('[Prediction saved to records]');
+      } catch (saveErr) {
+        console.warn('Could not save interaction:', saveErr.message);
+      }
 
     } catch (error) {
       console.error("FRONTEND ERROR:", error);
@@ -215,13 +243,7 @@ const DiseasePrediction = ({ onNavigate }) => {
               </motion.button>
             </div>
 
-            {/* TEMPORARY DEBUG CHECK */}
-            {prediction && (
-              <div style={{ marginTop: "20px" }}>
-                <h3>Prediction Result</h3>
-                <p>DEBUG VALUE: {prediction}</p>
-              </div>
-            )}
+
 
             {errorState && (
               <div className="prediction-error-card">
