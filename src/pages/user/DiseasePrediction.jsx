@@ -57,11 +57,16 @@ const DiseasePrediction = ({ onNavigate }) => {
 
       console.log("RAW RESPONSE:", data);
 
+      if (!response.ok || data.success === false) {
+          throw new Error("Backend reported an error or fetch failed");
+      }
+
       setPrediction(data?.prediction || "No result");
 
     } catch (error) {
       console.error("FRONTEND ERROR:", error);
       setPrediction("Server error");
+      setErrorState(true);
     } finally {
       setIsSubmitting(false);
     }

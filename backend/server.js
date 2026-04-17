@@ -115,26 +115,39 @@ app.post("/api/predict", (req, res) => {
         console.log("=== BACKEND HIT ===");
         console.log("Body:", req.body);
         
-        // SIMPLE WORKING LOGIC (guaranteed result)
-        const { fever, temperature, appetiteLoss, weakness } = req.body;
-        let result = "Healthy";
+        const rawBody = req.body;
+        // Map frontend JSON into the format `preprocessRow` expects
+        const rowData = {
+            Animal: rawBody.animalType || "Cow",
+            Age: rawBody.age !== undefined ? rawBody.age : 3,
+            Fever: rawBody.fever ? "Yes" : "No",
+            AppetiteLoss: rawBody.appetiteLoss ? "Yes" : "No",
+            Weakness: rawBody.weakness ? "Yes" : "No",
+            Vaccination: rawBody.vaccination || "Not Vaccinated",
+            Temp: rawBody.temperature !== undefined ? rawBody.temperature : 38.0,
+            Humidity: rawBody.humidity !== undefined ? rawBody.humidity : 60
+        };
 
-        if (fever && weakness) {
-            result = "Possible Infection";
-        } else if (temperature > 40) {
-            result = "High Fever Disease";
-        } else if (appetiteLoss) {
-            result = "Digestive Disorder";
+        const preprocessed = preprocessRow(rowData);
+        const features = preprocessed.features;
+        const bestModelName = trainedModels.bestModel;
+        const bestModel = trainedModels[bestModelName];
+
+        if (!bestModel) {
+            return res.status(500).json({ error: "Model not trained yet." });
         }
+
+        const predictedClass = bestModel.predict(features);
+        const diseaseName = REVERSE_DISEASE_MAP[predictedClass] || "Unknown";
 
         res.json({
             success: true,
-            prediction: result || "Test Prediction Working"
+            prediction: diseaseName
         });
 
     } catch (error) {
         console.error("BACKEND ERROR:", error);
-        res.json({
+        res.status(500).json({
             success: false,
             prediction: "Unable to analyze, but animal seems stable"
         });
