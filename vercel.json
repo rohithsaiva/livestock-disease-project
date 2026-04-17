@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "VITE_FIREBASE_API_KEY": "AIzaSyAep5g-_SS9QaOl-gyJVdGOydCOHleBlEg",
+    "VITE_FIREBASE_AUTH_DOMAIN": "livestockai-a4d4e.firebaseapp.com",
+    "VITE_FIREBASE_PROJECT_ID": "livestockai-a4d4e",
+    "VITE_FIREBASE_STORAGE_BUCKET": "livestockai-a4d4e.firebasestorage.app",
+    "VITE_FIREBASE_MESSAGING_SENDER_ID": "731352280669",
+    "VITE_FIREBASE_APP_ID": "1:731352280669:web:139819b38a737b1d9ce7b4"
+  }
+}

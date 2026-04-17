@@ -25,4 +25,4 @@ if (!isConfigValid) {
 
 // Initialize Firebase Authentication only if config is completely valid to prevent crashes
 export const auth = isConfigValid ? getAuth(app) : null;
-export const googleProvider = new GoogleAuthProvider();
+export const googleProvider = isConfigValid ? new GoogleAuthProvider() : null;
