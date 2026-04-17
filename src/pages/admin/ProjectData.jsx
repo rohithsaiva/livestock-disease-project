@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ProjectData = ({ projectData }) => {
+    const sorted = [...projectData].sort((a, b) => new Date(b.date) - new Date(a.date));
     return (
         <div className="admin-table-container glass-card">
             <div className="table-header">
@@ -18,10 +19,10 @@ const ProjectData = ({ projectData }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {projectData.length === 0 ? (
+                        {sorted.length === 0 ? (
                             <tr><td colSpan="5" className="text-center">No animal records found.</td></tr>
                         ) : (
-                            projectData.map(record => {
+                            sorted.map(record => {
                                 const d = new Date(record.date);
                                 const t = record.details || {};
                                 const userName = record.displayName || record.userName || (record.userEmail ? record.userEmail.split('@')[0] : 'User');
