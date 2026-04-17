@@ -87,6 +87,19 @@ function App() {
         const loggedInUser = { uid: firebaseUser.uid, email: firebaseUser.email, role: 'user' };
         setUser(loggedInUser);
         setActiveTab(loggedInUser.role === 'admin' ? 'admin' : 'dashboard');
+
+        // ── Persist user globally so admin User Data panel always has data ──
+        try {
+          const existing = JSON.parse(localStorage.getItem('all_users') || '[]');
+          const alreadyExists = existing.find(u => u.email === firebaseUser.email);
+          if (!alreadyExists) {
+            const userName = firebaseUser.displayName || firebaseUser.email.split('@')[0];
+            existing.push({ userName, email: firebaseUser.email, password: '(via Firebase)' });
+            localStorage.setItem('all_users', JSON.stringify(existing));
+          }
+        } catch (e) {
+          console.warn('Failed to persist user to all_users:', e.message);
+        }
       } else {
         console.log("No user → home");
         setUser(null);
