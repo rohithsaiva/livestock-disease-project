@@ -63,6 +63,19 @@ const DiseasePrediction = ({ onNavigate }) => {
 
       setPrediction(data?.prediction || "No result");
 
+      // Save to Animal Records history (per-user via localStorage)
+      authService.saveInteraction('disease_prediction', {
+        animalType: formData.animalType,
+        age: formData.age,
+        fever: formData.fever,
+        appetiteLoss: formData.appetiteLoss,
+        weakness: formData.weakness,
+        temperature: formData.temperature,
+        humidity: formData.humidity,
+        vaccination: formData.vaccination,
+        result: data?.prediction
+      });
+
     } catch (error) {
       console.error("FRONTEND ERROR:", error);
       setPrediction("Server error");
@@ -215,13 +228,6 @@ const DiseasePrediction = ({ onNavigate }) => {
               </motion.button>
             </div>
 
-            {/* TEMPORARY DEBUG CHECK */}
-            {prediction && (
-              <div style={{ marginTop: "20px" }}>
-                <h3>Prediction Result</h3>
-                <p>DEBUG VALUE: {prediction}</p>
-              </div>
-            )}
 
             {errorState && (
               <div className="prediction-error-card">
