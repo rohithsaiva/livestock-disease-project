@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, ArrowLeft, BrainCircuit } from 'lucide-react';
 import { authService } from '../../services/auth';
+import { auth } from '../../config/firebase';
 import './DiseasePrediction.css';
 
 const DiseasePrediction = ({ onNavigate }) => {
@@ -75,6 +76,21 @@ const DiseasePrediction = ({ onNavigate }) => {
         vaccination: formData.vaccination,
         result: data?.prediction
       });
+
+      // Optional backend sync (non-breaking — localStorage is source of truth)
+      try {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/save-prediction`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: auth.currentUser?.email || 'unknown',
+            input: formData,
+            result: data?.prediction
+          })
+        });
+      } catch (err) {
+        console.log("Backend sync failed (safe ignore)");
+      }
 
     } catch (error) {
       console.error("FRONTEND ERROR:", error);

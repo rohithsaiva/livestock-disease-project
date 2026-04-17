@@ -155,6 +155,39 @@ app.post("/api/predict", (req, res) => {
 });
 
 
+// ================= PREDICTION HISTORY ROUTES =================
+
+// In-memory store (non-persistent, but synced from frontend on each session)
+global.predictions = global.predictions || [];
+
+// Save a prediction (called after successful prediction on frontend)
+app.post('/api/save-prediction', (req, res) => {
+    try {
+        const { email, input, result } = req.body;
+        global.predictions.push({
+            email,
+            input,
+            result,
+            time: new Date().toISOString()
+        });
+        console.log(`[Prediction saved] ${email} → ${result}`);
+        res.json({ success: true });
+    } catch (err) {
+        console.error('save-prediction error:', err);
+        res.status(500).json({ success: false });
+    }
+});
+
+// Get predictions for a specific user (or all if admin)
+app.get('/api/user/predictions', (req, res) => {
+    const { email } = req.query;
+    if (!email) return res.status(400).json({ error: 'email required' });
+    const data = (global.predictions || []).filter(p => p.email === email);
+    res.json(data);
+});
+
+
+
 // ================= IMAGE PREDICTION ROUTE =================
 
 app.post('/api/predict-image', upload.single('image'), (req, res) => {
