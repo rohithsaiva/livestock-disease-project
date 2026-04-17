@@ -153,5 +153,62 @@ export const authService = {
     } catch (e) {
       return { success: false, interactions: [] };
     }
+  },
+
+  // ── ADMIN METHODS ──
+
+  getAllUsers: () => {
+    try {
+      const users = JSON.parse(localStorage.getItem('livestock_all_users') || '[]');
+      return { success: true, users };
+    } catch (e) {
+      return { success: true, users: [] };
+    }
+  },
+
+  getAllMessages: () => {
+    try {
+      const messages = JSON.parse(localStorage.getItem('livestock_messages') || '[]');
+      return { success: true, messages };
+    } catch (e) {
+      return { success: true, messages: [] };
+    }
+  },
+
+  getAllInteractions: () => {
+    try {
+      // Collect interactions from all known user keys
+      const allInteractions = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('interactions_')) {
+          const items = JSON.parse(localStorage.getItem(key) || '[]');
+          allInteractions.push(...items);
+        }
+      }
+      allInteractions.sort((a, b) => new Date(b.date) - new Date(a.date));
+      return { success: true, interactions: allInteractions };
+    } catch (e) {
+      return { success: true, interactions: [] };
+    }
+  },
+
+  deleteInteraction: (id) => {
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('interactions_')) {
+          const items = JSON.parse(localStorage.getItem(key) || '[]');
+          const filtered = items.filter(item => item.id !== id);
+          if (filtered.length !== items.length) {
+            localStorage.setItem(key, JSON.stringify(filtered));
+            return { success: true };
+          }
+        }
+      }
+      return { success: true };
+    } catch (e) {
+      return { success: false };
+    }
   }
 };
