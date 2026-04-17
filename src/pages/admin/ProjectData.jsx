@@ -25,7 +25,10 @@ const ProjectData = ({ projectData }) => {
                             sorted.map(record => {
                                 const d = new Date(record.date);
                                 const t = record.details || {};
-                                const userName = record.displayName || record.userName || (record.userEmail ? record.userEmail.split('@')[0] : 'User');
+                                const userName = record.details?.userName
+                                    || record.details?.userEmail?.split('@')[0]
+                                    || record.userName
+                                    || (record.userEmail ? record.userEmail.split('@')[0] : 'User');
                                 const inputSummary = [
                                     t.age ? `Age: ${t.age}` : '',
                                     t.fever ? `Fever: ${t.fever}` : '',

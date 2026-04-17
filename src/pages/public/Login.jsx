@@ -12,6 +12,21 @@ const Login = ({ onAuthSuccess }) => {
 
   console.log("Current View:", view);
 
+  // ── Persists user to all_users so admin panel can display them ──
+  const saveUserToStorage = (firebaseUser, enteredPassword = '') => {
+    try {
+      const existing = JSON.parse(localStorage.getItem('all_users') || '[]');
+      const alreadyExists = existing.find(u => u.email === firebaseUser.email);
+      if (!alreadyExists) {
+        const userName = firebaseUser.displayName || firebaseUser.email.split('@')[0];
+        existing.push({ userName, email: firebaseUser.email, password: enteredPassword || '(Google Login)' });
+        localStorage.setItem('all_users', JSON.stringify(existing));
+      }
+    } catch (e) {
+      console.warn('saveUserToStorage failed:', e.message);
+    }
+  };
+
   useEffect(() => {
     const otpEmail = localStorage.getItem("otpEmail");
 
@@ -129,7 +144,8 @@ const Login = ({ onAuthSuccess }) => {
     }
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      saveUserToStorage(cred.user, password);
       setError('');
       setFailedAttempts(0);
       setShowCaptcha(false);
@@ -157,6 +173,7 @@ const Login = ({ onAuthSuccess }) => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
+      saveUserToStorage(result.user);
       console.log("Google login success:", result.user);
       // Force full reload so onAuthStateChanged picks up the session and sets dashboard tab
       window.location.href = "/";
