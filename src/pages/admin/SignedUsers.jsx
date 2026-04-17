@@ -4,30 +4,28 @@ const SignedUsers = ({ users }) => {
     return (
         <div className="admin-table-container glass-card">
             <div className="table-header">
-                <h3>Registered Users</h3>
+                <h3>User Data</h3>
             </div>
             <div className="table-responsive">
                 <table className="admin-table">
                     <thead>
                         <tr>
                             <th>User Name</th>
-                            <th>Email Address</th>
-                            <th>Phone Number</th>
-                            <th>Registration Date</th>
+                            <th>Email</th>
+                            <th>Password</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.length === 0 ? (
-                            <tr><td colSpan="4" className="text-center">No registered users.</td></tr>
+                            <tr><td colSpan="3" className="text-center">No registered users.</td></tr>
                         ) : (
                             users.map(u => {
-                                const d = new Date(u.createdAt);
+                                const displayName = u.displayName || u.name || (u.email ? u.email.split('@')[0] : 'N/A');
                                 return (
-                                    <tr key={u.id}>
-                                        <td>{u.name}</td>
+                                    <tr key={u.id || u.email}>
+                                        <td>{displayName}</td>
                                         <td>{u.email}</td>
-                                        <td>{u.phone || 'N/A'}</td>
-                                        <td>{d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                                        <td>{u.password || '—'}</td>
                                     </tr>
                                 );
                             })
