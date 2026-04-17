@@ -6,11 +6,6 @@ import { authService } from '../../services/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updatePassword, fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth } from '../../config/firebase';
 
-// ── Admin Override Credentials ──────────────────────────────────────────
-const ADMIN_EMAIL    = "rohithsaiva8@gmail.com";
-const ADMIN_PASSWORD = "12345678";
-// ─────────────────────────────────────────────────────────────────────────
-
 const Login = ({ onAuthSuccess }) => {
   const [view, setView] = useState('login'); // 'login', 'signup', 'otp'
   const [error, setError] = useState('');
@@ -62,7 +57,7 @@ const Login = ({ onAuthSuccess }) => {
     try {
       const email = localStorage.getItem("otpEmail");
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/verify-otp`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/verify-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -118,6 +113,13 @@ const Login = ({ onAuthSuccess }) => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
+    // ── ADMIN BYPASS (no Firebase needed) ──
+    if (email === "admin@livestock.com" && password === "admin123") {
+      localStorage.setItem("isAdmin", "true");
+      window.location.href = "/";
+      return;
+    }
+
     if (showCaptcha) {
       if (parseInt(captchaAnswer) !== captchaValues.num1 + captchaValues.num2) {
         setError('Incorrect captcha combination.');
@@ -125,15 +127,6 @@ const Login = ({ onAuthSuccess }) => {
         return;
       }
     }
-
-    // ── ADMIN OVERRIDE (no Firebase dependency) ───────────────────────────
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      console.log("Admin login detected — bypassing Firebase");
-      localStorage.setItem("isAdmin", "true");
-      if (onAuthSuccess) onAuthSuccess('admin');
-      return;
-    }
-    // ─────────────────────────────────────────────────────────────────────
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -182,7 +175,7 @@ const Login = ({ onAuthSuccess }) => {
 
         await createUserWithEmailAndPassword(auth, email, password);
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/send-otp`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/send-otp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -212,7 +205,7 @@ const Login = ({ onAuthSuccess }) => {
     setError('');
     
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/send-otp`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, ArrowLeft, BrainCircuit } from 'lucide-react';
 import { authService } from '../../services/auth';
-import { auth } from '../../config/firebase';
 import './DiseasePrediction.css';
 
 const DiseasePrediction = ({ onNavigate }) => {
@@ -35,7 +34,7 @@ const DiseasePrediction = ({ onNavigate }) => {
       console.log("=== START PREDICT ===");
       console.log("Form Data:", formData);
 
-      const response = await fetch("http://127.0.0.1:5000/api/predict", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -63,34 +62,6 @@ const DiseasePrediction = ({ onNavigate }) => {
       }
 
       setPrediction(data?.prediction || "No result");
-
-      // Save to Animal Records history (per-user via localStorage)
-      authService.saveInteraction('disease_prediction', {
-        animalType: formData.animalType,
-        age: formData.age,
-        fever: formData.fever,
-        appetiteLoss: formData.appetiteLoss,
-        weakness: formData.weakness,
-        temperature: formData.temperature,
-        humidity: formData.humidity,
-        vaccination: formData.vaccination,
-        result: data?.prediction
-      });
-
-      // Optional backend sync (non-breaking — localStorage is source of truth)
-      try {
-        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/save-prediction`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: auth.currentUser?.email || 'unknown',
-            input: formData,
-            result: data?.prediction
-          })
-        });
-      } catch (err) {
-        console.log("Backend sync failed (safe ignore)");
-      }
 
     } catch (error) {
       console.error("FRONTEND ERROR:", error);
@@ -244,6 +215,13 @@ const DiseasePrediction = ({ onNavigate }) => {
               </motion.button>
             </div>
 
+            {/* TEMPORARY DEBUG CHECK */}
+            {prediction && (
+              <div style={{ marginTop: "20px" }}>
+                <h3>Prediction Result</h3>
+                <p>DEBUG VALUE: {prediction}</p>
+              </div>
+            )}
 
             {errorState && (
               <div className="prediction-error-card">

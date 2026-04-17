@@ -111,6 +111,7 @@ function App() {
       await signOut(auth);
       authService.logout();
       localStorage.removeItem('otpEmail');
+      localStorage.removeItem('isAdmin'); // clear admin flag on logout
       console.log('User logged out');
       window.location.href = '/';
     } catch (err) {
@@ -208,6 +209,11 @@ function App() {
   // SPLASH — show until animation done AND Firebase auth is resolved
   if (loading || !authReady) {
     return <SplashScreen onFinish={() => setLoading(false)} />;
+  }
+
+  // ── ADMIN SHORTCUT — isolated layer, zero impact on user flow ──
+  if (localStorage.getItem('isAdmin') === 'true') {
+    return <AdminDashboard user={{ name: 'Rohith', role: 'admin' }} onLogout={handleLogout} />;
   }
 
   // All known tabs
