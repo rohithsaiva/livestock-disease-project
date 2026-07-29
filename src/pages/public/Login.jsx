@@ -72,7 +72,7 @@ const Login = ({ onAuthSuccess }) => {
     try {
       const email = localStorage.getItem("otpEmail");
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/verify-otp`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/verify-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -192,7 +192,7 @@ const Login = ({ onAuthSuccess }) => {
 
         await createUserWithEmailAndPassword(auth, email, password);
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/send-otp`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/send-otp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -222,7 +222,7 @@ const Login = ({ onAuthSuccess }) => {
     setError('');
     
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/send-otp`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

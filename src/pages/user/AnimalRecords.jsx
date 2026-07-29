@@ -125,25 +125,6 @@ const AnimalRecords = ({ onNavigate }) => {
                   </div>
                 </div>
 
-                {details.result && (
-                  <div style={{
-                    margin: '12px 0',
-                    padding: '10px 16px',
-                    background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(16,185,129,0.12))',
-                    border: '1px solid rgba(34,197,94,0.3)',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px'
-                  }}>
-                    <span style={{ fontSize: '1.2rem' }}>🩺</span>
-                    <div>
-                      <p style={{ margin: 0, fontSize: '0.75rem', color: '#6b7280' }}>AI DIAGNOSIS</p>
-                      <p style={{ margin: 0, fontWeight: 700, color: '#16a34a' }}>{details.result}</p>
-                    </div>
-                  </div>
-                )}
-
                 <div className="ent-record-footer">
                   Logged: {dateObj.toLocaleDateString()} at {dateObj.toLocaleTimeString()}
                 </div>

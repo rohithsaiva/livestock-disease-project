@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Stethoscope, Droplets, Home, AlertTriangle, MessageSquare, BrainCircuit, Phone, MapPin } from 'lucide-react';
+import { ArrowLeft, Stethoscope, Droplets, Home, AlertTriangle, MessageSquare, BrainCircuit } from 'lucide-react';
 import { authService } from '../../services/auth';
 import './AdvisorySystem.css';
 
@@ -111,23 +111,9 @@ const AdvisorySystem = ({ onNavigate }) => {
             <p style={{ margin: 0, fontSize: '0.95rem' }}>Our partnered veterinary experts are available for immediate consultation on livestock health concerns and urgent cases.</p>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '12px', flexShrink: 0, flexWrap: 'wrap' }}>
-          <a href="tel:7702205270" className="ent-btn ent-btn-primary" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Phone size={18} /> Call Veterinary Expert
-          </a>
-          <a
-            href="https://share.google/oFuniKvy210Fz2OzX"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ent-btn ent-btn-secondary"
-            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}
-          >
-            <MapPin size={18} /> View Hospital Location
-          </a>
-          <button className="ent-btn ent-btn-secondary" onClick={handleVetContact} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <MessageSquare size={18} /> Email Expert
-          </button>
-        </div>
+        <button className="ent-btn ent-btn-primary" onClick={handleVetContact} style={{ flexShrink: 0 }}>
+          <MessageSquare size={18} /> Contact Veterinary Expert
+        </button>
       </motion.div>
 
       {/* Actions Row */}

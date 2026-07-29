@@ -35,7 +35,7 @@ const DiseasePrediction = ({ onNavigate }) => {
       console.log("=== START PREDICT ===");
       console.log("Form Data:", formData);
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/predict`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

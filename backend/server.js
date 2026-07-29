@@ -6,6 +6,7 @@ import multer from 'multer';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { trainAndEvaluate, trainedModels } from './ml/model_evaluation.js';
 import { preprocessRow, REVERSE_DISEASE_MAP } from './ml/preprocessing.js';
 import { sendOtp } from './otpService.js';
@@ -30,7 +31,9 @@ app.get('/', (req, res) => {
 
 // ================== DB HELPERS ==================
 
-const DB_PATH = path.join(process.cwd(), 'data', 'verifiedUsers.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DB_PATH = path.join(__dirname, 'data', 'verifiedUsers.json');
 
 const getVerifiedUsers = () => {
     try {
@@ -155,39 +158,6 @@ app.post("/api/predict", (req, res) => {
 });
 
 
-// ================= PREDICTION HISTORY ROUTES =================
-
-// In-memory store (non-persistent, but synced from frontend on each session)
-global.predictions = global.predictions || [];
-
-// Save a prediction (called after successful prediction on frontend)
-app.post('/api/save-prediction', (req, res) => {
-    try {
-        const { email, input, result } = req.body;
-        global.predictions.push({
-            email,
-            input,
-            result,
-            time: new Date().toISOString()
-        });
-        console.log(`[Prediction saved] ${email} → ${result}`);
-        res.json({ success: true });
-    } catch (err) {
-        console.error('save-prediction error:', err);
-        res.status(500).json({ success: false });
-    }
-});
-
-// Get predictions for a specific user (or all if admin)
-app.get('/api/user/predictions', (req, res) => {
-    const { email } = req.query;
-    if (!email) return res.status(400).json({ error: 'email required' });
-    const data = (global.predictions || []).filter(p => p.email === email);
-    res.json(data);
-});
-
-
-
 // ================= IMAGE PREDICTION ROUTE =================
 
 app.post('/api/predict-image', upload.single('image'), (req, res) => {
@@ -230,6 +200,10 @@ app.post('/api/predict-image', upload.single('image'), (req, res) => {
 
 // ==================== SERVER STARTUP ====================
 
-app.listen(PORT, () => {
-    console.log(`Backend server running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`Backend server running on port ${PORT}`);
+    });
+}
+
+export default app;

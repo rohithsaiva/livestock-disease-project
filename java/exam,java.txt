@@ -1,0 +1,30 @@
+class User {
+    void login() {
+        System.out.println("User Login");
+    }
+}
+
+class Student extends User {
+    void study() {
+        System.out.println("Student Studies");
+    }
+}
+
+class Faculty extends User {
+    void teach() {
+        System.out.println("Faculty Teaches");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        Faculty f = new Faculty();
+
+        s.login();
+        s.study();
+
+        f.login();
+        f.teach();
+    }
+}

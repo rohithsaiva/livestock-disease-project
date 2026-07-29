@@ -2,6 +2,8 @@ import { loadAndPreprocessDataset, DISEASE_MAP } from './preprocessing.js';
 import { LogisticRegression } from './logistic_regression.js';
 import { RandomForest } from './random_forest.js';
 import { NeuralNetwork } from './deep_neural_network.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 export let trainedModels = {};
 
@@ -36,7 +38,10 @@ function calculateMetrics(yTrue, yPred, numClasses) {
 
 export function trainAndEvaluate() {
     console.log("Loading dataset...");
-    const data = loadAndPreprocessDataset('./ml/livestock_health_dataset_1000.csv');
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const datasetPath = path.join(__dirname, 'livestock_health_dataset_1000.csv');
+    const data = loadAndPreprocessDataset(datasetPath);
     
     // Shuffle data
     for (let i = data.length - 1; i > 0; i--) {
