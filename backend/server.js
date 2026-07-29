@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import admin from 'firebase-admin';
 import { trainAndEvaluate, trainedModels } from './ml/model_evaluation.js';
 import { preprocessRow, REVERSE_DISEASE_MAP } from './ml/preprocessing.js';
 import { sendOtp } from './otpService.js';
@@ -29,57 +30,106 @@ app.get('/', (req, res) => {
     res.status(200).send("Livestock ML Backend Server is ALIVE and running!");
 });
 
+// ================== FIREBASE ADMIN & FIRESTORE ==================
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+        const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+        if (!admin.apps.length) {
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount)
+            });
+        }
+        console.log("Firebase Admin initialized via service account.");
+    } catch (e) {
+        console.error("Failed to parse FIREBASE_SERVICE_ACCOUNT:", e.message);
+    }
+} else {
+    if (!admin.apps.length) {
+        admin.initializeApp({
+            projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'livestockai-a4d4e'
+        });
+    }
+    console.log("Firebase Admin initialized via default configuration.");
+}
+
+const db = admin.firestore();
+
 // ================== DB HELPERS ==================
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, 'data', 'verifiedUsers.json');
-
-const getVerifiedUsers = () => {
+const isVerifiedUser = async (email) => {
     try {
-        if (!fs.existsSync(DB_PATH)) return {};
-        const data = fs.readFileSync(DB_PATH, 'utf-8');
-        return JSON.parse(data);
-    } catch {
-        return {};
+        const docRef = db.collection('verifiedUsers').doc(email);
+        const docSnap = await docRef.get();
+        return docSnap.exists;
+    } catch (err) {
+        console.error("Firestore error in isVerifiedUser:", err.message);
+        return false;
     }
 };
 
-const addVerifiedUser = (email) => {
+const addVerifiedUser = async (email) => {
     try {
-        const db = getVerifiedUsers();
-        db[email] = { verifiedAt: new Date().toISOString() };
-        fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
+        const docRef = db.collection('verifiedUsers').doc(email);
+        await docRef.set({
+            verifiedAt: admin.firestore.FieldValue.serverTimestamp()
+        });
     } catch (err) {
-        console.error("Failed persisting verification mapping out:", err);
+        console.error("Firestore error in addVerifiedUser:", err.message);
     }
 };
 
 // ======================= OTP ROUTES =======================
 
-app.post('/api/check-verification', (req, res) => {
-    const { email } = req.body;
-    const db = getVerifiedUsers();
-    if (db[email]) {
-        return res.status(200).json({ verified: true });
+app.post('/api/check-verification', async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ verified: false, message: "Email is required" });
+        }
+        const verified = await isVerifiedUser(email);
+        if (verified) {
+            return res.status(200).json({ verified: true });
+        }
+        return res.status(400).json({ verified: false, message: "Please verify your email" });
+    } catch (err) {
+        console.error("check-verification route error:", err);
+        return res.status(500).json({ verified: false, message: "Database connection error" });
     }
-    return res.status(400).json({ verified: false, message: "Please verify your email" });
 });
 
-app.post('/api/mark-verified', (req, res) => {
-    const { email } = req.body;
-    addVerifiedUser(email);
-    return res.status(200).json({ success: true });
+app.post('/api/mark-verified', async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
+        await addVerifiedUser(email);
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        console.error("mark-verified route error:", err);
+        return res.status(500).json({ success: false, message: "Database connection error" });
+    }
 });
 
 app.post('/api/send-otp', async (req, res) => {
     try {
         const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
 
         const otp = Math.floor(100000 + 900000 * Math.random());
 
-        global.otpStore = global.otpStore || {};
-        global.otpStore[email] = otp;
+        // Calculate expiration: 5 minutes from now
+        const expiresAt = new Date();
+        expiresAt.setMinutes(expiresAt.getMinutes() + 5);
+
+        // Store in Firestore
+        await db.collection('otps').doc(email).set({
+            otp: otp,
+            expiresAt: expiresAt.toISOString()
+        });
 
         await sendOtp(email, otp);
 
@@ -94,21 +144,48 @@ app.post('/api/send-otp', async (req, res) => {
     }
 });
 
-app.post('/api/verify-otp', (req, res) => {
-    const { email, otp } = req.body;
+app.post('/api/verify-otp', async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        if (!email || !otp) {
+            return res.json({ success: false, message: "Email and OTP are required" });
+        }
 
-    if (global.otpStore && global.otpStore[email] == otp) {
-        delete global.otpStore[email];
+        const docRef = db.collection('otps').doc(email);
+        const docSnap = await docRef.get();
+
+        if (docSnap.exists) {
+            const data = docSnap.data();
+            const now = new Date();
+            const expiresAt = new Date(data.expiresAt);
+
+            // Check if OTP matches and is not expired
+            if (data.otp == otp && now <= expiresAt) {
+                // Delete immediately on success
+                await docRef.delete();
+
+                return res.json({
+                    success: true
+                });
+            } else if (now > expiresAt) {
+                // Delete expired document
+                await docRef.delete();
+                return res.json({
+                    success: false,
+                    message: "OTP has expired"
+                });
+            }
+        }
 
         return res.json({
-            success: true
+            success: false,
+            message: "Invalid OTP"
         });
-    }
 
-    return res.json({
-        success: false,
-        message: "Invalid OTP"
-    });
+    } catch (err) {
+        console.error("verify-otp error:", err);
+        return res.status(500).json({ success: false, message: "Database verification error" });
+    }
 });
 
 // ==================== PREDICTION ROUTE ====================
